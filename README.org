@@ -3,3 +3,7 @@
 #+DATE: <2019-10-02 Wed>
 
 A personal collection of notes taken from computer-related books and videos.
+
+* Books
+
+- [[books/gopl/gopl.org][The Go Programming Language]] - Alan A. A. Donovan, Brian W. Kernighan
