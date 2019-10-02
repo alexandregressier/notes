@@ -1,0 +1,5 @@
+#+TITLE: Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-10-02 Wed>
+
+A personal collection of notes taken from computer-related books and videos.
