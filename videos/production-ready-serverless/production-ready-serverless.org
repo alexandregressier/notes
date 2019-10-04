@@ -1,0 +1,56 @@
+#+TITLE: Production-Ready Serverless, Manning - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-10-04 Fri>
+
+* 1. Introduction
+
+** 1.1 Introduction to course
+
+   Serverless technologies
+   Paradigm
+   AWS Lambda
+
+   Focus on *operational aspects*
+
+   _Operational challenges:_
+   - Testing & debugging
+   - Monitoring
+   - Logging
+   - Configuration management
+   - Migration
+   - CI/CD
+   - Security
+   - Distributed tracing
+
+   \to Lack of *structured content* on helping you tackle those challenges
+
+   *Tools & practices* for serverless are *lagging far behind* existing microservices architectures
+
+   _Ops:_ umbrella term for everything related to keeping your system *operational & performing* within acceptable parameters
+
+   *Event-driven programming model*
+
+   AWS Lambda offers *scalability & cost efficiency*
+
+   [[./assets/serverless-mental-model.png]]
+
+   _Ultimate goal:_ *deliver business value*
+
+   *Service-oriented & event-driven architectures*
+
+   _Objectives:_
+   - How to build APIs with Lambda
+   - How to authenticate with Cognito
+   - How to process Kinesis events with Lambda
+   - How to run and debug Lambda functions locally
+   - How to test Lambda functions
+   - How to setup CI/CD pipeline for Lambda
+   - How to aggregate Lambda function logs
+   - How to monitor Lambda function w/ CloudWatch and IOpipe
+   - How to trace Lambda functions with X-Ray
+   - How to capture and forward correlation IDs
+   - How to manage configurations and secure them
+   - How to configure VPC access
+   - How to protect against OWASP top 10 attacks
+   - Leading practices
+   - Canary deployments (minimize the risk and impact of bad deployments)
