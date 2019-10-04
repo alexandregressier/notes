@@ -10,4 +10,4 @@ A personal collection of notes taken from computer-related books and videos.
 
 * Videos
 
-- [[.videos/production-ready-serverless/production-ready-serverless.org][Production-Ready Serverless]] - Yan Cui
+- [[./videos/production-ready-serverless/production-ready-serverless.org][Production-Ready Serverless]] - Yan Cui
