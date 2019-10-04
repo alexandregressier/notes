@@ -7,3 +7,9 @@
 
 # Vim
 *.sw[po]
+
+# Java
+*.class
+
+# Scala
+out/
