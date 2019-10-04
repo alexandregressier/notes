@@ -22,3 +22,5 @@ _Main website:_ [[https://rockthejvm.com/]]
 * Section 1: The Absolute Scala Basics
 
 Scala's file extension: ~.scala~
+
+Rename the "Rock the JVM! Scala for Beginners" notes file appropriately
