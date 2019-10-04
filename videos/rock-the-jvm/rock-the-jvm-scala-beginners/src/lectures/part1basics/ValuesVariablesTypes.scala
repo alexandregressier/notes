@@ -7,7 +7,7 @@ object ValuesVariablesTypes extends App {
 
   //x = 2 // ERROR: `val`s are /immutable/
   // IMPORTANT: `val`s should not be interpreted as `#define` constants in C
-  // -> But more like *intermediate computations* for later use
+  // -> But more like *intermediate computations* intended for later use
   // Immutability is essential to FP
 
   // In practice, type annotations are only used when clarity is needed
