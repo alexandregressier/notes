@@ -16,8 +16,8 @@ IntelliJ IDEA w/ Scala plugin
 New Project > Scala > IDEA (for this course)
 (or create a Scala module)
 
-_All the content available at:_ [[https://github.com/rockthejvm/udemy-scala-beginners]]
-_Main website:_ [[https://rockthejvm.com/]]
+- _All the content available at:_ [[https://github.com/rockthejvm/udemy-scala-beginners]]
+- _Main website:_ [[https://rockthejvm.com/]]
 
 * Section 1: The Absolute Scala Basics
 
