@@ -8,11 +8,5 @@
 # Vim
 *.sw[po]
 
-# Java
-*.class
-
-# Scala
-out/
-
 # IntelliJ IDEA
 /.idea/
