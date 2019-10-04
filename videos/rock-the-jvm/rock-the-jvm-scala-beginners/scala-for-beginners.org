@@ -1,0 +1,20 @@
+#+TITLE: Rock the JVM! Scala and Functional Programming for Beginners, Udemy - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-10-04 Fri>
+
+* Section 0: undefined
+
+Scala is both an *object-oriented & functional* language
+
+/Tail recursion/ is a Scala-specific concept
+One of the closest language to OO ideal
+Higher order functions on collections
+Pattern matching
+
+IntelliJ IDEA w/ Scala plugin
+
+New Project > Scala > IDEA (for this course)
+(or create a Scala module)
+
+_All the content available at:_ [[https://github.com/rockthejvm/udemy-scala-beginners]]
+_Main website:_ [[https://rockthejvm.com/]]

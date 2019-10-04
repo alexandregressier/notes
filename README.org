@@ -11,4 +11,4 @@ A personal collection of notes taken from computer-related books and videos.
 * Videos
 
 - [[./videos/production-ready-serverless/production-ready-serverless.org][Production-Ready Serverless]] - Yan Cui
-- [[./videos/rock-the-jvm/scala-for-beginners/scala-for-beginners.org][Rock the JVM! Scala and Functional Programming for Beginners]] - Daniel Ciocîrlan
+- [[./videos/rock-the-jvm/rock-the-jvm-scala-beginners/scala-for-beginners.org][Rock the JVM! Scala and Functional Programming for Beginners]] - Daniel Ciocîrlan

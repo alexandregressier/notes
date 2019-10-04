@@ -1,0 +1,5 @@
+# Java
+*.class
+
+# IntelliJ IDEA
+out/
