@@ -13,3 +13,6 @@
 
 # Scala
 out/
+
+# IntelliJ IDEA
+/.idea/
