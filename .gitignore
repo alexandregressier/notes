@@ -9,5 +9,4 @@
 *.sw[po]
 
 # IntelliJ IDEA
-/.idea/
 *.iml
