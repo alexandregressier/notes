@@ -2,8 +2,8 @@ package lectures.part1basics
 
 object ValuesVariablesTypes extends App {
   // Syntax for creating a `val`
-  val x: Int = 42 // /Type inference/ enables the /type annotation/ to be omitted
-  println(x)
+  val foo: Int = 42 // /Type inference/ enables the /type annotation/ to be omitted
+  println(foo)
 
   //x = 2 // ERROR: `val`s are /immutable/
   // IMPORTANT: `val`s should not be interpreted as `#define` constants in C
@@ -21,7 +21,7 @@ object ValuesVariablesTypes extends App {
   val aFalseBoolean: Boolean = false
 
   val aChar: Char = 'a' // '' delimit `Char`
-  val anInt: Int = x // (4 bytes)
+  val anInt: Int = foo // (4 bytes)
   val aShort: Short = 32767 // A `Short` is the half of an `Int` (2 bytes)
   val aLong: Long = 9223372036854775807L // A `Long` is the double of an `Int` (8 bytes)
   // /!\ Long literals end with the `L` suffix
@@ -34,8 +34,8 @@ object ValuesVariablesTypes extends App {
   // The literal's syntax is consistent w/ Java
 
   // Syntax for creating a `var`
-  var y: Int = 4
-  y = 5
+  var bar: Int = 4
+  bar = 5
   // `var`s are /mutable/ and are used in FP for side effects
   // Side effects are useful b/c they allow us to see what the program is doing (i.e., its state)
   // Examples: mutating a variable, printing something to the console, displaying something on screen
