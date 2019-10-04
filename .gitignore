@@ -1,0 +1,12 @@
+# Common
+*~
+
+# Emacs
+\#*\#
+.\#*
+
+# Vim
+*.sw[po]
+
+# IntelliJ IDEA
+/.idea/
