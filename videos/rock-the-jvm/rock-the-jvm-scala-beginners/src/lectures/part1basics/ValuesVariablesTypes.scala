@@ -46,5 +46,5 @@ object ValuesVariablesTypes extends App {
   // Side effects cannot be completely eliminated b/c the program must do something useful to the world
   // -> But be mindful about side effect
 
-  // In a nutshell: prefer `val`s over `var`s
+  // In a nutshell: prefer vals over vars
 }
