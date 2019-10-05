@@ -19,7 +19,7 @@ object ValuesVariablesTypes extends App {
   // Ending ';' are optional unlike most programming languages
   // One (discouraged) use case would be writing multiple statements on a single line
 
-  val aBoolean: Boolean = true
+  val aBoolean: Boolean = true // FUNDAMENTAL: learn that is `Boolean` and not `Bool`
   val aFalseBoolean: Boolean = false
 
   val aChar: Char = 'a' // '' delimit `Char` literals
