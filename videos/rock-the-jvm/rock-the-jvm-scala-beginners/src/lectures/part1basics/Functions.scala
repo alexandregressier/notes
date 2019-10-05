@@ -45,6 +45,7 @@ object Functions extends App {
     aSmallFunction(n, n - 1) // The result type of `aBigFunction` is the result type of `aSmallFunction`
   }
   println(aBigFunction(4))
+  // Note that even `aBigFunction` and all other functions are part of the `main` provided by `App`
 
   // Exceptions are related to OO concepts in Scala
 
