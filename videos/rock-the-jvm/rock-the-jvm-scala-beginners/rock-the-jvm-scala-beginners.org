@@ -6,7 +6,7 @@
 
 Scala is both an *object-oriented & functional* language
 
-/Tail recursion/ is a Scala-specific concept
+/Tail recursion/ is a Scala-specific concept (Is that true???)
 One of the closest language to OO ideal
 Higher order functions on collections
 Pattern matching
