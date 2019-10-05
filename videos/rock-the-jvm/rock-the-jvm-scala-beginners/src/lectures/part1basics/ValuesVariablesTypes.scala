@@ -15,14 +15,14 @@ object ValuesVariablesTypes extends App {
   // In practice, type annotations are only used when clarity is needed
   // Obviously, the type annotation must match the type of the assigned expression if one is present
 
-  val aString: String = "hello"; // "" delimit `String`s
+  val aString: String = "hello"; // "" delimit `String` literals
   // Ending ';' are optional unlike most programming languages
   // One (discouraged) use case would be writing multiple statements on a single line
 
   val aBoolean: Boolean = true
   val aFalseBoolean: Boolean = false
 
-  val aChar: Char = 'a' // '' delimit `Char`
+  val aChar: Char = 'a' // '' delimit `Char` literals
   val anInt: Int = foo // (4 bytes)
   val aShort: Short = 32767 // A `Short` is the half of an `Int` (2 bytes)
   val aLong: Long = 9223372036854775807L // A `Long` is the double of an `Int` (8 bytes)
