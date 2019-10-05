@@ -1,7 +1,7 @@
 package lectures.part1basics
 
 object ValuesVariablesTypes extends App {
-  // vals: immutable variables
+  // vals - Immutable variables
   val foo: Int = 42 // /Type inference/ enables the /type annotation/ to be omitted
   println(foo)
   // FUNDAMENTAL: the word "variable" does not necessarily designate /mutability/
@@ -35,7 +35,7 @@ object ValuesVariablesTypes extends App {
   // Types are always Capitalized
   // The literal's syntax is consistent w/ Java
 
-  // vars: mutable variables
+  // vars - Mutable variables
   var bar: Int = 4
   bar = 5
   // `var`s are /mutable/ and are used in FP for side effects
