@@ -7,7 +7,7 @@ object Expressions extends App {
 
   // /Mathematical operators/ are parsed according to operator precedence (i.e., order of operations)
   println(2 + 3 * 4)
-  // + - * / & | ^ << >>
+  // + - * / % (modulus) & | ^ << >>
   // Unique operator in Scala: `>>>` - Right shift w/ zero extension (rarely used)
 
   // /Relational operators/: test equality and inequality
