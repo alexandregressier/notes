@@ -1,11 +1,13 @@
 package lectures.part1basics
 
 object ValuesVariablesTypes extends App {
-  // Syntax for creating a `val`
+  // vals: immutable variables
   val foo: Int = 42 // /Type inference/ enables the /type annotation/ to be omitted
   println(foo)
+  // FUNDAMENTAL: the word "variable" does not necessarily designate /mutability/
+  // -> But rather the ability to be assigned multiple values
 
-  //x = 2 // ERROR: `val`s are /immutable/
+  //x = 2 // ERROR!
   // IMPORTANT: `val`s should not be interpreted as `#define` constants in C
   // -> But more like *intermediate computations* intended for later use
   // Immutability is essential to FP
@@ -33,7 +35,7 @@ object ValuesVariablesTypes extends App {
   // Types are always Capitalized
   // The literal's syntax is consistent w/ Java
 
-  // Syntax for creating a `var`
+  // vars: mutable variables
   var bar: Int = 4
   bar = 5
   // `var`s are /mutable/ and are used in FP for side effects
