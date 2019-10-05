@@ -55,6 +55,7 @@ object Functions extends App {
 
   def factorial(n: Int): Int = if (n == 0) 1 else n * factorial(n - 1)
   println(factorial(5))
+  // Although mathematically incorrect, using the stop condition `n <= 0` prevents errors related to negative numbers
 
   def fibonacci(n: Int): Int =
     if (n == 0) 0 // IMPORTANT: do not forget the "or equal" operators for stop conditions
