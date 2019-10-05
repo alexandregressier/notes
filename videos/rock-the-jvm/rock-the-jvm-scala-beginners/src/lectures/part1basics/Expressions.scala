@@ -25,11 +25,11 @@ object Expressions extends App {
   println(aVariable)
   // These operators imply side effects
 
-  // Instructions (or statements) VS Expressions
-  // Instruction: explain the computer what to do (imperative programming)
-  // Expression: explain to the computer how to do something (imperative (\implies functional) programming)
-  // (also "give me the value of something")
-  // -> Every single part of the program will compute a value
+  // Instructions (or statements) VS Expressions:
+  // - Instruction: explain the computer what to do (imperative programming)
+  // - Expression: explain to the computer how to do something (imperative (\implies functional) programming)
+  //   (also "give me the value of something")
+  //   -> Every single part of the program will compute a value
 
   // `if` *expressions* (not statement)
   val aCondition = true
