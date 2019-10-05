@@ -64,7 +64,7 @@ object Functions extends App {
     else fibonacci(n - 1) + fibonacci(n - 2)
   println(fibonacci(10))
 
-  def isPrime(n: Int): Boolean = {// n > 0
+  def isPrime(n: Int): Boolean = { // n > 0
     // Apparently, you would annotate this function for tail recursion
     def isPrimeUntil(t: Int): Boolean = // Auxiliary function definition in action
       if (t == 1) true
