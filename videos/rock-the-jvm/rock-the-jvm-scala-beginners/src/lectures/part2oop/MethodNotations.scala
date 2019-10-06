@@ -3,7 +3,7 @@ package lectures.part2oop
 object MethodNotations extends App {
 
   // To avoid naming conflicts with the classes created earlier, we nest our classes here (better off using /packages/)
-  class Person(val name: String, val favoriteMovie: String) {
+  class Person(val name: String, val favoriteMovie: String, val age: Int = 0) {
     def likes(movie: String): Boolean = movie == favoriteMovie
 
     // LEARN: the `==` method does throw a `NullPointerException` on a basic test if a String is null
@@ -13,16 +13,29 @@ object MethodNotations extends App {
     def +(person: Person): String = hangsOutWith(person)
     // This freedom would allow one to easily create a language in Scala
 
-    def unary_! : String = s"$name!!!"
+    def unary_! : String = s"$name!!!" // Result type could have been omitted
     // IMPORTANT: the ' ' between '!' and ':' is required o/w the compiler will think that ':' is part of the method name
+    // -> But you could in theory create a method named `unary_!:` (which would still required that ' ')
 
     def isAlive: Boolean = true
 
     def apply(): String = s"Hi, my name is $name and my favorite movie is $favoriteMovie."
     // IMPORTANT: the method name `apply` and the `()` (i.e., the signature) matter
+    // `apply` can be overloaded with as many signatures as you need
+
+    // Exercises
+    def +(nickname: String) = new Person(s"[$name ($nickname)]", favoriteMovie)
+
+    def unary_+ = new Person(name, favoriteMovie, age + 1)
+
+    def learns(topic: String) = s"$name learns $topic."
+
+    def learnsScala: String = learns("Scala")
+
+    def apply(n: Int) = s"""$name watched the movie "$favoriteMovie" $n times."""
   }
   val mary = new Person("Mary", "Inception")
-  val tom = new Person("Tom", "Fight Club")
+  val tom = new Person("Tom", "Fight Club", 22)
 
   // Scala /syntactic sugars/ that makes it resemble natural language:
 
@@ -72,8 +85,22 @@ object MethodNotations extends App {
   println(mary())
   println(mary.apply()) // Desugared equivalent
   // Call the instance as if it was a function, since it has an `apply` definition
+  // `unapply` is also a special method that can be defined
 
   // FUNDAMENTAL: a instance called like a function (i.e., with `()`) is really calling the `apply` method
 
   // ESSENTIAL: the `apply` syntactic sugar basically breaks the barrier between FP and OOP
+
+  // FUNDAMENTAL: the mix between FP and OOP in Scala seems to translate into classes w/o setters (i.e., mutations)
+  // -> Yields a new instance on each mutation
+
+  // Exercises
+  println((mary + "The rockstar" + "The legend")()) // IMPORTANT: `()` are required around the resulting Person instance
+  // Since methods calls (here `+()`) have right associativity, another nickname is given to Mary w/ a nickname
+  println(s"${tom.name} is ${tom.age} years old.")
+  println(s"${tom.name} will be ${(+tom).age} years old.")
+  // IMPORTANT: `()` are required around `+tom` o/w `age` is called before `+` (on the `Int` `age`)
+  println(mary learns "functional programming")
+  println(mary learnsScala)
+  println(mary(5))
 }
