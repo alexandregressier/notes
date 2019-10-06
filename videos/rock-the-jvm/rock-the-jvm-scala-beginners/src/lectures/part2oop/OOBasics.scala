@@ -66,7 +66,7 @@ class PersonWithoutMembers(name: String, age: Int) // A /constructor/ (abbreviat
 // This resembles the way that we pass parameters to functions but the syntax has a different meaning
 
 // Use the `val` and `var` keywords to define the matching class member for each class parameter
-// IMPORTANT: It is not always the case that you want to convert class parameters to class members
+// FUNDAMENTAL: It is not always the case that you want to convert class parameters to class members
 class Person(val name: String, var age: Int) { // `{}` delimit the class' body (which is not an expression, no `=`)
   // IMPORTANT: the value of the class' body is ignored: its only purpose is being an implementation
 
