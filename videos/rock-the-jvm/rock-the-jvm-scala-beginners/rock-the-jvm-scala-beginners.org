@@ -22,3 +22,12 @@ New Project > Scala > IDEA (for this course)
 - _Main website:_ [[https://rockthejvm.com/]]
 
 * Section 1: The Absolute Scala Basics
+
+1. [[./lectures/part1basics/ValuesVariablesTypes.scala][Values, Variables and Types]]
+2. [[./lectures/part1basics/Expressions.scala][Expressions]]
+3. [[./lectures/part1basics/Functions.scala][Functions]]
+4. [[./lectures/part1basics/TypeInference.scala][Type Inference]]
+5. [[./lectures/part1basics/Recursion.scala][Recursion]]
+6. [[./lectures/part1basics/CallByNameVsCallByValue.scala][Call-by-Name and Call-by-Value]]
+7. [[./lectures/part1basics/DefaultArgs.scala][Default and Named Arguments]]
+8. [[./lectures/part1basics/StringOps.scala][Smart Operations on Strings]]
