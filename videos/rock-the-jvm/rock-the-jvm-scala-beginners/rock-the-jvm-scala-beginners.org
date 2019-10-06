@@ -6,6 +6,8 @@
 
 Scala is both an *object-oriented & functional* language
 
+Scala's file extension: ~.scala~
+
 /Tail recursion/ is a Scala-specific concept (Is that true???)
 One of the closest language to OO ideal
 Higher order functions on collections
@@ -20,7 +22,3 @@ New Project > Scala > IDEA (for this course)
 - _Main website:_ [[https://rockthejvm.com/]]
 
 * Section 1: The Absolute Scala Basics
-
-Scala's file extension: ~.scala~
-
-Rename the "Rock the JVM! Scala for Beginners" notes file appropriately
