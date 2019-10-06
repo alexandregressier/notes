@@ -13,7 +13,7 @@ object OOBasics extends App {
   // As usual, `()` are optional for parameterless methods/functions
   // By convention, class names use the UpperCamelCase notation whereas instantiations use lowerCamelCase
 
-  println(simplePerson) // Prints the object's string representation (the object reference by default)
+  println(simplePerson) // Prints the instance's string representation (the instance reference by default)
   // Example: "lectures.part2oop.Person@7f560810"class
 
   val person1 = new PersonWithoutMembers("Alex", age = 22) // Named parameters make the code more readable here
@@ -135,7 +135,7 @@ class Writer(val firstName: String, val lastName: String, val yearOfBirth: Int) 
   // Called without `()`, a method actually yields the result of its application (i.e., the calling of the method)
   def fullName = s"$firstName $lastName"
 
-  // The default implementation of `equals` (from Java) compares the object references
+  // The default implementation of `equals` (from Java) compares the instance references
   // Such implementation depends on your needs, but it does not correspond to ours
   override def equals(other: Any): Boolean = other match {
     case that: Writer =>
@@ -156,7 +156,7 @@ class Novel(val name: String, val yearOfRelease: Int, val author: Writer) {
 
   def releaseNewEdition(yearOfRelease: Int) = new Novel(this.name, yearOfRelease, this.author)
   // Prefer to write `this` explicitly in this case to avoid confusion
-  // IMPORTANT We are in FP: we do not mutate the inner state! (But create new objects!)!
+  // IMPORTANT We are in FP: we do not mutate the inner state (but create new instances)!
 }
 
 class Counter(val current: Int = 0) {
