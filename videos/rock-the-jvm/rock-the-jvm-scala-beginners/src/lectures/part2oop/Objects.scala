@@ -110,7 +110,7 @@ object Objects { // We choose to not extend app here
 
   // Can be written explicitly instead of extending `App`:
   def main(args: Array[String]): Unit = {
-    println("The `Objects` body was executed before this statement")
+    println("The Objects body was executed before this statement")
   }
 
   println("I am even after the main member method")
