@@ -31,3 +31,5 @@ New Project > Scala > IDEA (for this course)
 6. [[./src/lectures/part1basics/CallByNameVsCallByValue.scala][Call-by-Name and Call-by-Value]]
 7. [[./src/lectures/part1basics/DefaultArgs.scala][Default and Named Arguments]]
 8. [[./src/lectures/part1basics/StringOps.scala][Smart Operations on Strings]]
+
+* Section 2: Object-Oriented Programming in Scala
