@@ -66,7 +66,7 @@ object Expressions extends App {
 
   // FUNDAMENTAL: a function w/ a that has the result type `Unit` is only called for its side effects
 
-  // Code blocks - A set of computations delimited by `{}`
+  // Code blocks (or /block expressions/) - A set of computations delimited by `{}`
   val aCodeBlock = {
     val y = 2
     val z = y + 1
