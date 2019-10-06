@@ -178,7 +178,7 @@ class Counter(val current: Int = 0) {
   @tailrec
   final def incRec(n: Int): Counter =
     if (n == 0) this // LEARN: `this` refers to the last `incRec` call in the call stack
-    else inc.incRec(n - 1) // LEARN: you can contextualize the recursive call by calling it from the result of `inc`
+    else inc.incRec(n - 1) // ELEMENTAL: you can contextualize the recursive call by calling it from the result of `inc`
   // -> Could have been called from `this`
 
   // For n = 3: inc.incRec(2)
