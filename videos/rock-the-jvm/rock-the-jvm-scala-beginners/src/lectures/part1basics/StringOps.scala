@@ -3,10 +3,10 @@ package lectures.part1basics
 object StringOps extends App {
   val str = "Hello, I am learning Scala"
 
-  // Since FP is omnipresent in Scala, Strings are obviously immutable
+  // Scala is using `java.lang.String` behind the scenes, so you are really using the methods from Java
+  // Since FP is omnipresent in Scala, Strings are obviously immutable (which they were already in Java)
 
   // Standard String operations (methods)
-  // Scala is using `java.lang.String` behind the scenes, so you are really using the methods from Java
   println(str.charAt(2)) // 'l' - strings uses 0-based index (pronounced "car at")
   println(str.substring(7, 11)) // "I am" - `beginIndex` is inclusive, `endIndex` is exclusive
   println(str.split(' ').toList) // Results type is `Array[String]`, can take 1 to n `Char`s or `String`s
