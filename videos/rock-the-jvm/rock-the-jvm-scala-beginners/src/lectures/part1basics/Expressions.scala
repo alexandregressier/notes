@@ -66,7 +66,8 @@ object Expressions extends App {
 
   // FUNDAMENTAL: a function w/ a that has the result type `Unit` is only called for its side effects
 
-  // Code blocks (or /block expressions/) - A set of computations delimited by `{}`
+  // Block expressions (or code blocks) - A set of computations delimited by `{}`
+  // Form: {s1; s2; ...; sn; e}
   val aCodeBlock = {
     val y = 2
     val z = y + 1
@@ -74,11 +75,11 @@ object Expressions extends App {
     if (z > 2) "Hello" else "Good-bye"
   }
   println(aCodeBlock)
-  // Code blocks are expressions: a special kind, w/ special properties
-  // Like any expressions, code blocks can be assigned to a variable
-  // FUNDAMENTAL: the value of code block is the value of its last expression
-  // REMEMBER: your IDE can infer the type of any expression (including code blocks)
+  // As implied by their name, they are expressions (a special kind w/ special properties though)
+  // Like any expressions, block expressions can be assigned to a variable
+  // FUNDAMENTAL: the value of a block expression is the value of its last expression
+  // INTELLIJ TIP: IntelliJ can infer the type of any expression (including block expressions)
 
-  // Everything you declare inside the code block stays visible within the code block
+  // Everything you declare inside a block expression stays visible within it
   //val anotherValue = z + 1 // ERROR: `z` is undefined
 }
