@@ -6,8 +6,8 @@ object OOBasics extends App {
   // OOP: associate data (i.e., a state) to a behavior
 
   // A /class/ organizes data and behavior that is code (often called a "blueprint")
-  // /Instantiation/ (=/= Object) means concrete realizations in memory that are actual /memory spaces/ that conform to
-  // the code and data structure that class describe
+  // An /instance/ (=/= Object) means concrete realizations in memory that are actual /memory spaces/ that conform to
+  // the code and data structure that the class describe
 
   val simplePerson = new SimplePerson // LEARN: to instantiate a class, you use the operator `new`
   // As usual, `()` are optional for parameterless methods/functions
