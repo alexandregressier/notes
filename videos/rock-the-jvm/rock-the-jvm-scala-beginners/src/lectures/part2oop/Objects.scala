@@ -1,23 +1,26 @@
 package lectures.part2oop
 
-object Objects { // We choose to not extend app here
+object Objects { // We choose to not extend `App` here
   // So far we have referred to /objects/ in the sense of OOP as /instances/
   // -> B/c objects are a separate concept in Scala
 
-  // IMPORTANT: Fundamental aspect of OOP: /class-level functionality/ (as opposed to /instance-level functionality/)
+  // IMPORTANT: a fundamental aspect of OOP: /class-level functionality/ (as opposed to /instance-level functionality/)
   // -> Functionality that does not depend on a particular instance of a class
 
-  // In Java: instance variables/methods (i.e., members) VS class variables/methods (i.e., members)
+  // In Java:
+  // Instance variables/methods (i.e., members) VS class variables/methods (i.e., members)
   // -> Marked w/ the `static` modifier
 
   // class Person {
   //   public static final int NB_OF_EYES = 2; // A /class variable/ (as opposed to an /instance variable/)
   // }
-  // Usage: `Person.NB_OF_EYES`
-
-  // FUNDAMENTAL: Scala does not have class-level functionality (-> no `static` modifier) but has even better: /objects/
+  // Usage:
+  // Person.NB_OF_EYES
 
   // In Scala:
+  // FUNDAMENTAL: Scala does not have class-level functionality (i.e., no `static  modifier equivalent)
+  // -> But it has even better: /objects/
+
   println(Person.NB_OF_EYES) // Members can be accessed above the object's definition
 
   object Person {
@@ -34,9 +37,9 @@ object Objects { // We choose to not extend app here
 
   // INTELLIJ TIP: copy and pasting Java code to a Scala file causes IntelliJ to ask you if you want to convert it
 
-  // An object can have definition for vals, vars, methods, side effects... in its body
-  // -> Same properties as a class body (side effects are executed as soon as the program is run)
-  // Exception: objects are unable to receive parameters since they do not have a constructor (to build an instance)
+  // An object can have all sorts of definitions (e.g., vals, vars, methods, side effects) in its body
+  // -> Same properties as a class body (e.g., side effects are executed as soon as the program is run)
+  // Exception: objects are unable to receive parameters since they do not have a constructor (no instance to build)
 
   // IMPORTANT: differences between Scala's objects and Java's class members:
   // - Objects are used as singleton instances
@@ -115,7 +118,7 @@ object Objects { // We choose to not extend app here
 
   println("I am even after the main member method")
 
-  // In a nutshell: a Scala application is a Scala object with the exact `main` signature implemented
+  // In a nutshell: Scala applications are Scala objects with the exact `main` signature implemented
 
-  // See scala.App for more implementation details
+  // See `scala.App` for more implementation details
 }
