@@ -17,9 +17,9 @@ object Functions extends App {
 
   // FUNDAMENTAL: in Scala, parameterless functions can be called without `()`
   // -> Pick your own style
-  def aParameterLessFunction(): Int = 42
-  println(aParameterLessFunction())
-  println(aParameterLessFunction) // FUNDAMENTAL: IN SCALA, THIS IS NOT THE FUNCTION ITSELF!!!
+  def aParameterlessFunction(): Int = 42
+  println(aParameterlessFunction())
+  println(aParameterlessFunction) // FUNDAMENTAL: IN SCALA, THIS IS NOT THE FUNCTION ITSELF!!!
 
   // /Recursion/ is the way to loop in functional programming
   // FUNDAMENTAL: recursive function definitions require the result type to be mentioned explicitly
