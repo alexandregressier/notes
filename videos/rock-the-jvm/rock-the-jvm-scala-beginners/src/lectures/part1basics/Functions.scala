@@ -5,10 +5,11 @@ object Functions extends App {
   // Declaring a function (i.e., method)
   def aFunction(a: String, b: Int): String = { // In Scala, this is called the function's /signature/
     // Each parameter has a name and a type
-    // Each function has a result type that can be inferred (except for the recursive ones)
-    // Each function has a body: an expression (often a code block) that is assigned to it
-    // Since that value of a code block is the one of its last expression, it also the one of the function
-    a + " " + b // `b` is automatically casted to `String`
+    // Each function has:
+    // - A /result type/, that can be inferred (except for the recursive ones)
+    // - A body: an expression (often a block expression) that is assigned to it
+    //   -> Since the value of a code block is the one of its last expression, it also the one of the function
+    a + " " + b // `b` is automatically converted to `String`
   }
 
   // Calling a function
