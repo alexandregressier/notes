@@ -64,7 +64,7 @@ object Expressions extends App {
   println(println("Yo")) // Also last invocation prints `()`
   // Example of side effects: println(), while, reassignments
 
-  // FUNDAMENTAL: a function w/ a that has the result type `Unit` is only called for its side effects
+  // FUNDAMENTAL: a function that has the result type `Unit` is only called for its side effects
 
   // Block expressions (or code blocks) - A set of computations delimited by `{}`
   // Form: {s1; s2; ...; sn; e}
