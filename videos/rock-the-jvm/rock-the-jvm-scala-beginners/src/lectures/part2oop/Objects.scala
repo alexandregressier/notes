@@ -116,7 +116,7 @@ object Objects { // We choose to not extend `App` here
     println("The Objects body was executed before this statement")
   }
 
-  println("I am even after the main member method")
+  println("I am even after the main method")
 
   // In a nutshell: Scala applications are Scala objects with the exact `main` signature implemented
 
