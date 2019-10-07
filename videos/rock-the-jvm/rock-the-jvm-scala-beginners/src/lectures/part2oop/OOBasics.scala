@@ -60,7 +60,10 @@ object OOBasics extends App {
 // Class definitions can sit on the top-level code (instead of being nested in the main class)
 class SimplePerson // That is all
 
-class PersonWithoutMembers(name: String, age: Int) // A /constructor/ (abbreviated /ctor/)
+class PersonWithoutMembers(name: String, age: Int)
+// `(name: String, age: Int)` is the /class signature/
+// FUNDAMENTAL: in Scala, the /primary constructor/ of a class is the class signature
+
 // A constructor requires you to specify value for parameters when instantiating the class
 // This how you pass parameters to a class
 // This resembles the way that we pass parameters to functions but the syntax has a different meaning
