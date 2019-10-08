@@ -36,6 +36,7 @@ object Objects { // We choose to not extend `App` here
   println(Person.canFly)
 
   // INTELLIJ TIP: copy and pasting Java code to a Scala file causes IntelliJ to ask you if you want to convert it
+  // INTELLIJ TIP: IntelliJ offers companion object creation by pressing <M-RET> and having the cursor on a class name
 
   // An object can have all sorts of definitions (e.g., vals, vars, methods, side effects) in its body
   // -> Same properties as a class body (e.g., side effects are executed as soon as the program is run)
