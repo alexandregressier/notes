@@ -125,7 +125,7 @@ object InheritanceAndTraits extends App {
   //
   // 3. /Seal/ the class (i.e., mark it as `sealed`)
   // Seal: restriction that prevents the extension (i.e., inheritance) of a class *outside* of the file it resides in
-  // -> Used when you want to be exhaustive in your type hierarchy
+  // -> Used when you want to be exhaustive in your type hierarchy (e.g,, /sealed traits/)
   sealed class Fish extends Animal
   // (`sealed` is useless here because the class is only accessible within the scope of the current "main" class)
   // -> I.e., `Fish` is unresolved outside this file
