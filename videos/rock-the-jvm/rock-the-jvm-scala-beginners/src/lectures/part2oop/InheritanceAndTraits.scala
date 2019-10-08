@@ -121,6 +121,7 @@ object InheritanceAndTraits extends App {
   // 2. Use `final` on a class that one would not like to see extended
   // -> "Illegal inheritance"
   // For example: in Scala, numerical classes and `String` are `final`
+  // IMPORTANT: `final` modifier is redundant for `final` class/object members
   //
   // 3. /Seal/ the class (i.e., mark it as `sealed`)
   // Seal: restriction that prevents the extension (i.e., inheritance) of a class *outside* of the file it resides in
