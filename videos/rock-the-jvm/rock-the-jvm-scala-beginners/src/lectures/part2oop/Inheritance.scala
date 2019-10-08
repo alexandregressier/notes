@@ -1,8 +1,8 @@
 package lectures.part2oop
 
-import lectures.part2oop.InheritanceAndTraits.Fish
+import lectures.part2oop.Inheritance.Fish
 
-object InheritanceAndTraits extends App {
+object Inheritance extends App {
 
   // Scala's /inheritance model/:
   // /Single class inheritance/ but no /multiple class inheritance/ (just like Java, and unlike C++ for example)
