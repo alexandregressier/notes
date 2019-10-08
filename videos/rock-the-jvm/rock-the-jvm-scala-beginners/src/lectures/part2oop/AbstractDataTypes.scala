@@ -92,7 +92,7 @@ object AbstractDataTypes extends App {
   //
   // - `scala.Nothing` is derived from everything (even `Null`), and thus can replace anything (useful for /exceptions/
   // and expressions returning nothing)
-  //   -> FUNDAMENTAL: `Nothing` is not instantiable and is represented as `???` (unusable expression)
+  //   -> FUNDAMENTAL: `Nothing` is not instantiable and is represented as `???` (unusable expression, the /bottom/)
   //   Implementation:
   //   def ???: Nothing = throw new NotImplementedError
 
