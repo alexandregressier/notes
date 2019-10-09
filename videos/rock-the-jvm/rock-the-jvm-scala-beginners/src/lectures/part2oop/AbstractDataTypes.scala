@@ -25,6 +25,7 @@ object AbstractDataTypes extends App {
   // WEIRD: these are valid class definitions `class Dog extends` and `class Dog extends {}`
 
   // Traits - The ultimate abstract data type in Scala
+  // ESSENTIAL: just like an abstract class, a trait is an abstract type
   // Similar to interfaces in other languages (e.g., Java)
   trait Carnivore { // Just like abstract class definitions, traits have abstract members
     def eat(animal: Animal): Unit
