@@ -91,12 +91,15 @@ final class Cons(override val head: Int,
 }
 
 /**
- * Cons
+ * Cons companion object.
  */
 object Cons {
   def apply(head: Int, tail: LinkedList = Nil) = new Cons(head, tail)
 }
 
+/**
+ * Singly linked list application.
+ */
 object LinkedListApp extends App {
   val empty: LinkedList = Nil
   val singleton: LinkedList = Cons(1)
