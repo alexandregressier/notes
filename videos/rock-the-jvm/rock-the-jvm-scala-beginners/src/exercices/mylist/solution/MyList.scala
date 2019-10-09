@@ -55,8 +55,13 @@ class Cons(h: Int, t: MyList) extends MyList {
   override def mkString: String =
     if (t.isEmpty) h.toString
     else s"$h ${t.mkString}"
-  // `mkString` of `t` is inaccessible even if we are in the same class defining it
-  // -> `t` is an external instance w/ its own members
+  // FUNDAMENTAL:
+  // `mkString` of `t` is inaccessible b/c if you pay close attention we are NOT in the same class defining it:
+  // -> `t` is of type MyList (but really is always `Cons` because of the `if` above)
+  // It can be casted to its real type `Cons` to:
+  // - Qualify this method for recursion
+  // - Access the protected/private members of `t` (b/c we are in the body of the class defining it)
+  //   -> The `protected` access modifier would be a better fit for `mkString` (in `MyList`)
 }
 
 object MyListApp extends App {
