@@ -22,7 +22,18 @@ object AbstractList {
 // IMPORTANT: `final` on derived classes is an underused practice
 final class Cons(override val head: Int = AbstractList.empty,
                  override val tail: Cons = null) extends AbstractList {
-  // ESSENTIAL: a member variable can override a parameterless method (by having the same name)
+  // ESSENTIAL: a member variable can override a parameterless method (by having the same name):
+  // |     | W/ ()                     | W/o ()                    |
+  // |-----+---------------------------+---------------------------|
+  // |     |                           | - Runs at construction    |
+  // | val | n/a                       | - Override w/ val         |
+  // |     |                           | - Access w/ no ()         |
+  // |-----+---------------------------+---------------------------|
+  // |     | - Runs at at every access | - Runs at at every access |
+  // | def | - Override w/ val or def  | - Override w/ val or def  |
+  // |     | - Access w/ () or w/o ()  | - Access w/ no ()         |
+
+  // See https://blog.jessitron.com/2012/07/10/choices-with-def-and-val-in-scala/ for more details
 
   override def isEmpty: Boolean = this.tail == null
 
