@@ -70,3 +70,4 @@ object MyListApp extends App {
 // TAKEAWAYS:
 // - Grab the opportunity to use recursion in data structures!
 // - Do not hesitate to make objects extending an abstract class to define special cases (e.g., `Empty`)
+// - Your version of `add` was appending whereas the solution was prepending (easier)
