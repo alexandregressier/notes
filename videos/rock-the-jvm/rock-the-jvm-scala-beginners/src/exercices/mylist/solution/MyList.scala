@@ -38,6 +38,7 @@ object Empty extends MyList { // IMPORTANT: `object` can extend classes
 
   // LEARN: think of `object` as static: you do not yield `this` but `Empty`
   override def add(x: Int): MyList = new Cons(x, Empty)
+  // You must yield the one of the two `MyList` instances that is not empty: `Cons`
 
   override def mkString: String = ""
 }
