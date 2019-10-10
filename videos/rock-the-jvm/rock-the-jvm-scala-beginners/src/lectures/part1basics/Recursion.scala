@@ -1,7 +1,5 @@
 package lectures.part1basics
 
-import lectures.part1basics.Functions.concatNTimes
-
 import scala.annotation.tailrec
 
 object Recursion extends App {
