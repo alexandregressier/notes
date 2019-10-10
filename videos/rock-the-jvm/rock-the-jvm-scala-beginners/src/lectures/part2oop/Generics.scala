@@ -5,16 +5,18 @@ object Generics extends App {
   // "Type parameterization"
 
   // -> For example, enables to variablize the type of the elements held within the linked list (but still homogeneous)
-  // (Else not possible w/ the tools seen until now)
-  class MyList[A] { // `A` denotes a generic type
+  // (Else not possible w/o duplicating the code for each wanted type w/ the tools seen until now)
+  class MyList[A] { // `MyList` is /parameterized/ w/ type `A`
+    // `A` denotes a generic type
     // `A` can be used within the class body
-    // `A` makes our class reusable for any given type that we can store inside the generic list
+    // `A` makes the class reusable for any given type that we can store inside this generic list
 
     // VOCABULARY:
     // - `MyList` is a /generic class/
     // - `A` is a /type parameter/
 
-    // `A` can really be replaced w/ any desired name
+    // `A` is a common name for a single type parameter in Scala
+    // -> But `A` can really be replaced w/ any desired name
   }
   val listOfIntegers = new MyList[Int] // FUNDAMENTAL: `Int` will replace the generic type `A` for this instance
   val listOfStrings = new MyList[String]
