@@ -11,7 +11,7 @@ object StringOps extends App {
   println(str.substring(7, 11)) // "I am" - `beginIndex` is inclusive, `endIndex` is exclusive
   println(str.split(' ').toList) // Results type is `Array[String]`, can take 1 to n `Char`s or `String`s
 
-  // IMPORTANT: Just like functions, parameterless methods can (and sometimes must) be called w/o `()` (e.g., .toList)
+  // IMPORTANT: just like functions, parameterless methods can (and sometimes must) be called w/o `()` (e.g., .toList)
 
   println(str.startsWith("Hello")) // true
   println(str.replace(' ', '-'))
@@ -45,21 +45,21 @@ object StringOps extends App {
   println(anotherGreeting)
 
   // INTELLIJ TIP:
-  // <M-RET> can be used on a String literal w/ multiple constituents to switch between concatenation and interpolation
+  // <M-RET> can be used on a String w/ multiple constituents to switch between concatenation and interpolation
 
   // F-interpolator
   // Same as s-interpolator, but can also contain /format specifiers/ after the values to be expanded
   val speed = 3.2f
-  println(f"$name can eat $speed%5.2f burgers per minute") // Prints " 3.20" (note the leading space), 5 characters long
-  println(f"$name can eat $speed%09f burgers per minute") // Prints 03.200000, 9 characters long
-  // %.2f truncates a decimal number to 2 decimal places
-  // %5f pads the number with ' ' to reach the minimum length of 5 characters
-  // %05 same but pads the number with '0'
+  println(f"$name can eat $speed%5.2f burgers per minute") // Prints ` 3.20` (note the leading space), 5 characters long
+  println(f"$name can eat $speed%09f burgers per minute") // Prints `03.200000`, 9 characters long
+  // - `.2f`: truncates a decimal number to 2 decimal places
+  // - `%5f`: pads the number with ' ' to reach the minimum length of 5 characters
+  // - `%05`: same, but pads the number with '0'
   // See printf(3) for more information about format specifiers
 
-  // %d are for decimal numbers
-  // %s are for strings
-  // Note that format specifiers are optional using the f-interpolator
+  // `%d` are for decimal numbers
+  // `%s` are for strings
+  // Note that format specifiers are optional when using an f-interpolated String
 
   // IMPORTANT: f-interpolated Strings have the property to check for type correctness for the value that they expand
   val x = 1.1f
@@ -67,10 +67,10 @@ object StringOps extends App {
 
   // Raw interpolator
   // Same as s-interpolator, but can also print characters literally
-  println(raw"This is a \n new line") // Prints a single line
+  println(raw"This is a \n new line") // Prints a single line containing the 2 characters "\n" (i.e., unescaped)
 
   val escaped = "This is a \n new line" // Blanks around '\n' are still printed
   println(raw"$escaped") // Prints two lines - the '\n' is escaped
-  // -> Use the raw interpolator on the expanded String if you want '\n' to be expanded
+  // -> Use the raw interpolator on the expanded String if you want '\n' to be unescaped
   // (The raw interpolator within `println` is useless)
 }
