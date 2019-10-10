@@ -28,11 +28,11 @@ object CallByNameVsCallByValue extends App {
   // By name: 21914917974851
 
   // FUNDAMENTAL:
-  // In the by value call, the args are evaluated (i.e., transformed into a value) when being assigned to parameters
-  // -> (Immutable) copies of the arguments are made
-  // In the by name call, the arguments are not evaluated when being assigned to parameters
-  // -> The arguments (which are expressions) are passed as-is
-  // -> Thus their evaluation are deferred to the evaluation of the parameters occurs in the function body
+  // - In the by value call, the args are evaluated (i.e., transformed into a value) when being assigned to parameters
+  //   -> (Immutable) copies of the arguments are made
+  // - In the by name call, the arguments are not evaluated when being assigned to parameters
+  //   -> The arguments (which are expressions) are passed as-is
+  //   -> Thus their evaluation are deferred to the evaluation of the parameters occurs in the function body
   // FUNDAMENTAL: a given argument can be evaluated more than once if the assigned parameter is evaluated more than once
 
   // Evaluations;
@@ -55,6 +55,6 @@ object CallByNameVsCallByValue extends App {
   def printFirst(x: Int, y: => Int) = println(x)
 
   // Since the call by name delays the evaluation of the passed expression until it is used, `infinite()` can be passed
-  // (Because its assigned parameter `y` is never evaluated)
+  // (B/c its assigned parameter `y` is never evaluated)
   printFirst(34, infinite())
 }
