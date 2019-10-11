@@ -85,6 +85,8 @@ object Generics extends App {
   // ERROR (unreported by IntelliJ):
   // inferred type arguments [Generics.Car] do not conform to class Cage's type parameter bounds [A <: Generics.Animal]
 
+  // LEARN: the generic type parameter you are creating is used on the LHS whereas an existing type is used on the RHS
+
   // IMPORTANT: just like Java, you do not have to provide a type argument between `[]` if this type argument is already
   // replacing the type parameter of a class/method parameter
 
