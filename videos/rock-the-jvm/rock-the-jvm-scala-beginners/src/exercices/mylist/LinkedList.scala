@@ -110,20 +110,23 @@ object LinkedListApp extends App {
 
   println(empty)
   println(singleton)
-  println(Cons(127, Cons(0, Cons(0, Cons(1)))))
+  println(Cons(127, Cons(0, Cons(0, Cons(1, Nil)))))
   println(couple add 3)
-  println(lost)
   println
-  println(lost.head)
-  println(lost.tail)
-  println(lost.last)
-  println(lost.init)
+  println(lost)
+  println(s"Head: ${lost.head}")
+  println(s"Tail: ${lost.tail}")
+  println(s"Last: ${lost.last}")
+  println(s"Init: ${lost.init}")
   println
   println(lost.addAll(couple add 3))
   println(Nil.reverse.addAll(Nil).add(3).addAll(lost).reverse)
   println(lost.reverse)
   println
-  println(lost.appendAll(lost))
-  println(lost.append(57))
-  println(Cons(1, Cons(2, Cons(3))) + Cons(4, Cons(5, Cons(6))))
+  println(lost.appendAll(lost.reverse))
+  println(lost.append("Yeah!"))
+
+  // Can be heterogeneous
+  val fun: LinkedList[Any] = Cons("A", Cons("B", Cons("B"))) + Cons(4, Cons(5, Cons(6)))
+  println(fun)
 }
