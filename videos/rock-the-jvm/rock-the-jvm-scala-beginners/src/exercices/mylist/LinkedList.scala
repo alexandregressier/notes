@@ -16,14 +16,14 @@ abstract class LinkedList {
 
   def isEmpty: Boolean
 
-  def prepend(x: Int): LinkedList
+  def add(x: Int): LinkedList
 
   def append(x: Int): LinkedList = appendAll(Cons(x))
 
   @tailrec
-  final def prependAll(xs: LinkedList): LinkedList =
+  final def addAll(xs: LinkedList): LinkedList =
     if (xs.isEmpty) this
-    else prepend(xs.head).prependAll(xs.tail)
+    else add(xs.head).addAll(xs.tail)
 
   final def appendAll(xs: LinkedList): LinkedList = // TODO: use to use tail recursion for the `appendAll` method
     if (isEmpty) xs
@@ -54,7 +54,7 @@ object Nil extends LinkedList {
 
   override def isEmpty: Boolean = true
 
-  override def prepend(x: Int): LinkedList = Cons(x)
+  override def add(x: Int): LinkedList = Cons(x)
 
   override def reverse: LinkedList = this
 
@@ -80,9 +80,9 @@ final class Cons(override val head: Int,
 
   override def isEmpty: Boolean = false
 
-  override def prepend(x: Int): LinkedList = Cons(x, this)
+  override def add(x: Int): LinkedList = Cons(x, this)
 
-  override def reverse: LinkedList = Nil.prependAll(this)
+  override def reverse: LinkedList = Nil.addAll(this)
 
   @tailrec
   override protected def mkString(accumulator: String): String =
@@ -109,7 +109,7 @@ object LinkedListApp extends App {
   println(empty)
   println(singleton)
   println(Cons(127, Cons(0, Cons(0, Cons(1)))))
-  println(couple prepend 3)
+  println(couple add 3)
   println(lost)
   println
   println(lost.head)
@@ -117,8 +117,8 @@ object LinkedListApp extends App {
   println(lost.last)
   println(lost.init)
   println
-  println(lost.prependAll(couple prepend 3))
-  println(Nil.reverse.prependAll(Nil).prepend(3).prependAll(lost).reverse)
+  println(lost.addAll(couple add 3))
+  println(Nil.reverse.addAll(Nil).add(3).addAll(lost).reverse)
   println(lost.reverse)
   println
   println(lost.appendAll(lost))
