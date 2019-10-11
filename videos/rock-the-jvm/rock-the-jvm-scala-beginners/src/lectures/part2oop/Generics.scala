@@ -4,7 +4,7 @@ object Generics extends App {
   // /Generics/ are part of the Scala type system
   // "Type parameterization"
 
-  // -> For example, enables to variablize the type of the elements held within the linked list (but still homogeneous)
+  // -> For example, enables to variablize the type of the elements held within the linked list
   // (Else not possible w/o duplicating the code for each wanted type w/ the features seen until now)
   class MyList[A] { // `MyList` is /parameterized/ w/ type `A`
     // `A` denotes a generic type
@@ -106,7 +106,7 @@ object Generics extends App {
     // what happens if `animals.add(new Dog)`?
     // -> Solution to implement: the new `SimpleList` resulting from calling `add` must have its type changed from the
     // specific `SimpleList[Cat]` to the more generic `SimpleList[Animal]`
-    def add[B >: A](element: B): SimpleList[B] = new SimpleList[B] // ESSENTIAL
+    def add[B >: A](element: B): SimpleList[B] = new SimpleList[B] // ELEMENTAL - "Make the list more generic"
     // We introduce a new type `B` which is a supertype of `A` and replace the type of the added in element with it as
     // well as the result type to a list of it
     // FUNDAMENTAL: if to a list of `A`, I add in a `B` which is a supertype of `A`, then this list will turn into a
@@ -115,4 +115,21 @@ object Generics extends App {
     // TAKEAWAY: you want to define covariant collections, so you must use this advanced technique in order to have your
     // method implemented correctly
   }
+  // How to generify a class using covariance:
+  // 1. Add a covariant type parameter `[+A]` to a given class and all its subclasses
+  // 2. Replace all the occurrences of the non-generic type that should become `A`
+  // 3. Replace all the occurrences of the class with the class followed by a type argument `A` added
+  // 4. Implement the solution to the non-trivial exercise by type parameterizing all the methods w/ a at least one
+  // parameter of type `A` and resulting in a new instance of the class type parameterized w/ `A` w/ `[B >: A]`
+
+  // IMPORTANT: how to deal w/ an object like `Nil`, which should be a correct value for both `List[Int]` and
+  // `List[String]` for example?
+  // -> Involve the `Nothing` type, which is a proper substitute for any type
+  // -> In the same way, the object `Nil` should be a proper substitute of a list of any type
+  // -> `object Nil extends MyList[Nothing]` (and `add[B >: Nothing](x: B): MyList[B]
+
+  // 5. Replace all the occurrences of `A` occurring in such companion objects w/ `Nothing`
+  // 4. Implement the solution to the non-trivial exercise by type parameterizing all the methods w/ a at least one
+  // parameter of type `Nothing` and resulting in a new instance of the class type parameterized w/ `Nothing` w/
+  // `[B >: Nothing]`
 }
