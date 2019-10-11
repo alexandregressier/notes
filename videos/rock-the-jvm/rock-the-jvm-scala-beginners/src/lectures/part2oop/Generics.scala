@@ -5,7 +5,7 @@ object Generics extends App {
   // "Type parameterization"
 
   // -> For example, enables to variablize the type of the elements held within the linked list (but still homogeneous)
-  // (Else not possible w/o duplicating the code for each wanted type w/ the tools seen until now)
+  // (Else not possible w/o duplicating the code for each wanted type w/ the features seen until now)
   class MyList[A] { // `MyList` is /parameterized/ w/ type `A`
     // `A` denotes a generic type
     // `A` can be used within the class body
