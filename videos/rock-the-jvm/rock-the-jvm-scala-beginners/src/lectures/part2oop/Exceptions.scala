@@ -125,7 +125,7 @@ object Exceptions extends App {
     // You could also have used `BigInt`s instead of `Int` (to replace all those overwhelming conditions)
     def add(x: Int, y: Int): Int = {
       val result = x + y
-      if (x > 0 && 0 > y && result < 0) throw new OverflowException
+      if (x > 0 && y > 0 && result < 0) throw new OverflowException
       else if (x < 0 && y < 0 && result > 0) throw new UnderflowException
       else result
     }
