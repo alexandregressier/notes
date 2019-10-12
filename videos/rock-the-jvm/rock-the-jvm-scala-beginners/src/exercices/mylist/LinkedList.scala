@@ -50,7 +50,7 @@ abstract class LinkedList[+A] {
  * <p>
  * Represents an empty cons cell.
  */
-object Nil extends LinkedList[Nothing] {
+final case object Nil extends LinkedList[Nothing] {
   override def head: Nothing = throw new NoSuchElementException
 
   override def tail: LinkedList[Nothing] = throw new NoSuchElementException
@@ -82,8 +82,8 @@ object Nil extends LinkedList[Nothing] {
  * @param head the value stored in the cons cell.
  * @param tail the cons cell following that value.
  */
-final class Cons[+A](override val head: A,
-                     override val tail: LinkedList[A] = Nil) extends LinkedList[A] {
+final case class Cons[+A](override val head: A,
+                          override val tail: LinkedList[A] = Nil) extends LinkedList[A] {
   @tailrec
   override def last: A =
     if (tail.isEmpty) head
@@ -103,17 +103,17 @@ final class Cons[+A](override val head: A,
   override def reverse: LinkedList[A] = Nil.addAll(this)
 
   override def map[B](t: MyTransformer[A, B]): LinkedList[B] =
-    /*if (tail.isEmpty) Cons(t(head)) // ELEMENTAL: this is useless if you define how `Nil` behaves
-    else*/ Cons(t(head), tail.map(t))
+  /*if (tail.isEmpty) Cons(t(head)) // ELEMENTAL: this is useless if you define how `Nil` behaves
+  else*/ Cons(t(head), tail.map(t))
 
   override def flatMap[B](t: MyTransformer[A, LinkedList[B]]): LinkedList[B] =
-    /*if (tail.isEmpty) t(head)
-    else*/ t(head) ++ tail.flatMap(t)
+  /*if (tail.isEmpty) t(head)
+  else*/ t(head) ++ tail.flatMap(t)
 
   override def filter(p: MyPredicate[A]): LinkedList[A] =
-    /*if (tail.isEmpty) if (p(head)) Cons(head) else Nil
-    else*/ if (p(head)) Cons(head, tail.filter(p))
-    else tail.filter(p)
+  /*if (tail.isEmpty) if (p(head)) Cons(head) else Nil
+  else*/ if (p(head)) Cons(head, tail.filter(p))
+  else tail.filter(p)
 
   @tailrec
   override protected def mkString(accumulator: String): String =
@@ -219,6 +219,14 @@ object LinkedListApp extends App {
     .map(new StringToIntT)
     .filter(isEvenP)
     .flatMap(new MyTransformer[Int, LinkedList[Any]] {
-    override def apply(x: Int): LinkedList[Any] = Cons(x, Cons(s"'$x'"))
-  }))
+      override def apply(x: Int): LinkedList[Any] = Cons(x, Cons(s"'$x'"))
+    }))
+
+  // Auto implemented `equal` using case classes/objects
+  val foo = Cons(1, Cons(2, Cons(3)))
+  val bar = Cons(5, Cons(10, Cons(15)))
+    .map(new MyTransformer[Int, Int] {
+      override def apply(x: Int): Int = x / 5
+    })
+  println(s"$foo == $bar? ${foo == bar}")
 }

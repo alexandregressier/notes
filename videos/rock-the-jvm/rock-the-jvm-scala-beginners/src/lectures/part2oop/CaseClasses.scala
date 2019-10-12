@@ -30,7 +30,7 @@ object CaseClasses extends App {
   // -> They are based on the instance's reference, thus yielding `false`
   // LEARN: you can safely use `==` for comparing instances in Scala
 
-  // 4. Case classes implement a handy `copy` method
+  // 4. Case classes implement a handy `copy` method (a.k.a. cloning)
   val antiJim = jim.copy()
   println(s"jim(${jim.hashCode}) == antiJim(${antiJim.hashCode})? -> ${jim == antiJim}") // Prints `true`
 
@@ -62,5 +62,10 @@ object CaseClasses extends App {
     def name: String = "The UK of GB and NI"
   }
 
-  // TAKEAWAYS: case classes and case objects are a gold mine
+  // Example: making `Cons` and `Nil` a case class and a case object respectively enables `LinkedList` to:
+  // - Compare 2 instances w/ the same content (w/o having to implement a recursive `equals`)
+  // - Be used in other collections, b/c of `hashCode` and `equals`
+  // - Be used in distributed systems, b/c it is serializable
+
+  // TAKEAWAY: case classes and case objects are a gold mine
 }
