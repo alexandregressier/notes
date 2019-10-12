@@ -4,6 +4,8 @@ import scala.annotation.tailrec
 
 /**
  * Singly linked list.
+ * <p>
+ * This is a rework of [[exercices.mylist.solution.MyList]].
  */
 abstract class LinkedList[+A] {
   def head: A
@@ -18,25 +20,23 @@ abstract class LinkedList[+A] {
 
   def add[B >: A](x: B): LinkedList[B]
 
-  def append[B >: A](x: B): LinkedList[B] = appendAll(Cons(x))
+  def append[B >: A](x: B): LinkedList[B] = concat(Cons(x))
 
   //@tailrec // TODO: find out why `@tailrec` is no longer working by adding a type parameter
   final def addAll[B >: A](xs: LinkedList[B]): LinkedList[B] =
     if (xs.isEmpty) this
     else add(xs.head).addAll(xs.tail)
 
-  // TODO: use to use tail recursion for the `appendAll` method
-  final def appendAll[B >: A](xs: LinkedList[B]): LinkedList[B] =
-    if (isEmpty) xs
-    else Cons(head, tail.appendAll(xs))
+  def concat[B >: A](xs: LinkedList[B]): LinkedList[B]
 
-  final def +[B >: A](xs: LinkedList[B]): LinkedList[B] = appendAll(xs)
+  final def ++[B >: A](xs: LinkedList[B]): LinkedList[B] = concat(xs)
 
   def reverse: LinkedList[A]
 
   def map[B](t: MyTransformer[A, B]): LinkedList[B]
 
-  def flatMap[B](t: MyTransformer[A, LinkedList[B]]): LinkedList[B] // results in the concatenation of small sublists
+  // FUNDAMENTAL: you can use named types (e.g., `LinkedList`) the list of type parameters
+  def flatMap[B](t: MyTransformer[A, LinkedList[B]]): LinkedList[B] // Results in the concatenation of small sublists
 
   def filter(p: MyPredicate[A]): LinkedList[A]
 
@@ -62,6 +62,8 @@ object Nil extends LinkedList[Nothing] {
   override def isEmpty: Boolean = true
 
   override def add[B >: Nothing](x: B): LinkedList[B] = Cons(x)
+
+  override def concat[B >: Nothing](xs: LinkedList[B]): LinkedList[B] = xs
 
   override def reverse: LinkedList[Nothing] = this
 
@@ -95,19 +97,22 @@ final class Cons[+A](override val head: A,
 
   override def add[B >: A](x: B): LinkedList[B] = Cons(x, this)
 
+  def concat[B >: A](xs: LinkedList[B]): LinkedList[B] =
+    Cons(head, tail.concat(xs)) // BRILLIANT: you recurse until you find an empty tail: then you set that tail to be xs
+
   override def reverse: LinkedList[A] = Nil.addAll(this)
 
   override def map[B](t: MyTransformer[A, B]): LinkedList[B] =
-    if (tail.isEmpty) Cons(t(head))
-    else Cons(t(head), tail.map(t))
+    /*if (tail.isEmpty) Cons(t(head)) // ELEMENTAL: this is useless if you define how `Nil` behaves
+    else*/ Cons(t(head), tail.map(t))
 
   override def flatMap[B](t: MyTransformer[A, LinkedList[B]]): LinkedList[B] =
-    if (tail.isEmpty) t(head)
-    else t(head).appendAll(tail.flatMap(t))
+    /*if (tail.isEmpty) t(head)
+    else*/ t(head) ++ tail.flatMap(t)
 
   override def filter(p: MyPredicate[A]): LinkedList[A] =
-    if (tail.isEmpty) if (p(head)) Cons(head) else Nil
-    else if (p(head)) Cons(head, tail.filter(p))
+    /*if (tail.isEmpty) if (p(head)) Cons(head) else Nil
+    else*/ if (p(head)) Cons(head, tail.filter(p))
     else tail.filter(p)
 
   @tailrec
@@ -129,9 +134,9 @@ object Cons {
  *
  * @tparam T the type to be tested.
  */
-trait MyPredicate[-T] { // `MyPredicate` must be contravariant in the type `T`
+trait MyPredicate[-T] {
   def apply(x: T): Boolean
-}
+} // `MyPredicate` must be contravariant in the type `T` to solve the variance problem in the `LinkedList`'s definitions
 
 /**
  * Transformer from type `A` to type `B`.
@@ -139,9 +144,9 @@ trait MyPredicate[-T] { // `MyPredicate` must be contravariant in the type `T`
  * @tparam A the type to input.
  * @tparam B the type to output.
  */
-trait MyTransformer[-A, B] { // `MyTransformer` must be contravariant in the type `A`
+trait MyTransformer[-A, B] {
   def apply(x: A): B
-}
+} // For the same reason, `MyTransformer` must be contravariant in the type `A`
 
 /**
  * Singly linked list application.
@@ -167,12 +172,19 @@ object LinkedListApp extends App {
   println(Nil.reverse.addAll(Nil).add(3).addAll(lost).reverse)
   println(lost.reverse)
   println
-  println(lost.appendAll(lost.reverse))
+
+  println(Cons(1, Cons(2) ++ Cons(3, Cons(4, Cons(5)))))
+  // [1,2] ++ [3,4,5]
+  // = Cons(1, [2] ++ [3,4,5])
+  // = Cons(1, Cons(2, Nil ++ [3,4,5])
+  // = Cons(1, Cons(2, [3,4,5])
+  // = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5)))))
   println(lost.append("Yeah!"))
 
   // Can be heterogeneous
-  val fun: LinkedList[Any] = Cons("A", Cons("B", Cons("B"))) + Cons(4, Cons(5, Cons(6)))
+  val fun: LinkedList[Any] = Cons("A", Cons("B", Cons("B"))) ++ Cons(4, Cons(5, Cons(6)))
   println(fun)
+  println
 
   val isEvenP = new MyPredicate[Int] {
     override def apply(x: Int): Boolean = x % 2 == 0
@@ -187,6 +199,12 @@ object LinkedListApp extends App {
     .map(new MyTransformer[Int, Int] {
       override def apply(x: Int): Int = x * 5
     }))
+  // [1,2,3].map(n * 5)
+  // = Cons(5, [2,3].map(n * 5))
+  // = Cons(5, Cons(10, [3].map(n * 5)))
+  // = Cons(5, Cons(10, Cons(15, Nil.map(n * 5))))
+  // = Cons(5, Cons(10, Cons(15)))
+
   println(Cons(1, Cons(2, Cons(3)))
     .flatMap(new MyTransformer[Int, LinkedList[Int]] {
       override def apply(x: Int): LinkedList[Int] = Cons(x, Cons(x + 1))
@@ -197,4 +215,10 @@ object LinkedListApp extends App {
     .map(new MyTransformer[Int, String] {
       override def apply(x: Int): String = s"'$x'"
     }))
+  println(Nil
+    .map(new StringToIntT)
+    .filter(isEvenP)
+    .flatMap(new MyTransformer[Int, LinkedList[Any]] {
+    override def apply(x: Int): LinkedList[Any] = Cons(x, Cons(s"'$x'"))
+  }))
 }
