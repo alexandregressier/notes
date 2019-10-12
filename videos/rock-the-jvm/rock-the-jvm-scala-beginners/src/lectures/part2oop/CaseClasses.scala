@@ -67,5 +67,7 @@ object CaseClasses extends App {
   // - Be used in other collections, b/c of `hashCode` and `equals`
   // - Be used in distributed systems, b/c it is serializable
 
+  // INTELLIJ TIP: case classes and case objects can be selected when creating a new Scala file/class
+
   // TAKEAWAY: case classes and case objects are a gold mine
 }
