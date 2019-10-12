@@ -95,10 +95,9 @@ object Exceptions extends App {
       println(s"Side effect printing the number held within: $number!")
     }
   } catch {
-    case e: MyException => {
+    case e: MyException => // IMPORTANT: braces are redundant for the body of a `case`
       println(s"Caught a `MyException`:")
       e.printStackTrace()
-    }
   }
 
   // Exercises
