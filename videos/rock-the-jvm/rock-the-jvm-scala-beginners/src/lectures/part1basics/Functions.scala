@@ -1,6 +1,7 @@
 package lectures.part1basics
 
 object Functions extends App {
+  // ESSENTIAL: everything called a "function" in Scala is really a method
 
   // Declaring a function (i.e., method)
   def aFunction(a: String, b: Int): String = { // In Scala, this is called the function's /signature/
