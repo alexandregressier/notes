@@ -44,8 +44,9 @@ object StringOps extends App {
   val anotherGreeting = s"Hello, my name is $name and I will be turning ${age + 1} years old."
   println(anotherGreeting)
 
-  // INTELLIJ TIP:
-  // <M-RET> can be used on a String w/ multiple constituents to switch between concatenation and interpolation
+  // INTELLIJ TIPS:
+  // - <M-RET> can be used on a String w/ multiple constituents to switch between concatenation and interpolation
+  // - IntelliJ is automatically prefixing a String you are interpolating (i.e., writing `$` in it)
 
   // F-interpolator
   // Same as s-interpolator, but can also contain /format specifiers/ after the values to be expanded
