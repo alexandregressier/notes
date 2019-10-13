@@ -33,3 +33,14 @@ New Project > Scala > IDEA (for this course)
 8. [[./src/lectures/part1basics/StringOps.scala][Smart Operations on Strings]]
 
 * Section 2: Object-Oriented Programming in Scala
+
+9. [[./src/lectures/part2oop/OOBasics.scala][Object-Oriented Basics]]
+10. [[./src/lectures/part2oop/MethodNotations.scala][Syntactic Sugar: Method Notations]]
+11. [[./src/lectures/part2oop/Objects.scala][Scala Objects]]
+12. [[./src/lectures/part2oop/Inheritance.scala][Inheritance]]
+13. [[./src/lectures/part2oop/AbstractDataTypes.scala][Inheritance, Continued: Abstract Classes and Traits]]
+14. [[./src/lectures/part2oop/Generics.scala][Generics]]
+15. [[./src/lectures/part2oop/AnonymousClasses.scala][Anonymous Classes]]
+16. [[./src/lectures/part2oop/CaseClasses.scala][Case Classes]]
+17. [[./src/lectures/part2oop/Exceptions.scala][Exceptions]]
+18. [[./src/lectures/part2oop/PackagingAndImports.scala][Packaging and Imports]]
