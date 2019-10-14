@@ -1,4 +1,4 @@
-package playground
+package playground.fairytale
 
 /**
  * Prince charming.

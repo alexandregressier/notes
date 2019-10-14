@@ -3,9 +3,10 @@ package lectures.part2oop // This is a top-level /package definition/
 // IMPORTANT: other files using the same top-level package definition will see their definitions added to this package
 
 import playground.{Cinderella, PrinceCharming}
-
 import java.util.Date
 import java.sql.{Date => SQLDate}
+
+import playground.fairytale.{Cinderella, PrinceCharming}
 
 object PackagingAndImports extends App {
   // A /package/ is a group of definitions/symbols (e.g., variables, classes, traits, objects) under the same name
@@ -26,8 +27,8 @@ object PackagingAndImports extends App {
 
   // You could have also resolved the `Cinderella` symbol by qualifying its name
   // -> Use a /fully qualified name/ (abbreviated FQN):
-  val copycat = new playground.Cinderella
-  // -> The `import playground.Cinderella` above becomes useless for this particular case
+  val copycat = new Cinderella
+  // -> The `import playground.fairytale.Cinderella` above becomes useless for this particular case
   // IMPORTANT: the FQN is required when dealing with two symbols having the same name from two distinct packages
   // -> Or just use Scala's aliases
 
@@ -67,7 +68,7 @@ object PackagingAndImports extends App {
   // Package imports (a.k.a. imports)
   val prince = new PrinceCharming
   // The import of the playground package changes from
-  // import playground.Cinderella
+  // import playground.fairytale.Cinderella
   // to
   // import playground.{Cinderella, PrinceCharming}
 
