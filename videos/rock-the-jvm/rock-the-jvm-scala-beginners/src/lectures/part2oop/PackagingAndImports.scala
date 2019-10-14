@@ -8,9 +8,9 @@ import java.util.Date
 import java.sql.{Date => SQLDate}
 
 object PackagingAndImports extends App {
-  // A /package/ is a group of definitions/symbols (e.g., variables, classes, objects) under the same name
+  // A /package/ is a group of definitions/symbols (e.g., variables, classes, traits, objects) under the same name
 
-  // FUNDAMENTAL: the Same principles applies to Java
+  // FUNDAMENTAL: the same principles applies to Java
 
   // IMPORTANT: a /package definition/ is one of the few exceptions in Scala that is not an expression
 
@@ -75,7 +75,8 @@ object PackagingAndImports extends App {
   // import playground._ // Java uses `*`
   // -> But b/c of the principle of the least privilege, only import what you need (delegate this task to your IDE)
 
-  // GREAT: Scala offers name aliasing for imports (avoid symbol resolution conflicts and using FQNs)
+  // GREAT: Scala offers renaming for imports (a.k.a. aliasing)CK
+  // -> Avoid symbol resolution conflicts and to use FQNs
   // import playground.{Cinderella => Princess,PrinceCharming}
   // FUNDAMENTAL: if there is a single import, `{}` are required in order to define aliases
 
@@ -94,7 +95,7 @@ object PackagingAndImports extends App {
   // Solution #2: use the alias defined above
   val sqlDateByAlias: SQLDate = new SQLDate(2019, 10, 13)
 
-  // /Default imports/ - Automatic implicit package imports in every Scala file:
+  // /Default imports/ - Automatic and implicit package imports in every Scala file:
   // - java.lang (e.g, String, Object, Exception)
   // - scala (e.g, Int, Nothing, Function)
   // - scala.Predef (e.g, println, ???)
