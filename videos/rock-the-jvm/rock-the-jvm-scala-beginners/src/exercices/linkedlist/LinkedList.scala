@@ -1,11 +1,11 @@
-package exercices.mylist
+package exercices.linkedlist
 
 import scala.annotation.tailrec
 
 /**
  * Singly linked list.
  * <p>
- * This is a rework of [[exercices.mylist.solution.MyList]].
+ * This is a rework of [[exercices.linkedlist.solution.MyList]].
  */
 abstract class LinkedList[+A] {
   def head: A

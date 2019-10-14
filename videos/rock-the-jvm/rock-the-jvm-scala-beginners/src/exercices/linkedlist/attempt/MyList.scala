@@ -1,4 +1,4 @@
-package exercices.mylist.attempt
+package exercices.linkedlist.attempt
 
 import scala.annotation.tailrec
 

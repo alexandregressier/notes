@@ -1,4 +1,4 @@
-package exercices.mylist.solution
+package exercices.linkedlist.solution
 
 // This class demonstrates the real power of Scala by combining FP w/ OOP
 
