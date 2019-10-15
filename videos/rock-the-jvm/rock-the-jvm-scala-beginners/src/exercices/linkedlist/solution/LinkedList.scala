@@ -1,4 +1,6 @@
-package exercices.linkedlist
+package exercices.linkedlist.solution
+
+import exercices.linkedlist.solution
 
 import scala.annotation.tailrec
 
@@ -154,12 +156,12 @@ trait MyTransformer[-A, B] {
 object LinkedListApp extends App {
   val empty: LinkedList[Int] = Nil
   val singleton = Cons(1)
-  val couple: LinkedList[Int] = Cons(2, singleton)
-  val lost = Cons(4, Cons(8, Cons(15, Cons(16, Cons(23, Cons(42))))))
+  val couple: LinkedList[Int] = solution.Cons(2, singleton)
+  val lost = solution.Cons(4, solution.Cons(8, solution.Cons(15, solution.Cons(16, solution.Cons(23, Cons(42))))))
 
   println(empty)
   println(singleton)
-  println(Cons(127, Cons(0, Cons(0, Cons(1, Nil)))))
+  println(solution.Cons(127, solution.Cons(0, solution.Cons(0, Cons(1, Nil)))))
   println(couple add 3)
   println
   println(lost)
@@ -173,7 +175,7 @@ object LinkedListApp extends App {
   println(lost.reverse)
   println
 
-  println(Cons(1, Cons(2) ++ Cons(3, Cons(4, Cons(5)))))
+  println(Cons(1, Cons(2) ++ solution.Cons(3, solution.Cons(4, Cons(5)))))
   // [1,2] ++ [3,4,5]
   // = Cons(1, [2] ++ [3,4,5])
   // = Cons(1, Cons(2, Nil ++ [3,4,5])
@@ -182,7 +184,7 @@ object LinkedListApp extends App {
   println(lost.append("Yeah!"))
 
   // Can be heterogeneous
-  val fun: LinkedList[Any] = Cons("A", Cons("B", Cons("B"))) ++ Cons(4, Cons(5, Cons(6)))
+  val fun: LinkedList[Any] = solution.Cons("A", solution.Cons("B", Cons("B"))) ++ solution.Cons(4, solution.Cons(5, Cons(6)))
   println(fun)
   println
 
@@ -195,7 +197,7 @@ object LinkedListApp extends App {
   }
 
   // Higher-order functions
-  println(Cons(1, Cons(2, Cons(3)))
+  println(solution.Cons(1, solution.Cons(2, Cons(3)))
     .map(new MyTransformer[Int, Int] {
       override def apply(x: Int): Int = x * 5
     }))
@@ -205,11 +207,11 @@ object LinkedListApp extends App {
   // = Cons(5, Cons(10, Cons(15, Nil.map(n * 5))))
   // = Cons(5, Cons(10, Cons(15)))
 
-  println(Cons(1, Cons(2, Cons(3)))
+  println(solution.Cons(1, solution.Cons(2, Cons(3)))
     .flatMap(new MyTransformer[Int, LinkedList[Int]] {
-      override def apply(x: Int): LinkedList[Int] = Cons(x, Cons(x + 1))
+      override def apply(x: Int): LinkedList[Int] = solution.Cons(x, Cons(x + 1))
     }))
-  println(Cons("1", Cons("2", Cons("3", Cons("4", Cons("5", Cons("6", Cons("7", Cons("8"))))))))
+  println(solution.Cons("1", solution.Cons("2", solution.Cons("3", solution.Cons("4", solution.Cons("5", solution.Cons("6", solution.Cons("7", Cons("8"))))))))
     .map(new StringToIntT)
     .filter(isEvenP)
     .map(new MyTransformer[Int, String] {
@@ -219,12 +221,12 @@ object LinkedListApp extends App {
     .map(new StringToIntT)
     .filter(isEvenP)
     .flatMap(new MyTransformer[Int, LinkedList[Any]] {
-      override def apply(x: Int): LinkedList[Any] = Cons(x, Cons(s"'$x'"))
+      override def apply(x: Int): LinkedList[Any] = solution.Cons(x, Cons(s"'$x'"))
     }))
 
   // Auto implemented `equal` using case classes/objects
-  val foo = Cons(1, Cons(2, Cons(3)))
-  val bar = Cons(5, Cons(10, Cons(15)))
+  val foo = solution.Cons(1, solution.Cons(2, Cons(3)))
+  val bar = solution.Cons(5, solution.Cons(10, Cons(15)))
     .map(new MyTransformer[Int, Int] {
       override def apply(x: Int): Int = x / 5
     })
