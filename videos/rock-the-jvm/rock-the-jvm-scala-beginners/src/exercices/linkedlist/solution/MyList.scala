@@ -37,20 +37,20 @@ object Empty extends MyList { // IMPORTANT: `object` can extend classes
   override def isEmpty: Boolean = true
 
   // LEARN: think of `object` as static: you do not yield `this` but `Empty`
-  override def add(x: Int): MyList = new Cons(x, Empty)
+  override def add(x: Int): MyList = new ConsAlt(x, Empty)
   // You must yield the one of the two `MyList` instances that is not empty: `Cons`
 
   override def mkString: String = ""
 }
 
-class Cons(h: Int, t: MyList) extends MyList {
+class ConsAlt(h: Int, t: MyList) extends MyList {
   override def head: Int = h // Shorter names are used to avoid conflicts
 
   override def tail: MyList = t
 
   override def isEmpty: Boolean = false
 
-  override def add(x: Int): MyList = new Cons(x, this)
+  override def add(x: Int): MyList = new ConsAlt(x, this)
 
   override def mkString: String =
     if (t.isEmpty) h.toString
@@ -65,7 +65,7 @@ class Cons(h: Int, t: MyList) extends MyList {
 }
 
 object MyListApp extends App {
-  val list: MyList = new Cons(1, new Cons(2, new Cons(3, Empty)))
+  val list: MyList = new ConsAlt(1, new ConsAlt(2, new ConsAlt(3, Empty)))
   println(list.head)
   println(list.add(4).head)
   println(list.isEmpty)
