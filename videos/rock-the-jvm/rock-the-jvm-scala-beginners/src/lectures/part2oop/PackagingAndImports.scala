@@ -2,7 +2,6 @@ package lectures.part2oop // This is a top-level /package definition/
 // -> All the definitions in this file will be part of the `lectures.part2oop` package
 // IMPORTANT: other files using the same top-level package definition will see their definitions added to this package
 
-import playground.{Cinderella, PrinceCharming}
 import java.util.Date
 import java.sql.{Date => SQLDate}
 
