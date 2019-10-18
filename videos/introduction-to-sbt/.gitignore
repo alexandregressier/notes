@@ -1,0 +1,6 @@
+# Java
+*.class
+
+# sbt
+target/
+project/target/
