@@ -104,7 +104,7 @@ By default, a property-based test has a threshold of 100 tests pass
 -> Can be customized as well
 
 - [[./src/test/scala/ListScalaCheckSpec.scala][Example of tests with ScalaCheck]]
-- [[./src/test/scala/ListCheckersSpec.scala][Example of tests with ScalaCheck under ScalaTest]]
+- [[./src/test/scala/scalatest/ListCheckersSpec.scala][Example of tests with ScalaCheck under ScalaTest]]
 
 * Tips for testing with sbt
 
