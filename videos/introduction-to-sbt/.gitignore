@@ -2,5 +2,4 @@
 *.class
 
 # sbt
-target/
-project/target/
+**/target/
