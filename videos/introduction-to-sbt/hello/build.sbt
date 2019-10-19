@@ -52,6 +52,5 @@ libraryDependencies += "org.scalatest" % "scalatest_2.13" % "3.0.8" % "test"
 // - Last part: configuration parameter for sbt
 //   -> `test` specifies that the library dependency is only needed for tasks in the test configuration
 
-// IMPORTANT: it is common to see the Scala version used to compile the artifact as a suffix of the
-// artifact id
+// IMPORTANT: it is common to see the Scala version used to compile the artifact with as a suffix of the artifact id
 // -> Convention mainly used by third party Scala libraries
