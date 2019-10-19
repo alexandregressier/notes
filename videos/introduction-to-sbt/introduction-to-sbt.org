@@ -1,3 +1,7 @@
 #+TITLE: Introduction to sbt, YouTube - Notes
 #+AUTHOR: Alexandre Gressier
 #+DATE: <2019-10-18 Fri>
+
+* Notes
+
+- See [[./build.sbt][build.sbt]]
