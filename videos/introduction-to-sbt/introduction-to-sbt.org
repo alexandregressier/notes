@@ -4,4 +4,4 @@
 
 * Notes
 
-- See [[./build.sbt][build.sbt]]
+- See [[./hello/build.sbt][build.sbt]]
