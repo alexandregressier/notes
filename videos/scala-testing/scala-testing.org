@@ -1,0 +1,113 @@
+#+TITLE: Scala Testing, YouTube - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-10-19 Fri>
+#+OPTIONS: \n:t
+
+* Notes
+
+Unit and integration tests for Scala applications
+
+** Definitions
+
+*Unit test:* code that tests behavior of an individual unit of application code, such as a method or a class. Provides
+ a safety harness for future code changes.
+
+*Integration (Functional) test:* code to test the behavior of a set of units operating together. Can be used to simulate
+ a user interaction with an application.
+-> Tests an entire feature, specification, or user story
+
+*Assert:* statement used in unit tests to assert that a particular condition must be true. If the condition is false,
+ the test fails.
+
+*Matcher:* a rule that can used as a building block (with other matchers) to create custom assertions in a declarative
+ programming style.
+
+*Mock:* simulated object that mimics behavior of real objects in controlled ways. Used to replace dependencies in a
+ class under test to limit test scope.
+-> Keep the focus of the test on the unit
+
+*Test Driven Development (TDD):* practice of first writing a (failing) test prior to writing the code for a feature.
+ Feature code is refined until it passes test(s).
+-> Generally an iterative process: sometimes you find out that your tests did not exactly match the specification
+-> Forces you to have high code coverage
+
+*Behavior Driven Development (BDD):* software development process building on TDD and other established agile processes
+ with the purpose of keeping the focus on business goals. Applied in testing by writing tests in a descriptive manner
+ and in order of business priority.
+-> Write tests in a much more descriptive manner that somewhat follows business specifications
+
+* Testing in Scala
+
+Many testing frameworks available
+
+Tests reside in project source, but separated from application code
+-> Used as a different part of the build process, and not packaged in the deployables
+
+By convention, the /Maven Standard Directory Layout/ is used: `src/test/scala`
+
+sbt has targets for running tests
+
+* Testing frameworks
+
+** JUnit & TestNG
+
+[[https://junit.org/]]
+[[https://testng.org/]]
+
+Java testing frameworks that can be used w/ Scala
+Use asserts to verify values
+Can be used w/ addons, e.g.;
+- Hamcrest for matchers
+- Mockito for mocks
+Supported by sbt (w/ a plugin)
+
+- [[./src/test/scala/ListJUnitTest.scala][Example of tests with JUnit]]
+- [[./src/test/scala/ListTestNGTest.scala][Example of tests with TestNG]]
+
+** ScalaTest
+
+[[http://www.scalatest.org/]]
+
+A testing framework written in Scala and specifically intended for testing Scala
+Supports many different test specification styles (by extending traits), e.g., JUnit, BDD
+Offers integration w/ other tools to provide a rich feature set
+Supported by sbt
+
+- [[./src/test/scala/scalatest/ListFunSuite.scala][Example of JUnit/TestNG-style tests with ScalaTest]]
+- [[./src/test/scala/scalatest/ListWordSpec.scala][Example of specification testing with ScalaTest]]
+
+** specs2
+
+[[https://etorreborre.github.io/specs2/]]
+
+BDD focused testing framework with similar syntax to ScalaTest's `WordSpec with Matchers`
+Offers integration with other tools to provide a rich feature set
+Supported by sbt and IDEs (with JUnitRunner)
+Default testing framework for Play
+
+- [[./src/test/scala/ListSpecs2Spec.scala][Example of tests with specs2]]
+
+** ScalaCheck
+
+[[https://www.scalacheck.org/]]
+
+Different from other testing framework
+/Automated property-based testing/
+Originally based on Haskell's QuickCheck
+Uses random generators to generate inputs for multiple property checks
+ScalaTest and Specs2 provide integration w/ ScalaCheck
+
+Packed w/ random generators for most basic types and collections
+-> Can write your own custom generators as well
+
+By default, a property-based test has a threshold of 100 tests pass
+-> Can be customized as well
+
+- [[./src/test/scala/ListScalaCheckSpec.scala][Example of tests with ScalaCheck]]
+- [[./src/test/scala/ListCheckersSpec.scala][Example of tests with ScalaCheck under ScalaTest]]
+
+* Tips for testing with sbt
+
+test: compile the test sources and run all of the tests
+~testQuick: run failing tests until they all pass
+testOnly scalaTest.ListWordSpec: run tests only in `scalaTest.ListWordSpec`
