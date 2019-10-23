@@ -1,10 +1,9 @@
 package dev.gressier.scalauserland
 
-import scala.io.StdIn
+import dev.gressier.scalauserland.shell.Shell
 
-/** Scala userland application
+/** Scala userland application.
   */
 object Main extends App {
-  val message = StdIn.readLine()
-  println(message)
+  Shell.prompt()
 }
