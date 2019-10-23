@@ -1,4 +1,4 @@
-package dev.gressier.scalauserland.programs
+package dev.gressier.scalauserland.files.programs
 
 import dev.gressier.scalauserland.files.File
 

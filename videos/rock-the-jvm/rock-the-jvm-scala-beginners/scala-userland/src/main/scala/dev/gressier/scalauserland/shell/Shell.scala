@@ -1,6 +1,6 @@
 package dev.gressier.scalauserland.shell
 
-import dev.gressier.scalauserland.programs.{Exit, Program}
+import dev.gressier.scalauserland.files.programs.{Exit, Program}
 import dev.gressier.scalauserland.system.User
 
 import scala.annotation.tailrec
