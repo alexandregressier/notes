@@ -24,7 +24,7 @@ object Shell {
 
   @tailrec
   def prompt(): Unit = {
-    print(s"${Console.YELLOW}${user.name}${Console.WHITE}@${Console.BLUE}$wd ${Console.WHITE}$$${Console.RESET} ")
+    print(s"${Console.YELLOW}${user.name}${Console.WHITE}@${Console.BLUE}$wd${Console.WHITE}$$${Console.RESET} ")
 
     val input = StdIn.readLine().split(ifs)
 
