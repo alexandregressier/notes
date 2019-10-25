@@ -16,6 +16,8 @@ A personal collection of notes taken from computer-related books and videos.
 - [[./videos/introduction-to-sbt/introduction-to-sbt.org][Introduction to sbt]] - Kip Sigman
 - [[./videos/scala-testing/scala-testing.org][Scala Testing]] - Kip Sigman
 
+- [[./videos/functional-concurrency-with-zio/functional-concurrency-with-zio.org][Functional Concurrency with ZIO]] - Itamar Ravid
+
 ** Serverless architecture
 
 - [[./videos/production-ready-serverless/production-ready-serverless.org][Production-Ready Serverless]] - Yan Cui
