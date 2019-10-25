@@ -38,7 +38,6 @@ object Main extends App {
   val secondComputation: Future[Int] = Future(cpuBound(10))
 
   val zipped: Future[(Int, Int)] = firstComputation zip secondComputation // 2 cores are used concurrently
-  Thread.sleep(12000)
 
   println(zipped) // Prints `Future(Success((5000,10000)))` after 10,000 milliseconds
 
