@@ -1,5 +1,5 @@
-#+TITLE: Rock the JVM! Scala and Functional Programming for Beginners, Udemy - Notes
+#+TITLE: Functional Concurrency with ZIO, YouTube - Notes
 #+AUTHOR: Alexandre Gressier
 #+DATE: <2019-10-25 Fri>
 
-* Section 0: undefined
+*
