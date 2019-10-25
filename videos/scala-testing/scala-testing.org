@@ -1,6 +1,6 @@
 #+TITLE: Scala Testing, YouTube - Notes
 #+AUTHOR: Alexandre Gressier
-#+DATE: <2019-10-19 Fri>
+#+DATE: <2019-10-19 Sat>
 #+OPTIONS: \n:t
 
 * Notes
