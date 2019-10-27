@@ -1,0 +1,16 @@
+#+TITLE: Get Programming with Haskell, Manning - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-08-31 Sat>
+
+[[./hello/hello.hs]["Hello, world!" program in Haskell]]
+
+- [[./email/email.hs][Lesson 1. Getting started with Haskell]]
+
+* Unit 1. Foundations of functional programming
+
+- [[./functions/functions.hs][Lesson 2. Functions and functional programming]]
+- [[./lambdas/lambdas.hs][Lesson 3. Lambda functions and lexical scope]]
+- [[./1st-class-functions/1st-class-functions.hs][Lesson 4. First-class functions]]
+- [[./closures/closures.hs][Lesson 5. Closures and partial application]]
+- [[./lists/lists.hs][Lesson 6. Lists]]
+- [[./pattern-matching/pattern-matching.hs][Lesson 7. Rules for recursion and pattern matching]]

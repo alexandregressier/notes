@@ -6,6 +6,12 @@ A personal collection of notes taken from computer-related books and videos.
 
 * Books
 
+** Haskell
+
+- [[./books/get-programming-with-haskell/get-programming-with-haskell.org][Get Programming with Haskell]] - Will Kurt
+
+** Data science
+
 - [[./notebooks/data-science-bookcamp/data-science-bookcamp.org][Data Science Bookcamp, Ten Python projects]] - Leonard Apeltsin
 
 * Videos

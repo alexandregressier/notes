@@ -1,0 +1,11 @@
+# Compilation
+*
+!*/
+!*.*
+*.o
+
+# Tagging
+TAGS
+
+# Haskell
+*.hi
