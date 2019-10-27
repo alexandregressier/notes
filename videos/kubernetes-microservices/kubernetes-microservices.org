@@ -86,6 +86,7 @@ minikube can sometimes lock itself up
 For hanging issues on OSs other than Linux:
 #+BEGIN_SRC bash
 $ minikube start --bootstraper=localkube
+#+END_SRC
 (might be removed in future releases)
 
 If minikube hangs:
@@ -96,7 +97,7 @@ $ minikube start # recreate the vm
 #+END_SRC
 
 ~/.kube
-~/.minikubes
+~/.minikube
 
 Note: minikube seems really messy (at least in the recording)
 
@@ -352,7 +353,7 @@ $ kubectl exec webapp /bin/ls
 Get a shell into the pod's container (bash is not installed):
 #+BEGIN_SRC bash
 $ kubectl exec -it webapp sh
--i & -t: interactively (pass stdin to the container) with teletype (TTY) emulation
+# -i & -t: interactively (pass stdin to the container) with teletype (TTY) emulation
 / # cat /etc/*-release
 / # wget -qO- localhost
 #+END_SRC
