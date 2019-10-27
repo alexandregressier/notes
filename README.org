@@ -14,6 +14,7 @@ A personal collection of notes taken from computer-related books and videos.
 
 - [[./notebooks/data-science-bookcamp/data-science-bookcamp.org][Data Science Bookcamp, Ten Python projects]] - Leonard Apeltsin
 
+
 * Videos
 
 ** Scala
@@ -28,6 +29,11 @@ A personal collection of notes taken from computer-related books and videos.
 ** Serverless architecture
 
 - [[./videos/production-ready-serverless/production-ready-serverless.org][Production-Ready Serverless]] - Yan Cui
+
+** Kubernetes
+
+- [[./videos/kubernetes-microservices/kubernetes-microservices.org][Kubernetes Microservices]] - Richard Chesterwood
+
 
 * License
 

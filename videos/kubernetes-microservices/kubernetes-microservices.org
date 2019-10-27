@@ -1,0 +1,363 @@
+#+TITLE: Kubernetes Microservices, Manning - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-08-30 Fri>
+
+* 1. Introduction
+
+Start minikube for the first time:
+#+BEGIN_SRC bash
+$ minikube start
+#+END_SRC
+
+
+* 2. Welcome to Kubernetes
+
+* 2.1. Introducing Kubernetes
+
+K8s = container orchestration system
+Docker = containerization system
+
+Microservices: too many Docker containers too manage
+
+Google runs two billion containers in a single week (K8s)
+
+#+BEGIN_QUOTE
+  Orchestration is the automated arrangement, coordination, and management of computer systems, middleware, and services
+#+END_QUOTE
+
+Manifests capture the system's entire architecture
+
+AWS is used for the cloud K8s
+
+Originated from Google
+K8s is now independent from Google -> Now managed by the Cloud Native Foundation (CNF)
+CNF = 200+ organisations contributing
+
+Docker Swarm = Docker built-in orchestration system
+#1 advantage: built-in
+
+K8s = far richer but steeper learning curve
+K8s abstracts away the low level details of your underlying cloud platform
+
+There are some signs that Docker is starting to recognise that K8s is the orchestration system of choice
+
+* 2.2. Hand-on Project
+
+Use-case drive course
+Java-based application with Angular on the front end
+
+Fleet management system
+A lorry = A truck
+Fleet = /Flotte/
+
+
+* 3. Installing minikube
+
+* 3.1. Setting up Virtualization
+
+Installing K8s can be quite challenging
+
+minikube is a cut-down version
+
+Virtualization is required
+
+You can completely ignore the virtual machine
+
+minikube allows to be run directly on the host
+
+kubectl is the program for managing K8s
+
+* 3.2. (Windows 10 Professional Only): Setting up Hyper-V
+
+You cannot use Hyper-V while using VirtualBox
+
+* 3.3. Installing kubectl and minikube
+
+kubelet and kubeadm are undelying tools that are used to manage the K8s cluster
+#+BEGIN_SRC bash
+$ kubectl version
+#+END_SRC
+1.16 at the time of writing this
+
+minikube can sometimes lock itself up
+
+* 3.4. Troubleshooting minikube
+
+For hanging issues on OSs other than Linux:
+#+BEGIN_SRC bash
+$ minikube start --bootstraper=localkube
+(might be removed in future releases)
+
+If minikube hangs:
+#+BEGIN_SRC bash
+$ minikube stop # stop the vm
+$ minikube delete # remove the vm
+$ minikube start # recreate the vm
+#+END_SRC
+
+~/.kube
+~/.minikubes
+
+Note: minikube seems really messy (at least in the recording)
+
+
+* 4. Docker quickstart
+
+* 4.1. Docker Overview
+
+Docker enables us to create containers -> self-contained environments containing a complete Linux distribution
+The container will run in exactly the same way independently from the host environment
+- Dependencies
+- Versions
+- Environment variables
+
+* 4.2 Docker Containers vs Images
+
+2 important concepts:
+- Images (probably the most important): the definition of a container
+Think of it as a binary file that contains all of the software and things like environment variables, settings...
+- Container: a running image
+
+WAR file: website in an archive
+
+Docker images can be published to an image registry
+Most popular: hub.docker.com
+
+Docker Toolbox
+#+BEGIN_SRC bash
+$ docker image ls
+#+END_SRC
+
+Docker daemon needs to run on Linux
+
+Microsoft is working to build their own support for containers built into Windows
+
+IMPORTANT: Docker is already installed within the minikube vm
+
+Configure Docker to tell it to talk to the daemon inside the minikube vm:
+#+BEGIN_SRC bash
+$ minikube docker-env # provides the env vars to get the docker command to talk to the vm
+$ eval $(minikube docker-env)
+$ docker image ls
+$ docker ps # interesting to see how minikube works
+#+END_SRC
+
+~$ minikube docker-env~ works on the Windows CMD as well
+REM = begin of a  comment on windows CMD language
+
+* 4.3. Running Containers from DockerHub
+
+You can store public and private images on the docker hub
+
+Tags are used to publish different versions of an image
+
+Dockerfiles allows you to define what to package inside an image
+
+#+BEGIN_SRC dockerfile
+COPY /dist /usr/share/nginx/html
+#+END_SRC
+Copies the local web app to the container
+
+Download the image onto our local computer:
+#+BEGIN_SRC bash
+$ docker image pull richardchesterwood/k8s-fleetman-webapp-angular:release0-5
+#+END_SRC
+
+The name of an image is the user/image
+
+Run the image (i.e., turn it into a container):
+#+BEGIN_SRC bash
+$ docker container run -dp 8080:80 richardchesterwood/k8s-fleetman-webapp-angular:release0-5
+#+END_SRC
+($ docker run also exists)
+The image will be pulled automatically if not available locally
+-p: LHS: what port you want to expose to the outside world | RHS: the port on the container (defined)
+-d: run in detached mode
+
+Remember: you cannot visit the website if you are running it inside the minikube VM (w/o port configuration)
+
+Return the generated container id
+
+List the containers:
+#+BEGIN_SRC bash
+$ docker container ls
+#+END_SRC
+OR (different, e.g., list stopped containers)
+#+BEGIN_SRC bash
+$ docker ps -a
+#+END_SRC
+
+Get the minikube VM IP address:
+#+BEGIN_SRC bash
+$ minikube ip
+#+END_SRC
+
+IMPORTANT: really think of Docker containers as .exe for every possible server
+
+Stop a container:
+#+BEGIN_SRC bash
+$ docker container <container id> stop
+#+END_SRC
+
+IMPORTANT: you can type a single character if there is a unique container with an id beginning with that character
+
+Remove a container:
+#+BEGIN_SRC bash
+$ docker container rm
+#+END_SRC
+
+
+* 5. Getting Started with Kubernetes - Pods
+
+* 5.1. Pods Overview
+
+You can use K8s in non-Docker envs
+
+/Pods/ is the most basic unit/concept in K8s (unit of deployment)
+A group of one or more containers, with shared storage/network, and a specification for how to run the containers
+
+Goal: deploy a microservice architecture to the cloud
+Web containers + Microservices 1-6
+
+Without a container orchestration system, you would run a Docker container on different nodes with manual deployment
+
+K8s will be responsible for managing the starting and stoppping of these containers
+
+Concepts to define an architecture with K8s:
+- Pods
+- Replica sets
+- Services
+- Stateful sets
+- ...
+
+To put this simply: for every container that we are planning to deploy, we are creating a pod in K8s
+Think of them as wrappers for containers
+
+Most of the time: pods and containers have a 1 to 1 relationship
+WARNING: you would never have 2 different microservices inside a pod
+-> But is possible to have more than one container inside a Pod (e.g., a helper container; for logs for example)
+-> Helper containers: Side-car containers (apparently rare), file pullers...
+
+In the pre-configure MongoDB configuration, they use side-car containers
+
+K8s is going to manage pods:
+- Making sure that they are running
+- Watch resources usage
+
+A pod can manage containers that are coupled (a bit contrary to the microservice architecture)
+
+Rationale for Pods: https://kubernetes.io/docs/concepts/workloads/pods/pod/
+-> Also find there the API object section: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/#pod-v1-core
+
+Version of the K8s API = Version of K8s
+
+* 5.2. Writing a Pod
+
+#+BEGIN_SRC yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  containers:
+    - name: webapp
+      image: richardchesterwood/k8s-fleetman-webapp-angular:release0
+#+END_SRC
+
+apiVersion: required
+kind: defining an object of the given kind (starts with a Capital letter)
+metadata.name: required, give the pod a name (use a good naming scheme)
+spec.containers: generally, specify a single container (YAML list)
+name: give the container a name (the name in Docker, just like docker run --name), does not really matter
+image: which image the container is built from (IMPORTANT: prefer to put a :tag)
+command: optional, example: ["echo"]
+args: optional, arguments for the command, example: ["Hello, world!"]
+
+Note: most containers will come with a default command, but you can override it with command and args
+
+IMPORTANT: Manifests uses lowerCamelCase keys
+
+apiVersion is one of the most complicated parts of K8s
+
+In YAML, You must use spaces not tabs
+The recommended extension is .yaml
+
+YAML recommendations:
+https://stackoverflow.com/questions/19109912/do-i-need-quotes-for-strings-in-yaml
+
+Use '' for ignoring escape sequences
+
+* 5.3. Running a Pod
+
+Go in the directory containing your manifest
+
+List everything defined in the K8s cluster (Most used K8s command):
+#+BEGIN_SRC bash
+$ kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   9h
+#+END_SRC
+~service/kubernetes~ is a REST service exposed by the Kubernetes cluster
+
+FUNDAMENTAL: kubectl is sending commands to this service/kubernetes REST API
+
+Apply the manifest to the K8s cluster:
+#+BEGIN_SRC bash
+$ kubectl apply -f first-pod.yaml
+#+END_SRC
+
+Check that the pod was created:
+#+BEGIN_SRC bash
+$ kubectl get all
+$ kubectl get pod
+#+END_SRC
+
+Note: the entities can be plural or singular (i.e., pod[s])
+
+Pod status beginning lifecycle:
+Creating > Running
+
+The Docker image will be pulled with Docker if unable to be found
+
+FUNDAMENTAL: pods are not intended to be visible from outside the K8s cluster (e.g., port 80 is not exposed)
+(And no, Docker's EXPOSE is not what does that!)
+-> Solution: Use a K8s service
+-> Pods are designed to be completely isolated (i.e., only accessible from the cluster itself)
+
+REMEMBER: minikube ip to get the IP of the cluster (generally 192.168.99.100)
+
+Find out more information about the pod:
+#+BEGIN_SRC bash
+$ kubectl describe pod webapp
+#+END_SRC
+
+The events section (at the bottom) is useful, notably to check error and faults (this is your first place to seek info!)
+
+Pods are so basic that there is very little that you can do with them directly
+
+Just as with Docker, you can connect to the pod and execute a command against the pod:
+#+BEGIN_SRC bash
+$ kubectl exec webapp ls
+#+END_SRC
+OR
+#+BEGIN_SRC bash
+$ kubectl exec webapp /bin/ls
+#+END_SRC
+(useful when first setting up or debugging a cluster)
+(exec is similar in Docker)
+-> ls is executed on / by default (WORKDIR of Docker?)
+
+(Cygwin unfortunately does not work particularly well with interactive terminal commands, use PowerShell)
+
+Get a shell into the pod's container (bash is not installed):
+#+BEGIN_SRC bash
+$ kubectl exec -it webapp sh
+-i & -t: interactively (pass stdin to the container) with teletype (TTY) emulation
+/ # cat /etc/*-release
+/ # wget -qO- localhost
+#+END_SRC
+OR
+#+BEGIN_SRC bash
+/ # apk add --no-cache curl
+/ # curl localhost # You can specify protocol and port
+#+END_SRC
