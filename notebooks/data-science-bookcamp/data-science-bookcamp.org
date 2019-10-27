@@ -1,0 +1,5 @@
+#+TITLE: Data Science Bookcamp, Manning - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-10-27 Sun>
+
+1. [[./cs1-winning-strategy-in-a-card-game.ipynb][Case Study 1: Finding the winning strategy in a card game]]
