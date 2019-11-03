@@ -1,7 +1,7 @@
 #+TITLE: Functional Programming for Mortals with Scalaz - Notes
 #+AUTHOR: Alexandre Gressier
 #+DATE: <2019-11-03 Sun>
-
+#+OPTIONS: \n:t
 
 * About this Book
 
@@ -63,3 +63,198 @@ _Assumed ~import~s:_
   import scalaz._, Scalaz._
   import simulacrum._
 #+END_SRC
+
+
+* 1. Introduction
+
+Java 1.2: introduction of the (mutable) Collections API 
+-> Problem: runtime casting (e.g., ~(String)(collection.get(0))~)
+-> Solution: define domain objects that are effectively ~CollectionOfThings~
+
+Java 5: generics, allowing definitions such as ~Collection<Thing>~
+-> IMPORTANT: Martin Odersky authored the Java generics compiler
+-> He then created Scala w/ a stronger type system, immutable data and multiple inheritance
+-> Goal: fuse OOP and FP
+
+FP involves using immutable data
+One consequence of FP style: simpler programs that are easier to parallelise and distribute
+
+Scala's ~Future~ makes writing asynchronous applications easy
+-> But when a ~Future~ makes it into a return type, everything needs to be rewritten to accomodate it
+-> (Similar problem to Java 1.0)
+
+** TODO 1.1 Abstracting over Execution
+
+#+BEGIN_SRC scala
+  trait TerminalSync {
+    def read(): String
+    def write(t: String): Unit
+  }
+
+  trait TerminalAsync {
+    def read(): Future[String]
+    def write(t: String): Future[Unit]
+  }
+#+END_SRC
+
+_Problem A:_ how do we write generic code that does something as simple as echo tue user's input synchronously or
+asynchronously depending on our runtime implementation?
+_Naive solutions A:_
+- Write a synchronous version and wrap it with ~Future~ -> Determine which thread pool to uses
+- ~Await.result~ on the ~Future~ and introduce thread blocking
+
+
+_Solution A:_ write a common parent using the /higher kinded types/ (HKT) Scala language feature
+-> Enables to use a /type constructor/ (e.g., ~C[_]~) in the type parameters
+  -> FUNDAMENTAL: "whatever ~C~ is, it must take a type parameter"
+#+BEGIN_SRC scala
+  trait Foo[C[_]] {
+    def create(i: Int): C[Int]
+  }
+#+END_SRC
+
+~List~ is a type ctor b/c it takes a type (e.g., ~Int~) and constructs a type (~List[Int]~)
+#+BEGIN_SRC scala
+  object FooList extends Foo[List] {
+    override def create(i: Int): List[Int] = List(i)
+  }
+#+END_SRC
+
+~Foo~ can be implemented for anything w/ a type parameter hole (e.g., ~Either[String, _]~)
+_Problem B:_ error w/ ~create~:
+  "overriding type ~Int => Either[String, Int]~ does not conform to base type ~Int => C[Int]~"
+
+_Naive solution B:_ create a /type alias/ to trick the compiler into accepting it (using a ~_~ will not work):
+#+BEGIN_SRC scala
+  type EitherString[T] = Either[String, T]
+#+END_SRC
+
+FUNDAMENTAL: /type aliases/ do not define new types, they just use substitution and do not provide extra type safety
+-> E.g., the compiler substitutes ~EitherString[T]~ with ~Either[String, T]~
+-> Can be used to trick the compiler into accepting types with one hole when it would otherwise think there are two:
+#+BEGIN_SRC scala
+  object FooEitherString extends Foo[EitherString] {
+    override def create(i: Int): Either[String, Int] = Right(i)
+  }
+#+END_SRC
+
+_Solution B:_ use the kind projector compiler plugin to avoid the type alias
+-> Use the ~?~ (deprecated: use ~*~ instead) syntax to tell the compiler where the hole is:
+#+BEGIN_SRC scala
+  object FooEitherString extends Foo[Either[String, ?]] {
+    override def create(i: Int): Either[String, Int] = Right(i)
+  }
+#+END_SRC
+
+
+_Trick:_ ignore the type constructor ~C[_]~ by defining a type alias to be equal to its parameter:
+#+BEGIN_SRC scala
+  type Id[T] = T
+#+END_SRC
+
+_Example:_ ~Id[Int]~ <=> ~Int~
+
+~Id~ is a valid type constructor:
+#+BEGIN_SRC scala
+  object FooId extends Foo[Id] {
+    override def create(i: Int): Int = i
+  }
+#+END_SRC
+
+
+Define ~Terminal~ w/ a type constructor ~C[_]~:
+#+BEGIN_SRC scala
+  trait Terminal[C[_]] {
+    def read: C[String]
+    def write(t: String): C[Unit]
+  }
+
+  type Now[X] = X
+
+  trait TerminalSync extends Terminal[Now] { // `Now` as opposed to `Future`
+    override def read: String = ??? // IMPORTANT: please think of `def`s as variables w/ a type
+    override def write(t: String): Unit = ???
+  }
+
+  trait TerminalAsync extends Terminal[Future] {
+    override def read: Future[String] = ???
+    override def write(t: String): Future[Unit] = ???
+  }
+#+END_SRC
+
+~C~ can be thought of as /Context/ b/c we say "in the context of executing now" or "in the future"
+
+_Problem C:_ we know nothing about ~C~ and we cannot do anything with a ~C[String]~ for ~echo~
+_Solution C:_ implement an execution environment that allows us to:
+- Call a method resulting in ~C[T]~ that enables us to to do something w/ ~T~ (i.e., ~chain~)
+- Call a method that enables to wrap a value (e.g., the previous ~T~) as ~C[_]~ (i.e., ~create~)
+#+BEGIN_SRC scala
+  trait Execution[C[_]] {
+    def chain[A, B](c: C[A])(f: A => C[B]): C[B] // FUNDAMENTAL: the result type of `chain` is the result type of `f`
+    def create[B](b: B): C[B]
+  }
+
+  def echo[C[_]](t: Terminal[C], e: Execution[C]): C[String] = // Terminal 
+    e.chain(t.read) { in: String => // `t.read` result type is `C[String]` (which is either `String` or `Future[String]`)
+      e.chain(t.write(in)) { _: Unit =>
+        e.create(in)
+      }
+    }
+#+END_SRC
+
+The ~echo~ implementation is shareable between sychronous and asynchronous codepaths
+-> FUNDAMENTAL: ~Terminal[Now]~ can even be mocked and used in our tests w/o any timeouts
+
+_Problem D:_ the code for ~echo~ is horrible
+_Solution D:_ create a /Monad/ use the ~implicit class~ Scala feature with a  
+#+BEGIN_SRC scala
+  object Execution {
+    implicit class Ops[A, C[_]](c: C[A]) {
+      def flatMap[B](f: A => C[B])(implicit e: Execution[C]): C[B] =
+        e.chain(c)(f)
+      def map[B](f: A => B)(implicit e: Execution[C]): C[B] =
+        e.chain(c)(f andThen e.create)
+    }
+  }
+
+  def echo[C[_]](implicit t: Terminal[C], e: Execution[C]): C[String] =
+    t.read.flatMap { in: String =>
+      t.write(in).map { _: Unit =>
+        in
+      }
+    }
+#+END_SRC
+
+A monad provides a standard interface for composing and sequencing operations on some contained value(s)
+
+Since we used the ~flatMap~ and ~map~ method names, we can use /for comprehension/
+-> Which is just syntactic sugar over nested ~flatMap~ and ~map~
+#+BEGIN_SRC scala
+  def echo[C[_]](implicit t: Terminal[C], e: Execution[C]): C[String] =
+    for {
+      in <- t.read
+       _ <- t.write(in)
+    } yield in
+#+END_SRC
+
+~Execution~ has the same signature as the Scalaz trait ~Monad~ except:
+- ~chain~ is ~bind~ (a.k.a. ~flatMap~)
+- ~create~ is ~pure~ (a.k.a. ~map~, /identity/, /return/)
+
+Scalaz has the ~Id~ type alias
+
+VOCABULARY: we say that ~C~ is /monadic/ when there is an implicit ~Monad[C]~ available (here ~Ops~)
+
+
+TAKEAWAY: if we write methods that operate on monadic types, then we can write sequential code that abstracts over its
+execution context (monadic)
+
+_Examples of execution contexts:_
+- Synchronous and asynchronous executions (like here)
+- More rigourous error handling (where ~C[_]~ is ~Either[Error, _]~)
+- Managing access to volatile state
+- Performing I/O
+- Auditing the session
+
+-> See the implementation in the
+[[./src/main/scala/com/thisisscala/fpformortals/AbstractingOverExecution.scala][AbstractingOverExecution] class

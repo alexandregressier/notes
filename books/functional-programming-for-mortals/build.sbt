@@ -2,7 +2,7 @@ scalaVersion in ThisBuild := "2.12.6"
 scalacOptions in ThisBuild ++= Seq(
   "-language:_",
   "-Ypartial-unification",
-  "-Werror",
+  "-Xfatal-warnings",
 )
 
 libraryDependencies ++= Seq(
