@@ -1,0 +1,65 @@
+#+TITLE: Functional Programming for Mortals with Scalaz - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-11-03 Sun>
+
+
+* About this Book
+
+This book uses Scalaz 7.2 (v7.2.29 is the most recent at the time of writing those notes)
+-> The most popular, stable, principled, and comprehensive FP framework for Scala
+
+Earlier chapters encourage coding styles that will be later discredited
+
+GitHub repository: https://github.com/fommil/fpmortals/
+
+Studying the Scalaz source code is encouraged
+
+*The Red Book* is recommended as further reading
+
+
+* Copyleft notice
+
+_Licenses:_
+- Book: CC BY-SA 4.0
+- Snippets: CC0
+- Example application: drone-dynamic-agents
+
+
+* Thanks
+
+- [[https://skillsmatter.com/skillscasts/9904-london-scala-march-meetup#video]["All Roads Lead to Lambda", Juan Manuel Serrano]]
+- [[http://perevillega.com/understanding-free-monads]["On Free Monads", Pere Villega]]
+- [[https://www.youtube.com/watch?v=WDaw2yXAa50]["For: What is it Good For?", Dick Wall and Josh Suereth]]
+- [[https://www.youtube.com/watch?v=hGMndafDcc8]["Options in Futures, how to unsuck them", Erik Bakker]]
+- [[https://www.47deg.com/presentations/2017/06/01/ADT-for-the-win/]["ADTs for the Win!", Noel Markham]]
+- [[https://www.youtube.com/watch?v=QtZJATIPB0k]["Classy Monad Transformers", Sukant Hajra]]
+- [[https://lukajcb.github.io/blog/functional/2018/01/03/optimizing-tagless-final.html]["Optimizing Tagless Final", Luka Jacobowitz]]
+- [[https://www.youtube.com/watch?v=JPVagd9W4Lo]["Index your State", Vincent Marquez]]
+- [[http://www.haskellforall.com/2012/12/the-continuation-monad.html]["The Continuation Monad", Gabriel Gonzalez]]
+
+
+* Practicalities
+
+_~build.sbt~ for a Scalaz project:_
+#+BEGIN_SRC scala
+  scalaVersion in ThisBuild := "2.12.6"
+  scalacOptions in ThisBuild ++= Seq(
+    "-language:_",
+    "-Ypartial-unification",
+    "-Werror",
+  )
+
+  libraryDependencies ++= Seq(
+    "com.github.mpilquist" %% "simulacrum"  % "0.13.0",
+    "org.scalaz"           %% "scalaz-core" % "7.2.26",
+  )
+
+  addCompilerPlugin("org.spire-math"  %% "kind-projector" % "0.9.7")
+  addCompilerPlugin("org.scalamacros" %% "paradise"       % "2.1.1" cross CrossVersion.full)
+#+END_SRC
+
+_Assumed ~import~s:_
+#+BEGIN_SRC scala
+  import scalaz._, Scalaz._
+  import simulacrum._
+#+END_SRC
