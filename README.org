@@ -6,16 +6,21 @@ A personal collection of notes taken from computer-related books and videos.
 
 * Books
 
+** Scala
+
+- [[./books/functional-programming-for-mortals/functional-programming-for-mortals.org][Functional Programming for Mortals with Scalaz]] - Sam Halliday
+
 ** Haskell
 
 - [[./books/get-programming-with-haskell/get-programming-with-haskell.org][Get Programming with Haskell]] - Will Kurt
-
-- [[./books/functional-programming-for-mortals/functional-programming-for-mortals.org][Functional Programming for Mortals with Scalaz]] - Sam Halliday
 
 ** Data science
 
 - [[./notebooks/data-science-bookcamp/data-science-bookcamp.org][Data Science Bookcamp, Ten Python projects]] - Leonard Apeltsin
 
+* Courses
+
+- [[./courses/functional-programming-principles-in-scala/functional-programming-principles-in-scala.org][Functional Programming Principles in Scala]] - Martin Odersky
 
 * Videos
 

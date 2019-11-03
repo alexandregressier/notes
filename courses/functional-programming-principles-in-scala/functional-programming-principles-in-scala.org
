@@ -1,0 +1,16 @@
+#+TITLE: Functional Programming Principles in Scala, Coursera - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-11-03 Sun>
+
+* Course Introduction
+
+*SBT:* Scala Build Tool
+
+* Tools Setup for Linux
+
+Display basic information about sbt:
+#+BEGIN_SRC bash
+  $ sbt about
+#+END_SRC
+
+sbt 1.x can be used for projects requiring sbt 0.12.x, but not the other way around
