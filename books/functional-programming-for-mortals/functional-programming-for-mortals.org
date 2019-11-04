@@ -83,7 +83,7 @@ Scala's ~Future~ makes writing asynchronous applications easy
 -> But when a ~Future~ makes it into a return type, everything needs to be rewritten to accomodate it
 -> (Similar problem to Java 1.0)
 
-** TODO 1.1 Abstracting over Execution
+** 1.1 Abstracting over Execution
 
 #+BEGIN_SRC scala
   trait TerminalSync {
@@ -256,5 +256,4 @@ _Examples of execution contexts:_
 - Performing I/O
 - Auditing the session
 
--> See the implementation in the
-[[./src/main/scala/com/thisisscala/fpformortals/AbstractingOverExecution.scala][AbstractingOverExecution] class
+-> See the implementation in the [[./src/main/scala/com/thisisscala/fpformortals/AbstractingOverExecution.scala][AbstractingOverExecution]] class
