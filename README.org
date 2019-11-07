@@ -24,6 +24,7 @@ A personal collection of notes taken from computer-related books and videos.
 
 * Videos
 
+
 ** Scala
 
 - [[./videos/rock-the-jvm/rock-the-jvm-scala-beginners/rock-the-jvm-scala-beginners.org][Rock the JVM! Scala and Functional Programming for Beginners]] - Daniel Ciocîrlan
