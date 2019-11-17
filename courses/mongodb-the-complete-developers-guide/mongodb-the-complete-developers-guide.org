@@ -64,7 +64,7 @@ New offering: Stitch (serverless backend solution)
 - Real-Time sync
 
 
-* 6.
+* 6. Installing MongoDB
 
 MongoDB runs on all OSs
 
@@ -107,3 +107,43 @@ The data directory mainly contains .wt (WiredTiger) files
 #+BEGIN_QUOTE
   Catalina has a surprise change: it won't allow changes to the root directory
 #+END_QUOTE
+
+
+* 8. Time To Get Started!
+  
+Authenticate:
+$ mongo -u root -p example
+
+> cls
+Clear the screen
+
+> show dbs
+Show databases
+
+3 default dbs that store metadata:
+- admin
+- config
+- local
+
+> use shop
+Connect to the database 'shop' and create it if unavailable
+
+db refers to the current database
+> db
+shop
+By default, you are in a unknown database called test
+
+> db.products.insertOne({name: "A book", price: 12.99})
+Create the shop db and the products collection by inserting one document in it
+
+Note: in the shell, `""` can be omitted for keys (will be added when stored)
+
+MongoDB automatically creates a unique ID for any document inserted
+
+> db.products.find()
+Find all the documents in the collection
+
+> db.products.pretty()
+Prettify the output
+
+The order of the keys in the inserted document is unchanged
