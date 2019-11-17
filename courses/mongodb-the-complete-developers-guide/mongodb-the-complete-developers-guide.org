@@ -157,3 +157,25 @@ To work with a specific language, you must use a driver:
 https://docs.mongodb.com/ecosystem/drivers/
 
 You use the same commands as in the shell when using a driver
+
+
+* 10. MongoDB + Clients: The Big Picture
+
+Databases are just a set of organized files lying on a filesystem
+
+Drivers interact with the MongoDB server (just like the shell)
+
+MongoDB does not write data directly into files
+-> It interacts with a storage engine
+
+Wired Tiger is the default storage engine for MongoDB
+It can be replaced with a custom one
+-> Wired Tiger is performant enough
+
+On the contrary to drivers, the mongo shell is also used for database administration
+
+Reading+Writing data in files is slow
+Reading+Writing data in memory is fast
+-> The storage engine actually does both
+
+Writing in files for the storage engine is similar to swapping
