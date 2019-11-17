@@ -1,0 +1,30 @@
+#+TITLE: MongoDB - The Complete Developer's Guide, Udemy - Notes
+
+* 2. What is MongoDB?
+
+MongoDB is database
+The enteprise backing MongoDB is also called MongoDB
+
+The name is stemming from the word humongous
+-> Meant to store a lot of data
+
+MongoDB's server provides multiple databases
+Collections are stored inside a database
+Documents are store inside collections
+
+Inside a collection, you are schemaless
+
+You can structure your data in MongoDB though
+
+Documents are stored in the JSON format
+A JSON document is delimited by `{}`
+
+A key is composed of a name and a value separated by a colon
+The name must be surrounded by `""`
+Keys names are often referred to as simply keys
+Values can be strings, numbers, booleans, lists, and even nested data (i.e., embedded documents)
+-> Enables you to create complex data and store it in a single document (which is more efficient that resolving relation in a RDB)
+
+Behind the scenes, MongoDB converts the JSON into a binary format called BSON (more efficient to query and store)
+
+MongoDB is flexible and usable
