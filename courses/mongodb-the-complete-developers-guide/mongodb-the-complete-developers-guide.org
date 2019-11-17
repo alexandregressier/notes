@@ -1,4 +1,7 @@
 #+TITLE: MongoDB - The Complete Developer's Guide, Udemy - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-11-17 Sun>
+
 
 * 2. What is MongoDB?
 
@@ -27,4 +30,14 @@ Values can be strings, numbers, booleans, lists, and even nested data (i.e., emb
 
 Behind the scenes, MongoDB converts the JSON into a binary format called BSON (more efficient to query and store)
 
-MongoDB is flexible and usable
+MongoDB is flexible, performant, and usable
+
+
+* 4. The Key MongoDB Characteristics (and how they differ from SQL Databases)
+
+Schemaless can lead to messy data b/c it your responsability to work with clean data
+
+You also work with less relations in MongoDB b/c you store data together
+
+It does not need to merge data most of the time
+-> Improves performance
