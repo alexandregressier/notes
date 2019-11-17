@@ -2,6 +2,7 @@
 #+AUTHOR: Alexandre Gressier
 #+DATE: <2019-11-17 Sun>
 
+Most recent version at the time of writing: 4.2.1
 
 * 2. What is MongoDB?
 
@@ -61,3 +62,48 @@ New offering: Stitch (serverless backend solution)
 - Serverless functions
 - Database triggers
 - Real-Time sync
+
+
+* 6.
+
+MongoDB runs on all OSs
+
+Community server VS Enterprise server
+
+MongoDB installation directory contains a bin/ directory that should be added to path
+
+MongoDB packages
+
+- mongodb-org: A metapackage that will automatically install the four component
+  packages listed below.
+
+- mongodb-org-server: Contains the mongod daemon, associated init script, and a
+  configuration file (/etc/mongod.conf). You can use the initialization script
+  to start mongod with the configuration file. For details, see Run MongoDB
+  Community Edition.
+
+- mongodb-org-mongos: Contains the mongos daemon.
+
+- mongodb-org-shell: Contains the mongo shell.
+
+- mongodb-org-tools: Contains the following MongoDB tools: mongoimport bsondump,
+  mongodump, mongoexport, mongofiles, mongorestore, mongostat, and mongotop.
+
+`mongo` is the name of the client shell that connects to the daemon
+
+#+BEGIN_SRC bash
+  $ mongo --host 'mongodb://127.0.0.1:27017' --username root --password example
+#+END_SRC
+
+Stopping the MongoDB server service on Windows: `net stop MongoDB`
+
+Starting the MongoDB server: `mongod`
+IMPORTANT: on Linux and macOS, the default data directory is `/data/db`
+-> Or `mongod --dbpath 'specialDir'` to specify it
+-> On Windows, `data/db` is inside the installation directory
+
+The data directory mainly contains .wt (WiredTiger) files
+
+#+BEGIN_QUOTE
+  Catalina has a surprise change: it won't allow changes to the root directory
+#+END_QUOTE
