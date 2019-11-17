@@ -147,3 +147,13 @@ Find all the documents in the collection
 Prettify the output
 
 The order of the keys in the inserted document is unchanged
+
+
+* 9. Shell vs Drivers
+
+The Mongo shell is language agnostic (/neutral ground/)
+
+To work with a specific language, you must use a driver:
+https://docs.mongodb.com/ecosystem/drivers/
+
+You use the same commands as in the shell when using a driver
