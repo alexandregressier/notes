@@ -6,6 +6,10 @@ A personal collection of notes taken from computer-related books and videos.
 
 * Books
 
+** Kotlin
+
+- [[./books/the-joy-of-kotlin/the-joy-of-kotlin.org][The Joy of Kotlin]] - Pierre-Yves Saumont
+ 
 ** Scala
 
 - [[./books/functional-programming-for-mortals/functional-programming-for-mortals.org][Functional Programming for Mortals with Scalaz]] - Sam Halliday
@@ -18,12 +22,13 @@ A personal collection of notes taken from computer-related books and videos.
 
 - [[./notebooks/data-science-bookcamp/data-science-bookcamp.org][Data Science Bookcamp, Ten Python projects]] - Leonard Apeltsin
 
+
 * Courses
 
 - [[./courses/functional-programming-principles-in-scala/functional-programming-principles-in-scala.org][Functional Programming Principles in Scala]] - Martin Odersky
+ 
 
 * Videos
-
 
 ** Scala
 
