@@ -4,6 +4,7 @@
 
 Kotlin's version at the time of writing: 1.3.61
 
+
 * Preface
 
 Kotlin appeared in 2011
@@ -25,6 +26,106 @@ Java's promises:
 Problems w/ Java:
 - The template types does not support primitives and therefore requires many conversions
 - Checked exceptions are often wrapped into unchecked ones
+  
+Primitives that are unsupported in Java 8 generic functions: ~byte~, ~short~, and ~float~
 
 Kotlin supports both mutable and immutable references, but promotes the latter
 Kotlin has a great part of the functional abstractions that let you avoid control structures
+
+
+* About this book
+
+Goals of this book:
+- Learn the Kotlin language
+- Learn techniques developed long ago in many different environments coming mostly from functional programming
+- Pragmatic safe programming
+-> Does not mean that you should only use Kotlin for writing safer programs, and even less that only Kotlin allows that
+
+Most of these techniques has been accomplished through struggling to overcome Java limitations
+Most of the best practices from the imperative world are obsolete b/c they were designed on older less powerful computers
+
+Techniques covered in this book:
+
+** Push abstraction further
+
+Ditching the hassle of the Von Neumann architecture
+Recognizing common patterns in different computations and abstracting them in order to avoid rewritting them
+
+** Immutability
+
+#+BEGIN_QUOTE
+  The transition from mutable to immutable accoutning was made in the 15th century, and the principle of immutability
+  has been recognized since then as the main element of safety for accounting. This principle also applies to
+  programming.
+#+END_QUOTE
+
+** Referential transparency
+
+Replace any function call by its value
+
+Variations in results only depend on variation in input and not external conditions
+-> Enables you to write *deterministic programs* (that you can predict and reason about)
+
+Safer, easier to compose, maintain, update and to test
+
+** Encapsulated state mutation sharing
+
+Immutable data is by design protected against accidental sharing state of mutation
+-> Prevent problems such as deadlocks, livelock, thread starvation, and stale data
+
+To benefit from cooperation between parallel or concurrent threads, you must share state mutation
+-> This specific use case can be abstracted and encapsulated so that it can be reused w/o risk b/c it is written once
+
+** Abstracting control flow and data structures
+
+Control structures = iterative + conditional structures
+
+More and more abstractions: the ~for each~ loop
+
+Another problem encountered w/ ~while~ loops: that sharing of mutable state although a single thread is used
+
+** Using the right types
+
+#+BEGIN_QUOTE
+  In traditional programming, general types such as ~int~ and ~String~ are used to represent quantities w/o taking units
+  into account. As a consequence, it is very easy to mess w/ these types (e.g, adding miles to gallons, dollar to
+  minutes).
+#+END_QUOTE
+
+Using /value types/ can completely eliminate this problem (even if the language does not have a true implementation for
+them)
+
+** Laziness
+
+*Strict* VS *Lazy* evaluation
+
+Strict: arguments are evaluated before being passed to a function
+
+*Programming is essentially based upon laziness*:
+E.g., branches from ~if else~ structures are lazy: they are evaluation depending on the result of the condition
+
+Making explicit use of laziness enable better safety
+
+
+*Parameterized function calls* (or variance) is a powerful concept not often used in Java
+
+This book is intended to be read sequentially b/c the concepts presented in each chapter are built upon the previous
+ones
+
+You must try to solve the plethora of exercices on your own
+
+IntelliJ IDEA is a far superior IDE to program in Kotlin when compared to Eclipse
+
+Solutions:
+https://github.com/pysaumont/fpinkotlin
+
+The techniques presented in this book are different from the traditional and imperative ones
+-> But different does not mean harder
+
+#+BEGIN_QUOTE
+  Learning new techniques is like learning a foreign language. Just as you cannot efficienlty think in one language and
+  translate to another, you cannot think in traditional programming based upon state mutation and control flow and
+  translate your code to functions handling immutable data.
+#+END_QUOTE
+
+/Idiomatic/
