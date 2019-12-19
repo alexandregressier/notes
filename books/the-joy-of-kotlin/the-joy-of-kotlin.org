@@ -1,0 +1,30 @@
+#+TITLE: The Joy of Kotlin, Manning - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2019-12-19 Thu>
+
+Kotlin's version at the time of writing: 1.3.61
+
+* Preface
+
+Kotlin appeared in 2011
+Created by JetBrains
+
+Unlike other JVM languages (e.g., Scala), Kotlin interacts w/ Java at the *source level* whereas they interact at the
+*library level*
+-> They have to be built as separate projects
+
+Kotlin was adopted by Gradle which allows using the same language for *the build and what is built*
+
+Google adopted Kotlin as an official language for Android b/c the version of Java under it is 6
+
+Java's promises:
+- "Write once, run anywhere"
+- Backward compatibility (not always repected though) -> Has constantly played against Java's evolution
+- Make program safer by using checked exceptions
+
+Problems w/ Java:
+- The template types does not support primitives and therefore requires many conversions
+- Checked exceptions are often wrapped into unchecked ones
+
+Kotlin supports both mutable and immutable references, but promotes the latter
+Kotlin has a great part of the functional abstractions that let you avoid control structures
