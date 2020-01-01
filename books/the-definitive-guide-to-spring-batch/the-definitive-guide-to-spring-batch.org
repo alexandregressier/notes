@@ -1,0 +1,360 @@
+#+TITLE: The Definitive Guide to Spring Batch
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2020-01-01 Wed>
+
+Spring Batch version at the time of writing: 4.2.1
+
+Modern *Finite* Batch Processing in the Cloud
+
+Michael T. Minella
+
+Spring Batch
+Spring Cloud Task
+
+JSR-352 = Java Batch
+-> Spring Batch fed it
+
+Spring Batch founder: Dave Syer
+Spring founder: Rod Johnson
+
+Spring Retry
+
+Spring Batch has a state-machine vision of the world
+
+Spring Batch 1.0 launch = 2008
+Spring Batch 2.0 launch = 2010
+
+/chunk/: a group of items that can be processed together, allowing excellent opportunities for increased efficiency and
+scalability
+
+distributed processing
+parallel processing
+
+Spring Batch 3.0:
+- @EnableBatchProcessing
+- Shift from XML based configuration to Java
+
+Java 8 is the baseline of Spring Batch 4.0
+- Fluent-style configuration builders
+- Connection w/ Spring Cloud Data Flow
+- Industrialization of distributed processing
+
+
+* Chapter 1 - Batch and Spring
+
+Batch processing = a niche topic (rare are the talks about it)
+-> Stream processing is more popular
+
+/401(k) statements/, emails, point-of-sale terminal in fast foods, product suggestions, orchestrating big data tasks are
+example of a batch application
+
+Batch processing rationale:
+- You do not always have all the required information immediately (e.g., a monthly reports that waits the end of the
+  month)
+- Makes a good business sense (e.g., processing all the orders placed into delivery)
+- A better use of resources: in data science, data model processing occurs in 2 phases:
+  - Generation of the model (make sens to do outside of a streaming use case via batch)
+  - Scoring new data agains that generated model (fast)
+
+In some cases, batch applications enable us to save money (e.g., orchestrating the venue of delivery trucks)
+
+
+** History of Batch Processing
+
+History of batch processing is taking a look into the history of computing itself
+
+1951: UNIVAC became the first commercially produced computer (considered as the first batch processor as well)
+(prior to that, computers were ad-hoc)
+
+Most application you develop have an element of interaction (e.g., RESTful API, button)
+Batch processing (= the oppposite): the processing of a finite amount of data without interaction or interuption
+Once started, a batch process runs to some form of completion w/o any intervention
+
+High-level languages also influenced Batch processing (particularly COBOL)
+
+cron jobs have kicked off ad-hoc processes on UNIX servers
+
+Interface21 are the original oauthors of the Spring Framework, now part of Pivotal)
+
+Spring Batch is the first industry standard batch processing framework
+
+Mainframe computers were often dedicated to batch processing
+
+https://www.cnet.com/news/accenture-jumps-into-open-source-in-a-big-way/
+
+2.0.0: replacing support for JDK 1.4 with 1.5+, chunk-based processing, improved configuration options and scalability
+3.0.0: implementation of the new Java Batch standard (JSR-352)
+4.0.0: Java-based configuration in the context of Spring Boot
+
+
+** Batch challenges
+
+Since by essence Batch application cannot be interacted w/, the ability of users to interact w/ your software is not a
+problem
+-> Security concerns and data validation are still required
+
+batch = autonomous process
+
+logging and notifications are the batch's feedback
+
+Batch processing offers unique problems
+
+Maintainability, usability, scalability are different in regards to batch processing
+- Usabilty is about the code: error handling and its maintainability (component extensibility, change consequences w/
+  unit test, understanding failures)
+- Scalability: how to cope w/ input that have millions of records (scalability with interactive software is often not a
+  big burden)
+- Availablity: batchs are not 24/7, they typically have an apppoitment (when the required resources are available)
+  Often useful to run batch when there is less activity (typically at night)
+  - Can you run when you need to?
+  - Can you get the job done in the time alloted so you do not impact other systems
+- Security: not centered about infiltration, but rather around keeping data secure
+  - Are sensitive database fields encrypted?
+  - Are you logging personal information by accident?
+  - How about access to external systems (e.g., credentials)?
+  - Data validation?
+
+In a nutshell: w/ batch processes, you get to focus more on solving technical issues that debugging the latest JS
+framework
+
+
+** Why do batch processing in Java?
+
+6 reasons:
+1. Maintainability: w/ batch processing, the code generally has a much longer life (no one see batch code) Spring
+   provides testability and abstractions (e.g., database configuration is declarative). Spring Batch enables
+   transactions and commit counts, so you do not have to manage where you are in the process and what to when somethings
+   fails
+  
+2. Flexibility: provided by the JVM (write once, run anywhere)
+   Also share code from system to system (e.g., use the same services or POJOs as in your other applications)
+   Also from the scalability of scaling a batch process:
+   - Mainframe: limited additional capacity for scalability (writing code involving parallel actions)
+   - Custom processing: from scratch in Java (same issues for load balancing, communication, reliability)
+   Your time is probably better spent writing business logic instead of reinventing the wheel
+   - Java & Spring Batch: putting pieces together in a maintainable way is very difficult (single or multiple machines,
+   scale using cloud resources, transaction rollback and commit counts)
+
+In addition to technical issues, finding qualified development resources to code a maintain is equally important
+
+Spring Batch:
+- Follows Spring conventions and usees Spring tools as well as any other Spring based application
+- Part of Spring Boot
+
+One of main advantage of Java: the community support
+Support can be bought as well
+
+Spring Batch is the cheapest option available (only recurring costs are for develpment salaries, support contacts, and
+infrastructure)
+
+Java is far from being perfect, but it is by far the most pragmatic programming language
+
+
+** Other uses for Spring Batch
+
+The idea: replacing mainframes running on COBOL w/ Spring Batch
+
+The most common use case for Spring Batch: ETL processing (i.e., moving data around from one format to another)
+-> Chunk-based processing and extreme scaling capabilities make it a natural fit for ETL workloads
+
+Another use case: data migration
+The risk: developing poor ad-hoc solutions (e.g., lacking data integrity controls)
+-> Commit counts and rollback functionnality are included
+
+#+begin_quote
+As chipmakers approach the limits of Moore's Law, developers realize that the only way to continue to increase the
+performance of apps is not to process single operations faster, but to process more operations in parallel.
+#+end_quote
+
+Apache Spark is an example of framework that exploit both multicore processors and the numerous server available
+-> But requires you to alter your code and data to fit their algorithms and data structures
+-> Spring Batch enables you to use the same objects and datasources
+
+W/ Spring Batch, any step part of the batch process can spawn workers that are orchestrated by a master
+
+Another use case: orchestration of workloads
+Typically, a batch process is compose of several steps
+It requires the coordination of many decoupled steps to be orchestrated (e.g., two steps results from a single one)
+
+Spring Cloud Data Flow can use Spring Batch to handle /composed tasks/
+
+You can also come to constant or 24/7 processing: systems receive a constant or near constant feed of data
+/backlog/: issue for not processing data fast enough
+-> It may be more performant to batch the data into chunks to be processed at once rather than continually
+
+IMPORTANT: w/ Spring Batch, you can read messages from a queue!!!
+-> Batch them into chunks
+-> Process them together in a never-ending loop
+
+-> Thus you can increase throughput in high-volume situations
+
+Spring Batch is designed for mainframe-like processing
+
+
+** The Spring Batch framework
+
+Commonly refered as "Spring Batch"
+
+Developed as colloboration between Accenture and SpringSource as a standards-based way to implement common batch
+patterns and paradigms
+
+Features:
+- Data validation
+- Formatting of output
+- Ability complex business rules in reusable way
+- Ability to handle large data sets
+
+Spring Batch makes sense if you are familiar w/ Spring
+
+Spring Batch architecture:
+- Application
+  - Core
+  - Infrastructure
+
+Application: consists of all custom code and configuration used to build out your batch processses
+-> Business logic, services..., as well as the configuration of how you structure your jobs
+-> Wraps the other two layers: application works w/ the core and sometimes you need custom pieces of infrastructure
+(e.g., custom readers and writers)
+
+Core: contains all the leements that define the batch domain (e.g., `Job` and `Step` interfaces)
+-> Also interfaces used to execute a Job: `JobLauncher` and `JobParameters`
+
+Infrastructure: in order to do any processing, you need to read and write from files, databases...
+-> You must be able to handle what to when a job is retried after a failure
+-> Considered as common infrastructure
+
+IMPORTANT: Spring Batch is NOT nor has a *scheduler*
+-> There is no way within the framework to schedule a job to run at agiven time or absed on a given event
+-> Other ways: cron jobs, Quartz, enterprise schedulers like Control-M
+
+
+*** Defining Jobs w/ Spring
+
+Batch processes have a number of different domain-specific concepts:
+- /Job/: a process that executes from start to finish w/o interruption or interaction
+  Can consist of a number of steps
+  There may input & output related to each step
+  When a step fails, it may or may not be repeatable
+  The flow of a job may be conditional
+
+Spring Batch provides classes, interfaces, XML schemas, and Java configuration utilities that define those concepts
+using Java to divide concerns appropriately and wire them together in a way familiar to who have used Spring
+
+
+#+BEGIN_SRC java
+  @Bean
+  public AccountTasklet accountTasklet() {
+      return new AccountTasklet();
+  }
+
+  @Bean
+  public Job accountJob() {
+      final Step accountStep = this.stepBuilderFactory
+          .get("accountStep")
+          .tasklet(accountTasklet())
+          .build();
+
+      return this.jobBuilderFactory
+          .get("accountJob")
+          .start(accountStep)
+          .build();
+  }
+#+END_SRC
+
+2 beans are created:
+- `AccountTasklet`: a custom component where the business logic for the step will live
+   Spring Batch will call its single method `execute()` over and over, each call in a new transaction, until the
+   `AccountTasklet` indicates that it is done
+- `Job`: an acutal Spring Batch Job
+  A single step w/ a tasklet is defined here
+  IMPORTANT: Spring Boot will find this Job and execut it automatically on the startup of our application
+
+  
+Tasklet: an interface, which will be called to perform a single task only
+
+
+*** Managing Jobs
+
+One-shot Java programs require a more robust approach
+
+Features included w/ Spring Batch (most of them are enable by default):
+- Keep the state of a job for re-execution
+- Maintaining data integrity when a job fails through transaction management
+- Saving performance metrics of past job execution for trending
+
+
+*** Local and remote parallelization
+
+Batch jobs scaling is critical to any enterpise batch solution
+
+Different ways w/ Spring Batch:
+- Simple thread-based implementation where each commit interval is processed in its own thread
+- Running full steps in parallel
+- Configuring a grid of workers that are fed units of work from a remote master via /partitioning/
+- Parallel chunk/step processing, remote chunk processing
+
+
+*** Standardizing I/O
+
+IMPORTANT: XML is streamed, never loaded as a whole
+
+Simple configuration for reading in/writing out flat files w/ complex formats, XML, databases or NoSQL stores
+
+-> Abstractions are good for maintainability
+
+
+*** The rest of the Spring Batch ecosystem
+    
+Can interact, be extended, be complemented w/ other Spring projects
+
+
+**** Spring Boot
+
+Introduced in 2014
+
+Opiniated approach for developpping applications
+
+The standard way of developping Spring applications
+
+Provides facilities for packaging, deploying, and lauching all Spring workloads including batch
+
+Serves as the pillar in the cloud native story provided by Spring Cloud
+
+Spring Boot is the primary method for developing batch application for this book
+
+
+**** Spring Cloud Task
+
+Under the Spring Cloud umbrella
+
+Provides facilities for executing finite tasks in a cloud environment
+Targets finite workloads (and thus compatible for batch processing)
+
+Provides a number of extensions to Spring Batch including the publishing of informational messages
+-> E.g., job starts/finishes, step starts/finishes)
+
+Provides the ability to scale batch jobs dynamically (which constrasts with the static ways provided by Spring Batch)
+
+
+**** Spring Cloud Data Flow
+
+A tool for orchestrating microservices on a cloud platform (CloudFoundry, Kubernetes, Local)
+
+Administration and orchestration toolset to do things like start and stop jobs and view the statistics of previous job
+runs
+
+Integrated w/ Spring Batch
+
+IMPORTANT: you can develop batch applications as microservices
+-> Enables you to deploy them in a dynamic way using Spring Cloud Data Flow
+
+
+**** And *all* the features of Spring
+
+- Dependency injection
+- AOP
+- Transaction management
+- Templates/helpers for most common tasks (e.g, JDBC, JMS, email)
+- Scalability & Reliability
+- Adminstration applications
+
