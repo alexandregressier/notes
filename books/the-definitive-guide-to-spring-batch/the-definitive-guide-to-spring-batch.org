@@ -27,11 +27,11 @@ Spring Batch 2.0 launch = 2010
 /chunk/: a group of items that can be processed together, allowing excellent opportunities for increased efficiency and
 scalability
 
-distributed processing
-parallel processing
+Distributed processing
+Parallel processing
 
 Spring Batch 3.0:
-- @EnableBatchProcessing
+- `@EnableBatchProcessing`
 - Shift from XML based configuration to Java
 
 Java 8 is the baseline of Spring Batch 4.0
@@ -66,7 +66,7 @@ History of batch processing is taking a look into the history of computing itsel
 1951: UNIVAC became the first commercially produced computer (considered as the first batch processor as well)
 (prior to that, computers were ad-hoc)
 
-Most application you develop have an element of interaction (e.g., RESTful API, button)
+Most applications you develop have an element of interaction (e.g., RESTful API, button)
 Batch processing (= the oppposite): the processing of a finite amount of data without interaction or interuption
 Once started, a batch process runs to some form of completion w/o any intervention
 
@@ -74,7 +74,7 @@ High-level languages also influenced Batch processing (particularly COBOL)
 
 cron jobs have kicked off ad-hoc processes on UNIX servers
 
-Interface21 are the original oauthors of the Spring Framework, now part of Pivotal)
+Interface21 are the original authors of the Spring Framework, now part of Pivotal
 
 Spring Batch is the first industry standard batch processing framework
 
@@ -93,9 +93,9 @@ Since by essence Batch application cannot be interacted w/, the ability of users
 problem
 -> Security concerns and data validation are still required
 
-batch = autonomous process
+Batch = autonomous process
 
-logging and notifications are the batch's feedback
+Logging and notifications are the batch's feedback
 
 Batch processing offers unique problems
 
@@ -142,7 +142,7 @@ Spring Batch:
 - Part of Spring Boot
 
 One of main advantage of Java: the community support
-Support can be bought as well
+Commercial support can be bought as well
 
 Spring Batch is the cheapest option available (only recurring costs are for develpment salaries, support contacts, and
 infrastructure)
@@ -357,4 +357,3 @@ IMPORTANT: you can develop batch applications as microservices
 - Templates/helpers for most common tasks (e.g, JDBC, JMS, email)
 - Scalability & Reliability
 - Adminstration applications
-
