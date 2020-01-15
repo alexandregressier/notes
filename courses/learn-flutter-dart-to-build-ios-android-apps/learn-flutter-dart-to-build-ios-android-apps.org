@@ -4,6 +4,10 @@
 
 Flutter version at the time of writing: v1.13.9
 
+* 1 - Introduction
+
+** What is Flutter?
+
 Flutter: build native cross-platform apps
 Dart
 Single codebase
@@ -24,7 +28,7 @@ Syntax similar to JS, Java, C#
 Flutter is built in Dart
 
 
-* Flutter architecture
+** Flutter architecture
 
 Build UI as code (as opposed to a visual editor)
 -> /Widget tree/
@@ -37,7 +41,7 @@ IMPORTANT: in Flutter, everything is a /widget/ (window gadget)
 (Cupertino vs Material)
 
 
-* How is it compiled to native apps
+** How is it compiled to native apps
 
 - Flutter API
 - Dart code -> To different native codes via the Flutter SDK
@@ -50,13 +54,13 @@ IMPORTANT: Flutter does not use platform primitives (e.g., no UIButton from iOS 
 -> Great control
 
 
-* Flutter versions
+** Flutter versions
 
 Flutter versions change frequently
 -> But no breaking changes (bug fixes, small improvements)
 
 
-* Installing Flutter
+** Installing Flutter
 
 Flutter is an SDK you have to uncompress
 
@@ -76,11 +80,18 @@ $ flutter doctor
 
 Update PATH:
 #+BEGIN_SRC bash
-## Dart
-[ -d "/usr/lib/dart/bin" ] && export PATH="$PATH:/usr/lib/dart/bin"
+  # Homes
+  export ANDROID_HOME="$HOME/sdk/android/sdk"
 
-## Flutter
-[ -d "$HOME/sdk/flutter/bin" ] && export PATH="$PATH:$HOME/sdk/flutter/bin"
+  ## Dart
+  [ -d "/usr/lib/dart/bin" ] && export PATH="$PATH:/usr/lib/dart/bin"
+
+  ## Flutter
+  [ -d "$HOME/sdk/flutter/bin" ] && export PATH="$PATH:$HOME/sdk/flutter/bin"
+
+  ## Android (VERIFIED!)
+  [ -d "$HOME/sdk/android/tools" ] && export PATH="$PATH:$HOME/sdk/android/tools"
+  [ -d "$HOME/sdk/android/platform-tools" ] && export PATH="$PATH:$HOME/sdk/android/platform-tools"
 #+END_SRC
 
 You also have a ~/.flutter file
@@ -108,3 +119,62 @@ IntelliJ > Tools > Android > AVD (Android Virtual Device) manager
 The first tab is to choose the device (virtual and/or physical)
 
 If you close the app on the device, the flutter run process will terminate
+
+All the domain code you write is under /lib
+
+Hot reload: preserve the current state of the app (<r>)
+Hot restart: discard it (<R>)
+
+
+** Material design
+
+Flutter embraces Material Design (a Design System)
+- Highly customizable
+- Usable w/ Apple
+
+
+** Alternatives to Flutter
+
+Ionic: JS
+-> Nothing is compiled (web app w/ native app wrapper)
+
+React Native: JS + React.js
+-> Partly compiled (UI components)
+
+(also NativeScript)
+
+Performance
+
+No JS bridge in Flutter
+
+FUNDAMENTAL: Flutter does nt compile to iOS / Android UI Components
+-> Whereas Ionic does (problem: customization is not replicated accross platforms)
+-> Ionic is a web app so it does not matter
+
+Ionic uses Electron
+
+Flutter might require a bit more work to obtain the default iOS & Android look since it does not use native components
+
+Flutter killer feature is performance coupled w/ cross platform compatibility
+
+
+** Course structure
+
+- Getting started
+- Basics
+- Debugging
+- More widgets, styling, app logic
+- Responsive & adaptive (i.e., adapting to the underlying platform) & UIs
+- Widgets & Flutter internals
+- Navigation & multiple screens
+- State management (important)
+- User input & forms
+- Sending HTTP requests
+- User authentication & session management
+- Animations: providing a better feedback
+- Using device features (e.g., camera, maps)
+- Running native device code: running Java & Swift code
+- Publishing an App
+- Round up & "How to develop great apps"
+
+Code along & do the exercices
