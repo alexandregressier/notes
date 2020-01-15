@@ -1,0 +1,110 @@
+# #+TITLE: Learn Flutter & Dart to Build iOS & Android Apps [2020], Udemy - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2020-01-15 Wed>
+
+Flutter version at the time of writing: v1.13.9
+
+Flutter: build native cross-platform apps
+Dart
+Single codebase
+
+Flutter:
+- The SDK (collection of tools)
+  - Compiles to native machine code
+- A framework widget library
+
+Dart: focuses on frontend user interfaces
+Developped by Google
+Two different teams
+
+OO & Strongly typed
+
+Syntax similar to JS, Java, C#
+
+Flutter is built in Dart
+
+
+* Flutter architecture
+
+Build UI as code (as opposed to a visual editor)
+-> /Widget tree/
+
+Embraces platform differences despite the single codebase
+
+IMPORTANT: in Flutter, everything is a /widget/ (window gadget)
+-> E.g., the whole page, buttons, text inputs
+
+(Cupertino vs Material)
+
+
+* How is it compiled to native apps
+
+- Flutter API
+- Dart code -> To different native codes via the Flutter SDK
+
+Flutter provides high performance application
+
+IMPORTANT: Flutter does not use platform primitives (e.g., no UIButton from iOS vs widget.Button from Android)
+-> Instead Flutter has its custom implementations (controls every pixel on the screen)
+-> Custom engine
+-> Great control
+
+
+* Flutter versions
+
+Flutter versions change frequently
+-> But no breaking changes (bug fixes, small improvements)
+
+
+* Installing Flutter
+
+Flutter is an SDK you have to uncompress
+
+`flutter` is command line tool
+
+#+BEGIN_SRC bash
+$ flutter upgrade
+#+END_SRC
+
+Old website: flutter.io
+New website: flutter.dev
+
+Ensure you have a proper installation:
+#+BEGIN_SRC bash
+$ flutter doctor
+#+END_SRC
+
+Update PATH:
+#+BEGIN_SRC bash
+## Dart
+[ -d "/usr/lib/dart/bin" ] && export PATH="$PATH:/usr/lib/dart/bin"
+
+## Flutter
+[ -d "$HOME/sdk/flutter/bin" ] && export PATH="$PATH:$HOME/sdk/flutter/bin"
+#+END_SRC
+
+You also have a ~/.flutter file
+
+IMPORTANT: You need Xcode to build iOS Flutter apps
+-> Xcode command line tools
+
+New flutter project:
+#+BEGIN_SRC bash
+$ flutter create first_app # Must not contain dashes or spaces
+$ cd first_app
+$ flutter run
+#+END_SRC
+
+Dart prefers snake case over lisp case
+
+Change Pixel phone USB to PTP:
+https://stackoverflow.com/questions/49216585/no-permissions-user-in-plugdev-group-are-your-udev-rules-wrong
+
+Keep the process running for hot reload w/ <r> or exit it with <C-c>
+
+Android Studio is also required for Android just like Xcode for iOS
+
+IntelliJ > Tools > Android > AVD (Android Virtual Device) manager
+The first tab is to choose the device (virtual and/or physical)
+
+If you close the app on the device, the flutter run process will terminate
