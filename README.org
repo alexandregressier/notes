@@ -29,8 +29,14 @@ A personal collection of notes taken from computer-related books and videos.
 
 * Courses
 
+** Scala
+
 - [[./courses/functional-programming-principles-in-scala/functional-programming-principles-in-scala.org][Functional Programming Principles in Scala]] - Martin Odersky
- 
+
+** Flutter
+
+- [[./courses/learn-flutter-dart-to-build-ios-android-apps/learn-flutter-dart-to-build-ios-android-apps.org][Learn Flutter & Dart to Build iOS & Android Apps]] - Maximilian Schwarzmüller
+
 
 * Videos
 
