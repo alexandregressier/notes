@@ -155,7 +155,7 @@ Ionic uses Electron
 
 Flutter might require a bit more work to obtain the default iOS & Android look since it does not use native components
 
-Flutter killer feature is performance coupled w/ cross platform compatibility
+Flutter killer feature is performance coupled w/ cross platform compatibility (+ hot reloading)
 
 
 ** Course structure
@@ -178,3 +178,108 @@ Flutter killer feature is performance coupled w/ cross platform compatibility
 - Round up & "How to develop great apps"
 
 Code along & do the exercices
+
+
+* 2 - Flutter basics
+
+- How a Flutter app starts & works
+- Working w/ widgets & build custom widgets
+- Reacting to user events
+- Stateless & stateful widgets
+- Dart fundamentals
+
+/android is a real Android project part of the Flutter project you created
+
+The Play Store logo when picking an virtual device denotes the presence of Google Play services
+
+Non-debug mode permits a faster app
+
+First launch always take a while
+
+** Flutter project structure
+
+- .idea/: configuration for IntelliJ IDEA/Android Studio
+- android/: a complete Android project (w/ the compiled Flutter code) that the Flutter SDK will use to merge/inject w/ your Flutter code (mostly a passive directory)
+- build/: the output of your Flutter application (passive directory)
+- ios/: a complete Xcode project, the alter ego of Android for iOS (Apple forbids the generation of iOS apps on other platforms than macOS) (mostly a passive directory)
+- lib/: important, stands for /library/, contains all of your .dart files (the main development directory)
+- test/: enables us to write automated tests (ignored in this course)
+- .gitignore
+- .metadata: Flutter configuration to build your application correctly
+- .packages: generated automatically by the Flutter SDK
+- pubspec.lock: contains a snapshot of all the name of the dependencies and their versions (based on the content of pubspec.yaml)
+- pubspec.yaml: manage our dependencies
+
+main.dart is the main .dart file
+
+#+begin_quote
+The Flutter framework has been optimized to make rerunning build methods fast, so that you can just rebuild anything that
+needs updating rather than having to individually change instances of widgets.
+#+end_quote
+
+Flutter = a SDK + a toolset
+
+In addition to built in widgets, you can also build custom widgets
+-> E.g., you can combine widgets (best if they are used more than once)
+
+
+** Dart basics
+
+https://dartpad.dev/ is useful to play with the Dart programming language
+
+Dart is a strictly typed language
+
+#+BEGIN_SRC dart
+  num addNumbers(num num1, num num2) {
+    return num1 + num2;
+  }
+
+  class Person {
+    String name; // An instance variable
+    int age = 0; // A default value
+  }
+
+  void main() { // A function definition (denoted by `()`)
+    for (int i = 0; i < 5; ++i) {
+      print('hello ${i + 1}'); // Statements ends w/ a `;`
+    }
+    print('Hello!');
+
+    print(addNumbers(1, 2.3)); // A function invocation
+
+    var result1 = addNumbers(5, 7); // A variable definition w/ type inference
+    result1 = addNumbers(6, 8);
+    print(result1);
+
+    num result2 = addNumbers(1, 1); // Explicitly type annotation
+    var result3; // A variable declaration
+
+    String name = 'Alex';
+    int age = 22;
+
+    var alex = Person(); // Invoking the constructor
+    print(alex.age);
+    alex.name = 'Alex';
+    print(alex.name);
+  }
+#+END_SRC
+
+`void` is a type annotation for the result type
+`main` is a special function (i.e., the entry point)
+Dart recommends lower camel case for symbols & upper for class names
+  
+Dart has the `dynamic` type
+Everything is an object in Dart
+String delimiters are either `''` or `""`
+
+An `int` is also a `double`
+Dart also has the `num` type (an `int` or a `double`)
+
+The result type of a function can be omitted
+ 
+#+begin_quote
+Objects have /members/ consisting of functions and data (/methods/ and /instance/ variables, respectively). When you
+call a method, you /invoke/ it on an object: the method has access to that object’s functions and data.
+#+end_quote
+
+The `new` keyword is optional since Dart 2
