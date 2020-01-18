@@ -282,4 +282,8 @@ Objects have /members/ consisting of functions and data (/methods/ and /instance
 call a method, you /invoke/ it on an object: the method has access to that object’s functions and data.
 #+end_quote
 
+A /property/ is also an instance variable
+
+The `void` result type for `main` is optional
+
 The `new` keyword is optional since Dart 2
