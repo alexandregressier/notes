@@ -287,3 +287,154 @@ A /property/ is also an instance variable
 The `void` result type for `main` is optional
 
 The `new` keyword is optional since Dart 2
+
+
+** Flutter app basics
+
+Flutter is all about widgets
+A /tree/ of widgets where the app is the root
+
+A widget (i.e., window gadget) is an object
+The App widget class
+- Generally has the suffix "App"
+- Should extend `StatelessWidget`
+
+Note that Flutter is a dependency in the pubspec.yaml file:
+#+BEGIN_SRC yaml
+  dependencies:
+    flutter:
+      sdk: flutter
+#+END_SRC
+
+Import stuff from a package:
+#+BEGIN_SRC dart
+  import 'package:xxx/xxx.dart'
+#+END_SRC
+
+The name of overriden function's parameter can differ from the parent
+-> Only the types count
+
+`MaterialApp` only takes named arguments
+`home` defines the main widget
+
+IMPORTANT: `runApp` calls the `build` method of the passed widget
+
+The text `Hello!' appears in red and underlined twice in yellow
+
+The only piece of code required is a `main` function
+
+Constructor have to be written explicitly in Dart:
+#+BEGIN_SRC dart
+  class Person {
+    final String name; // `final` denotes immutable properties
+    final String age;
+
+    Person(this.name, this.age); // `this` enables the property to take the value of the argument
+  }
+
+  class PersonOld {
+    final String name;
+    final String age;
+
+    PersonOld({String aName, int age = 30}) { // Named arguments (used when positions are overwhelming)
+      name = aName;
+      this.age = age;
+    }
+  }
+
+  class PersonWeird {
+    final String name;
+    final String age;
+
+    PersonWeird(String name, {this.age = 30}) {
+      this.name = name;
+    }
+  }
+
+  main() {
+    var alex = new PersonOld(aName: 'Alex', age: 22);
+  }
+#+END_SRC
+
+Flutter also has `@required`:
+#+begin_quote
+Used to annotate a named parameter p in a method or function f. Indicates that every invocation of f must include an
+argument corresponding to p, despite the fact that p would otherwise be an optional parameter (e.g., a named one).
+#+end_quote
+
+Every widget must extend either `StatelessWidget` or `StatefulWidget`
+
+`@override` is not required but a good practice
+
+The `main` is often written as:
+#+BEGIN_SRC dart
+  main() => runApp(myApp()); // Result type is optional
+#+END_SRC
+
+`runApp` is part of material.dart
+
+Basic Flutter App:
+#+BEGIN_SRC dart
+  //import ''; // The import syntax
+  import 'package:flutter/material.dart';
+
+  main() { // The entry point
+    // This file should not be renamed
+    runApp(MyApp()); // Pass an instance of Widget
+  }
+
+  class MyApp extends StatelessWidget {
+
+    @override
+    Widget build(BuildContext context) { // Needs to return a `Widget`
+      return MaterialApp(home: Text('Hello!'),);
+    }
+  }
+#+END_SRC
+
+#+begin_quote
+build() returns a so-called "widget tree" which tells Flutter what to draw onto the screen.
+#+end_quote
+
+
+** Widget basics
+
+All the pixels on the screen are controlled by Flutter
+
+`Scaffold` is another widget part of material.dart
+
+`PreferredSizeWidget` generally refers to a widget that you could create by yourself but that is also available
+
+`AppBar` corresponds to the material app bar (i.e., the bar at the top of the screen)
+`title` takes a widget and not a `String`
+
+`Text` is the "String widget"
+
+FUNDAMENTAL: in Flutter, you compose user interfaces by composing widgets
+
+Ending `,` are important for code formatting
+
+Types of widgets:
+- Output & input (visible): RaisedButton(), Text(), Card()...
+- Layout & control (invisible): Row(), Column(), ListView()...
+-> Containers() belongs to both categories
+
+Column: stack items vertically
+Row: stack items horizontally
+
+#+BEGIN_SRC dart
+  var questions = [ // Infered type: List<String>
+    'What\'s is your favorite color?',
+    'What\'s is your favorite animal?',
+  ];
+#+END_SRC
+
+#+BEGIN_SRC dart
+  children: <Widget>[], // IMPORTANT: Type annotation is only required when the list is empty
+#+END_SRC
+
+If the onPressed parameter of a RaisedButton is `null`, then it is disabled
+
+#+begin_quote
+You pass widgets into the constructors of other Widgets to fill certain roles.
+#+end_quote 
