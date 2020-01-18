@@ -423,7 +423,7 @@ Column: stack items vertically
 Row: stack items horizontally
 
 #+BEGIN_SRC dart
-  var questions = [ // Infered type: List<String>
+  var questions = [ // Inferred type: List<String>
     'What\'s is your favorite color?',
     'What\'s is your favorite animal?',
   ];
@@ -438,3 +438,99 @@ If the onPressed parameter of a RaisedButton is `null`, then it is disabled
 #+begin_quote
 You pass widgets into the constructors of other Widgets to fill certain roles.
 #+end_quote 
+
+
+** COMMENT Stateful & stateless widgets
+
+`onPressed` takes a function (with the type `() => void`)
+
+FUNDAMENTAL: The arrow `=>` for functions is used in both definitions and types
+
+#+BEGIN_SRC dart
+  RaisedButton(
+    onPressed: printOk, // Function reference
+    // Or
+    onPressed: () => print('OK'), // Lambda (i.e., a single use function definition)
+    // Or
+    onPressed: () { print('OK'); }, // Lambda w/ body
+  )
+#+END_SRC
+
+#+BEGIN_SRC dart
+  var fruits = ['Apple', 'Banana', 'Cherry'] // Lists have a lot of built-in methods
+  fruits[0] // `'Apple'`
+  // Or
+  fruits.elementAt(0) // `'Apple'`
+#+END_SRC
+
+#+BEGIN_SRC dart
+  Text(questions[questionIndex]), // FUNDAMENTAL: this is not reactive and thus not redrawn automatically
+#+END_SRC
+
+IMPORTANT: all the properties of a stateless widgets must be `final` (warnings appear otherwise)
+
+List must contain a single type (which can be ignored by aggregating types):
+#+BEGIN_SRC dart
+  var aMixedList = ['Some text', 1, 5.99, ['a nested list!', 1]]; // Inferred type: List<Object>
+#+END_SRC
+
+#+BEGIN_SRC dart
+  aMixedList.length; // Get the length of the list
+  aMixedList.add(25);
+  aMixedList.remove(5.99);
+#+END_SRC
+
+State: the set of values stored under variables (as opposed to constants)
+
+App state (e.g., principal) VS Widget state (e.g., counter)
+
+Widgets that only output something should be stateless
+-> `Text` are stateless
+
+Stateless widgets receive input from their ctor
+-> Rebuild the widget when input changes
+
+FUNDAMENTAL: Stateful widgets gets re-rendered when ctor args or internal state changes
+
+Convert a StatelessWidget to a StatefulWidget:
+- Place your cursor onto StatelessWidget
+- <M-RET> "Convert to StatefulWidget"
+(When doing such, you'd better restart the application rather than hot reloading)
+
+A StatefulWidget is a combination of 2 classes:
+#+BEGIN_SRC dart
+  class MyApp extends StatefulWidget {
+    @override
+    State<StatefulWidget> createState() { // Corresponds to State<MyApp>
+      return MyAppState();
+    }
+  }
+
+  class MyAppState extends State<MyApp> { // Usually has the suffix "State"'
+    var questionIndex = 0;
+
+    void answerQuestion() {
+      setState(() { // Provided by State<T>
+          questionIndex = questionIndex + 1;
+          print(questionIndex);
+      });
+    }
+  }
+#+END_SRC
+The widget can be recreated/rebuild once the state changes
+However, the state is persistent and not recreated
+
+Flutter does not re-render the whole application when a tap occurs
+-> Tell Flutter to re-render a widget whenever the state changes
+
+Most of the widgets are stateless
+
+#+begin_quote
+Whilst you can add (and also change) properties in a StatelessWidget, there's no way of telling Flutter that it should
+re-run build() upon such changes.
+
+All widgets (i.e. both Stateless and Stateful) can receive data via their constructors. But only StatefulWidgets can
+have class properties where they can update values + re-run build().
+
+setState() is a "trigger" that informs Flutter that it needs to re-run build() of the Widget.
+#+end_quote
