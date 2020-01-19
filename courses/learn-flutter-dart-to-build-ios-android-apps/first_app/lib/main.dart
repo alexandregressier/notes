@@ -22,11 +22,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What is your favorite color?',
-      'What is your favorite animal?',
-      'What is your favorite superhero?',
+    const questions = const [
+      {
+        'question': 'What is your favorite color?',
+        'answers': ['Red', 'Yellow', 'Green', 'Blue'],
+      },
+      {
+        'question': 'What is your favorite animal?',
+        'answers': ['Dog', 'Cat', 'Bird', 'Fish'],
+      },
+      {
+        'question': 'Who is your favorite superhero?',
+        'answers': ['Superman', 'Batman', 'Spider-man', 'Iron man'],
+      },
     ];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -34,10 +44,8 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            Answer('A', _answerQuestion),
-            Answer('B', _answerQuestion),
-            Answer('C', _answerQuestion),
+            Question(questions[_questionIndex]['question']),
+            for (var answer in questions[_questionIndex]['answers']) Answer(answer, _answerQuestion),
           ],
         ),
       ),

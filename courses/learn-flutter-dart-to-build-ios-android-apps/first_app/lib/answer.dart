@@ -13,6 +13,7 @@ class Answer extends StatelessWidget {
         child: Text(text),
         onPressed: callback,
         color: Colors.blue,
+        textColor: Colors.white,
       ),
       width: double.infinity,
     );
