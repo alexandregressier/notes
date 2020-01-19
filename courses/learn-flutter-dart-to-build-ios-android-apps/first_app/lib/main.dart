@@ -47,7 +47,14 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       ++_questionIndex;
     });
-    _score += points;
+    _score += points; // Does not require a redisplay (thus out of setState)
+  }
+
+  void _reset() {
+    setState(() {
+      _questionIndex = 0;
+      _score = 0;
+    });
   }
 
   @override
@@ -63,7 +70,10 @@ class _MyAppState extends State<MyApp> {
                   answers: _questions[_questionIndex]['answers'],
                   callback: _answerQuestion,
                 )
-              : Result(score: _score)),
+              : Result(
+                  score: _score,
+                  resetCallback: _reset,
+                )),
     );
   }
 }

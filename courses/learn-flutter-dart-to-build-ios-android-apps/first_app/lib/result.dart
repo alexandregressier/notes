@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
   final int score;
+  final VoidCallback resetCallback;
 
-  Result({@required this.score});
+  Result({@required this.score, @required this.resetCallback});
 
   String get resultPhrase {
     if (score < 50) {
@@ -35,6 +36,11 @@ class Result extends StatelessWidget {
               fontSize: 20,
             ),
           ),
+          FlatButton(
+            child: Text('Restart quiz'),
+            onPressed: resetCallback,
+            textColor: Colors.blue,
+          )
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
