@@ -1,7 +1,7 @@
+import 'package:first_app/result.dart';
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
 
 main() => runApp(MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static const questions = const [
+  static const _questions = const [
     {
       'question': 'What is your favorite color?',
       'answers': ['Red', 'Yellow', 'Green', 'Blue'],
@@ -40,15 +40,13 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: Text('My first app'),
           ),
-          body: _questionIndex < questions.length
-              ? Column(children: [
-                  Question(questions[_questionIndex]['question']),
-                  for (var answer in questions[_questionIndex]['answers'])
-                    Answer(answer, _answerQuestion),
-                ])
-              : Center(
-                  child: Text('You did it!'),
-                )),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  question: _questions[_questionIndex]['question'],
+                  answers: _questions[_questionIndex]['answers'],
+                  callback: _answerQuestion,
+                )
+              : Result()),
     );
   }
 }
