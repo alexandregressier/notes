@@ -724,7 +724,7 @@ FUNDAMENTAL: variables only stores references to objects
 #+begin_quote
 If the value is value you have is computed at runtime (e.g., `DateTime.now()`), you can not use a const for it.
 
-If you're using const, you have to declare it as static const rather than just const.
+If you're using const, you have to declare it as static const rather than just const (when dealing w/ properties).
 
 If you have a const collection, everything inside of that is in const.
 If you have a final collection, everything inside of that is not final.
@@ -737,3 +737,70 @@ create one object.
 
 Constants are not recreated each time. They are canonicalized at compile time and stored in special lookup tables (where they are hashed by their canonical signatures) from which they are later reused.
 #+end_quote
+
+
+** Last part
+
+Dart also has conditional statements:
+#+BEGIN_SRC dart
+  if (true) {
+    print(1);
+  } else if (false) {
+    print(2);
+  } else {
+    print(3);
+  }
+  isChecked ? Colors.white : Colors.black;
+#+END_SRC
+
+`null` exists in Dart (uninitialized state)
+
+`Center` is a widget that centers its content horizontally & vertically
+
+You can split complex widgets into sub widgets
+IMPORTANT: In Flutter, it is always encouraged to create more than less widgets
+-> Find the right balance though
+
+REMEMBER: put the state in the common denomitator widget (here `MyApp`) and make all the other widget stateless
+-> Put the state in the highest level that makes sense
+
+Dart is designed to put `,` for the last element of a list (or any other data structure)
+
+Prefix any property (even immutable) w/ an `_` to make it private
+
+In Dart, string interpolation can be done even in `''` delimited strings
+
+FUNDAMENTAL: this is the power of closures:
+#+BEGIN_SRC dart
+  callback: (() => _answerQuestion(_questions[_questionIndex]['points'])), // Tranforming a `(int) => void` into `() => void`
+#+END_SRC
+
+ESSENTIAL:
+#+BEGIN_SRC dart
+  class Foo {
+    final Function callback; // Can take any argument
+
+    Foo(this.callback);
+
+    void bar() {
+      callback(2131), // The `callback` that was passed to the ctor is of type `(int) => void`
+    }
+  }
+#+END_SRC
+
+Clean the pub cache:
+#+BEGIN_SRC bash
+  $ pub cache repair
+#+END_SRC
+
+A /getter/ is a mix of property and method
+A getter cannot receive an argument
+A getter is like a property, but the value is calculated dynamically
+
+#+begin_quote
+The value of explicit getters and setters is that you don't need to define both if you don't want.
+#+end_quote
+
+A `FlatButton` is basically a `RaisedButton` w/o a background color according to the Material design spec
+
+Centering the `children` of a column vertically is not obvious
