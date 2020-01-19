@@ -440,7 +440,7 @@ You pass widgets into the constructors of other Widgets to fill certain roles.
 #+end_quote 
 
 
-** COMMENT Stateful & stateless widgets
+** Stateful & stateless widgets
 
 `onPressed` takes a function (with the type `() => void`)
 
@@ -533,4 +533,207 @@ All widgets (i.e. both Stateless and Stateful) can receive data via their constr
 have class properties where they can update values + re-run build().
 
 setState() is a "trigger" that informs Flutter that it needs to re-run build() of the Widget.
+#+end_quote
+
+
+** Advanced Flutter & Dart basics
+
+setState is a function that forces Flutter to re-render a part of the UI (i.e., the widget)
+-> Re-invoke `build` which can seem costly at first glance
+
+IMPORTANT: Flutter is optimized to go through the `build` method again as efficiently as possible
+-> Does not redraw every pixel again
+
+
+Every .dart file is its own mini library
+-> Scope of the compilation unit
+
+Prefix a symbol w/ `_` to make that symbol private to the compilation unit
+#+BEGIN_SRC dart
+  class _Person {
+    final var _age = 12;
+  
+    void _answerQuestion() {
+      print('OK');
+    }
+  }
+#+END_SRC
+
+Good convetion: 1 widget per file
+
+Code snippets:
+- `stless`: new stateless widget
+- `stful`: new stateful widget
+
+Imports should follow the following order:
+- Imports from packages
+- Imports from our own files
+
+Make sure you convert your local imports to:
+#+BEGIN_SRC dart
+  // From
+  import 'package:first_app/question.dart';
+  // to
+  import './question.dart';
+#+END_SRC
+
+You should split your bigger widgets into smaller widgets for better separating their concerns
+-> Find the right balance though
+
+The widget tree enables Flutter to call `build` method recursively
+
+IMPORTANT: there is difference between Dart features and how Flutter uses that class
+-> E.g., you can mutate a property w/o seeing change on the UI (b/c `build` is not re-invoked)
+
+A `final` modifier denotes the immutability of a property
+-> Thus it does not require an `_`
+
+Text also has the `style` named argument
+
+TextStyle is not a widget
+TextAlign is an enum
+
+IMPORTANT: the `Text` widget only allocates the minimum space it needs
+-> Thus alignment will not be visible
+
+Setting the width to infinity:
+#+BEGIN_SRC dart
+  return Container(
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 28,
+      ),
+      textAlign: TextAlign.center,
+    ),
+    width: double.infinity, // The full width of the device
+  );
+#+END_SRC
+
+IMPORTANT: in Dart, everything is an object (even primitve type)
+
+The `Container` widget enables you to space and align other widgets
+
+Padding: the internal spacing part of the Container
+Border: the stroke around the Container
+Margin: the external spacing out of the container
+Child: the content of Container
+
+Margin and Padding expect an EdgeInsetsGeometry (e.g., EdgeInsets.all(10))
+- all: all directions
+- only: target a specific direction
+
+IMPORTANT: a class can have multiple ctors and you can call them as methods on the object
+
+`EdgeInsets` extends `EdgeInsetsGeometry`
+
+Dart enables you to create multiple ctors for a given class by naming them (in addition to type erasures):
+#+BEGIN_SRC dart
+  class Person {
+    String name;
+    int age;
+
+    Person(this.name, this.age);
+
+    Person.veryOld(this.name) {
+      this.age = 60;
+    }
+  }
+#+END_SRC
+
+Official Flutter documentation:
+https://flutter.dev/docs
+
+IMPORTANT: Just b/c a widget requires a lambda as input does not mean it has to be stateful
+-> Moreover, a `RaisedButton` is a stateless widget
+
+In Flutter, colors are represent as `static const` values (type: `MaterialColor`)
+-> A grouping mechanism (having a human readable value)
+
+/Lifting the state up/: manage the state on the common denomitator widget of other widgets
+
+The term /callback/ denotes the fact that a literal function (i.e., a lambda) is not evaluated when passed
+
+The `callback` property of `Answer` could also have been of type `Function` instead of the `VoidCallback`
+
+The "handler" suffix is appropriate for variable names that store functions
+
+Questions & answers could have been gathered in a domain object
+-> But an ad-hoc map will be sufficient
+
+In Dart, `Map` literals are delimited by `{}`
+Unlike JSON, keys can be numbers
+
+FUNDAMENTAL:
+#+BEGIN_SRC dart
+  var questions = [ // The inferred type is List<Map<String, Object>>> since String U List<String> = Object
+    {
+      'question': 'What is your favorite color?',
+      'answers': ['Red', 'Yellow', 'Green', 'Blue'],
+    },
+    {
+      'question': 'What is your favorite animal?',
+      'answers': ['Dog', 'Cat', 'Bird', 'Fish'],
+    },
+    {
+      'question': 'Who is your favorite superhero?',
+      'answers': ['Superman', 'Batman', 'Spider-man', 'Iron man'],
+    },
+  ];
+#+END_SRC
+
+Approaches:
+#+BEGIN_SRC dart
+  ...(questions[_questionIndex]['answers'] as List<String>)
+    .map((answer) => Answer(answer))
+    .toList();
+  // Or
+  for (var answer in questions[_questionIndex]['answers']) Answer(answer, _answerQuestion),
+ // `answer` is of type `dynamic`
+#+END_SRC
+
+IMPORTANT: `...` is the /spread/ operarator: it adds all the elements of the list to the parent list
+
+`const` and `final` denotes immutability
+`final` is equivalent to Scala's `val`
+`final` can only be affected a value when declared (or using a ctor) and cannot be reaffected
+
+FUNDAMENTAL:
+- `final` is a run-time constant value
+- `const` is a compile-time constant value (implictly means runtime constant)
+
+The `const` modifier can also be applied to expressions:
+#+BEGIN_SRC dart
+  const fruits = const ['Apple', 'Banana', 'Cherry'];
+#+END_SRC
+
+The LHS `const` denotes the immutability of the reference while the RHS `const` denotes the immutability of the list
+-> Therefore list operations are forbidden (e.g., `add`, `remove`)
+
+Postal addresses and houses are a good analogy of the memory model of a computer
+-> You do not put your house on the letter
+
+FUNDAMENTAL: variables only stores references to objects
+
+#+BEGIN_SRC dart
+  var aList = const ['Hello'];
+  aList.add('Max'); // Run-time error: `aList` is immutable
+  aList = []; // Allowed since `aList` is a var
+#+END_SRC
+
+#+begin_quote
+If the value is value you have is computed at runtime (e.g., `DateTime.now()`), you can not use a const for it.
+
+If you're using const, you have to declare it as static const rather than just const.
+
+If you have a const collection, everything inside of that is in const.
+If you have a final collection, everything inside of that is not final.
+
+Instance variables can be final but not const. Final instance variables must be initialized before the constructor
+body starts — at the variable declaration, by a constructor parameter, or in the constructor’s initializer list.
+
+Compile-time constants are canonicalized. That means the no matter how many times you write "const Point(0,0)", you only
+create one object.
+
+Constants are not recreated each time. They are canonicalized at compile time and stored in special lookup tables (where they are hashed by their canonical signatures) from which they are later reused.
 #+end_quote
