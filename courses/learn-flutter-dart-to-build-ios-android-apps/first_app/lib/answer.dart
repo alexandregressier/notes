@@ -4,7 +4,9 @@ class Answer extends StatelessWidget {
   final String text;
   final VoidCallback callback;
 
-  Answer(this.text, this.callback);
+  Answer({
+    @required this.text,
+    @required this.callback});
 
   @override
   Widget build(BuildContext context) {
