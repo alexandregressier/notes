@@ -5,8 +5,8 @@ import './answer.dart';
 
 class Quiz extends StatelessWidget {
   final String question;
-  final List<String> answers;
-  final VoidCallback callback;
+  final List<Map<String, Object>> answers;
+  final Function callback;
 
   Quiz(
       {@required this.question,
@@ -17,7 +17,11 @@ class Quiz extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Question(question),
-      for (var answer in answers) Answer(answer, callback),
+      for (var answer in answers)
+        Answer(
+          answer['answer'] as String,
+          () => callback(answer['points'] as int),
+        ),
     ]);
   }
 }
