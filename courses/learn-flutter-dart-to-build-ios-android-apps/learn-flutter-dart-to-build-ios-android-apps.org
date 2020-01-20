@@ -804,3 +804,30 @@ The value of explicit getters and setters is that you don't need to define both 
 A `FlatButton` is basically a `RaisedButton` w/o a background color according to the Material design spec
 
 Centering the `children` of a column vertically is not obvious
+
+Dart has import aliases:
+#+BEGIN_SRC dart
+  import '../../constants.dart' as foo;
+
+  foo.ImportedClass foo = foo.ImportedClass();
+#+END_SRC
+
+FUNDAMENTAL: from a stateful widget, you can pass functions that employ variables of the state to stateless widgets
+
+Takeaways when doing the assignment:
+- Do not forget to use `stateState`
+- Scaffold gather the `AppBar` and the body of your page
+- `mainAxisAlignment: MainAxisAlignment.center` is used in the `Column` of the default app
+- `home` is the first page to be displayed in a `MaterialApp`
+- `main() => runApp(BasicApp());`
+- `setState` can be invoked anywhere:
+#+BEGIN_SRC dart
+  RaisedButton(
+    onPressed: () {
+      setState(() {
+          _text = 'This changed';
+      });
+    }
+  )
+#+END_SRC
+ 
