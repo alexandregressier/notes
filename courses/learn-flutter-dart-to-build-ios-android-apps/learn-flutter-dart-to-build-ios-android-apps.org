@@ -830,4 +830,3 @@ Takeaways when doing the assignment:
     }
   )
 #+END_SRC
- 
