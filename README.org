@@ -58,6 +58,10 @@ A personal collection of notes taken from computer-related books and videos.
 
 - [[./videos/kubernetes-microservices/kubernetes-microservices.org][Kubernetes Microservices]] - Richard Chesterwood
 
+** JHipster
+
+- [[./videos/jhipster-build-and-deploy-spring-boot-microservices/jhipster-build-and-deploy-spring-boot-microservices.org]] - Christopher Anatalio
+
 
 * License
 
