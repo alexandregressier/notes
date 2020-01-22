@@ -1,0 +1,188 @@
+#+TITLE: JHipster: Build and Deploy Spring Boot Microservices, LinkedIn - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2020-01-22 Wed>
+
+
+Yarn:
+- Is a dependency management system built on npm
+- Aggressively caches every packages it downloads
+- Uses parallel operations to maximize resource utilization and speed up installs
+- Uses checksums to verify package integrity before its code is executed
+- Uses a lockfile format and a deterministic algorithm for installs
+- Guarantee system independant
+
+yarpkg.com/en/docs
+
+Yeoman:
+- Is a scaffolding tool that helps you to kick-start new projects
+- Helps give you a solid foundation of best practices and tools
+- Includes a ecosystem of code generators
+
+JHipster:
+- Is a Yeoman generator
+- Is a like a plugin that helps you bootstrap an application with a Spring Boot back end and an Angular 2 front end
+- Installed using yarn
+
+#+BEGIN_SRC bash
+  $ yarn global add yo
+  $ yarn global add generator-jhipster
+#+END_SRC
+
+Packages are installed in `/usr/bin/`
+
+MSA: microservices architecture
+
+#+begin_quote
+Microservices are small, autonmous services that work together.
+
+Microservices architecture as a service-oriented architecture composed of loosely coupled elements that have bounded
+contexts.
+
+Microservices refers to an architectural approach that independent teams use to prioritize the continuous delivery of
+single-purpose services.
+
+Microservices are an architectural style that structures an application as a collection of loosely coupled, fine-grained
+services that communicates w/ lightweight protocols.
+#+end_quote
+
+/Componentized services/
+- Run in their own separate process
+- Are independently scalable and deployable
+- Decoupled & cohesive
+
+Component: a unit of software that is independently replaceable and upgradable
+- Services as components
+- Build systems by plugging together components
+- Analogous to stacking common modules to build functionality
+
+Compile > Build > Test > Deploy
+
+Products, not projects
+- Project: a piece of software is delivered then handled over to a maintenance organization and the project team that
+  built it is disbanded
+- Product: the developement team takes ownership of software from inception to deployment to maintenance and
+  enhancements
+  
+MSA requires cross-functional teams
+MSA moves away from the message brokers like an enterprise service bus (ESB)
+
+Bounded context: a method in domain driven design of dealing w/ large models by dividing them into different contexts w/ explicitly defined interrelationships
+
+/Polyglot persistence/: each service manages its own database
+
+Infrastructure automation:
+- Continuous integration
+- Continuous delivery
+
+Every code check in should be a potential release candidate
+- Automate deployment to each new environment
+
+Anticipate that components will fail
+
+https://github.com/Netflix/SimianArmy
+
+4 primary advantages of MSA:
+- Strong module boundaries
+- Independent deployment
+- Technology diversity
+- Faster development
+
+Each service should have contract to access them
+
+Single responsibility principle: gather together those things that change for the same reason. Separate those things that change for different reasons.
+
+#+begin_quote
+Microservices are the first post DevOps revolution architecture.
+#+end_quote
+
+Drawbacks of using microservices:
+- Distributed systems
+- Eventual consistency
+- Operational consistency
+
+Eventual consistency:
+#+begin_quote
+A consistency model used in distributed computing to achieve high availability guarantees that, if no updates are made
+to a given item eventually all accesses to an item will return the last updated value.
+#+end_quote
+
+BASE vs ACID
+Basically Available, Soft state, eventual consistency
+Atomicity, Consistency, Isolation, Durability
+
+Microservices requires very skilled engineers
+
+BP of MSA:
+- Keep code at a similar level of maturity
+- Treat servers as stateless
+- Idempotency (especially w/ messages)
+- Centralized logging
+- Traceable IDs
+
+A server runs a service
+
+Cattle vs pets
+
+Immutable infrastructure: replacing instead of changing
+
+JHipster employs Zipkin
+
+JHipster is development platform to generate, development, and deploy Spring Boot + Angular 2 + web applications and Spring microservices
+
+Tech Stack
+- Java stack on the server side w/ Spring Boot
+- Mobile-first front end w/ Angular & Bootstrap
+- Microservices architecture w/ Netflix OSS, ELK stack, and Docker
+- Workflow to build your applicatino w/ Yeoman, webpack, and Gradle
+
+webpack plays nice w/ Gradle
+
+
+JHipster generated code has all the optimizations you would expect in a production-ready application
+
+Some of the optimizations include:
+- Specific Spring profile w/ Gzipping and HTTP caching headers
+- TS & CSS optimization & minification by webpack
+- A Spring Boot executable JAR or standard WAR file
+- Built-in monitoring, logging, and administration consoles
+
+Approaches:
+- You can use your generated applicatio as an example for how to implement various technologies
+- You can use the JHipster-generated code as a solid foundation to build out your custom application
+
+JHipster ecosystem:
+- Sub-generators: generate a complete JPA entity, generate a Spring business service, or Dockerize your application
+- Submodules: a marketplace of submodules w/ suport for technologies such as React.js
+
+Creator of JHipster: Julien Dubois
+
+Security options:
+- JWT tokens
+- OAuth 2
+
+Hibernate second-level cache
+- Ehcache
+- Hazelcast cache (better choice for MSA)
+
+Optional:
+- Elasticsearch
+- Spring WebSockets
+- Kafka
+
+Testing:
+- Gatling
+- Cucumber
+- Protractor
+
+Features
+- Built-in login
+- User management
+- Admin pages
+- Live Spring Boot config page
+- Log lvel changes
+
+
+JHipster Registry
+- Eureka
+- Spring Cloud Config
+- Administration server
