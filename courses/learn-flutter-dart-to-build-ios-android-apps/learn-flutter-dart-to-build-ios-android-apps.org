@@ -1,4 +1,4 @@
-# #+TITLE: Learn Flutter & Dart to Build iOS & Android Apps [2020], Udemy - Notes
+#+TITLE: Learn Flutter & Dart to Build iOS & Android Apps [2020], Udemy - Notes
 #+AUTHOR: Alexandre Gressier
 #+DATE: <2020-01-15 Wed>
 
@@ -107,9 +107,6 @@ $ flutter run
 #+END_SRC
 
 Dart prefers snake case over lisp case
-
-Change Pixel phone USB to PTP:
-https://stackoverflow.com/questions/49216585/no-permissions-user-in-plugdev-group-are-your-udev-rules-wrong
 
 Keep the process running for hot reload w/ <r> or exit it with <C-c>
 
@@ -830,3 +827,94 @@ Takeaways when doing the assignment:
     }
   )
 #+END_SRC
+
+
+* 3 - Running apps on different devices & debugging apps
+  
+- Running the app on different platforms & real devices
+- Reading & understanding error messages
+- Using the debugger (logical errors)
+- Using the Dart DevTools & The Flutter Inspector
+
+** Running the app on a real devices
+
+Go to Settings > Developper options
+(Press 7 times on the build number)
+
+Then: Enable USB debbugging
+
+Then change the output device in IntelliJ
+
+Change Pixel phone USB debugging to PTP:
+https://stackoverflow.com/questions/49216585/no-permissions-user-in-plugdev-group-are-your-udev-rules-wrong
+
+Nothing can replace the test on a real device
+
+To build an iOS app, you are required to have the macOS operating system (restriction by Apple)
+
+#+begin_quote
+Signing for "Runner" requires a development team.
+#+end_quote
+
+You have to sign with your Apple ID
+
+https://developer.apple.com
+
+IMPORTANT: you have to pay a fee to publish your app, but developping & testing is free
+
+#+BEGIN_SRC bash
+ $ open -a Simulator.app 
+#+END_SRC
+
+The simulator can be launched from Xcode as well
+
+Since Flutter manages every pixel (no native elements), both platforms show a very similar app (different: fonts, bar...)
+
+The debug version of your app takes significantly longer to launch for the first time 
+
+Make sure that automatic rotation is turned on when playing w/ the emulator rotating features
+
+Android Emulator VS iOS simulator
+
+All of the iOS simulator options are in the menu bar
+
+IDE are unable to anticipate domain errors (a.k.a. logical errors)
+
+You have to run the app in debug mode to trigger breakpoints
+
+Please do not use print statements to debug your programs
+
+Breakpoints can also be used in Widget ctors invocations
+
+Launching your app in debug execution mode makes it even more slower
+-> Use it only when you need it
+
+You can also use the /Dart DevTools/ to access a bunch of developping tools
+The web page is connected to the device running the app
+
+- Explore the widget tree
+- Show properties of each widget (you cannot edit them yet)
+
+`Select Widget mode` enables you to box which widget you are currently selecting in tree + tapping on the device directly
+
+You can see the sub widgets used internally by other widgets
+E.g., a RaisedButton uses a Container
+
+`Debug Paint` adds helper lines on the app to understand its layout
+
+`Performance Overlay` display performance graphs at the top
+-> Performance in development + on a emulator is biased
+-> Thus unusful in dev mode
+
+`Repaint rainbow` is really useful: the change of stroke color denotes what was repainted
+-> Useful to debug widgets that should not be changing
+
+Note that the root widget gets repainted b/c the state management is done in it
+-> Improvement to do: only update the question and not the root widget (`MaterialApp`)
+
+Note that repainting does not affect performance as much as recreating a widget (i.e., rebuilding it)
+
+Also in the Dart DevTools, you have the `Timeline` logging which is useful for recording the performance (in production
+mode)
+
+You might also find the `Logging` section useful
