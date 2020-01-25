@@ -37,6 +37,10 @@ A personal collection of notes taken from computer-related books and videos.
 
 - [[./courses/learn-flutter-dart-to-build-ios-android-apps/learn-flutter-dart-to-build-ios-android-apps.org][Learn Flutter & Dart to Build iOS & Android Apps]] - Maximilian Schwarzmüller
 
+** Java
+
+- [[./courses/reactive-java-9/reactive-java-9.org]] - Manuel Vicente Vivo
+
 
 * Videos
 
