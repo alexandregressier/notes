@@ -1,0 +1,197 @@
+#+TITLE: Reactive Java 9, LinkedIn Learning - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2020-01-25 Sat>
+
+
+* What is reactive programming ?
+
+#+begin_quote
+Reactive programming is a programming paradigm oriented around *data flows* and the *propagation of change*.
+#+end_quote
+
+Data stream/flow: a sequence of ongoing events ordered in time
+
+W/ reactive programming, `a = b + c`, if the b or c changes, a will change as well
+
+Imperative/OO can work w/ reactive programming
+
+/Propagation of change/
+
+https://reactivex.io
+
+Many implementations: Rx.NET, RxJava, RxScala, RxCpp
+
+Reactive extension: a set of APIs that brings the reactive programming paradigm
+
+
+** Benefits
+
+- More flexible
+- Scalable & resilient
+- Efficient use of resources
+- Less latency
+- More tolerance of failure
+- Highly responsive
+
+By essence, reactive is fundamentally asynchronous & non-blocking
+-> Plays well w/ functionnal programming
+
+Push VS Pull mechanism
+- Imperative: we pull & process things synchronously using iterators
+- Reactive: you take the pull model & convert it to a push model
+
+  
+** Reactive explained in a simple way
+
+Data flows & propagation of change
+
+A stream can be seen as pipe in which data flows
+-> Data moves in a certain direction
+-> The data has a type
+-> Errors & Completion signals (closes the stream) can flow as well
+
+The /source/ of information is the entity which emits data
+The /consumer/ is the entity which listends to the streams to receive data
+
+IMPORTANT: consumers do not pull the data, the data is pushed to them
+-> The consumer does not know when the data is going to come
+
+A consumer can start receiving data from a source of information by subscribing to the data flow
+The consumer wil receive the items that the source of information emits
+
+The subscription will have to deal w/ backpressure so that the source cannot overflow the consumer
+
+Cold VS Hot sources of information:
+- Cold: start running upon subscription
+  - Creates the source of information
+  - Activates the source of information
+  - Consumer starts listening to the source
+  - Unicast (only the consumer listen to information)
+- Hot: always emitting data, even before a subscription is active
+  - Consumer shares a reference to a source of information
+  - Consumer starts listening to the producer
+  - Multicast (usually, but they could be a listening to a producer that only supports one listener at a time)
+
+
+Principles of reactive programming:
+- Responsive
+  - Responds in a timely manner if possible
+  - Key to usability & utility
+  - Consistent response times
+
+- Resilient
+  - The system stays responsive when facing failure
+  - Performance, endurance, and security
+  - Ensuring that components are dependent enough so failure does not compromise the whole system
+
+- Elastic/Scalable
+  - The system stauys responsive under varying workload
+  - Designs w/ no contention points or bottlenecks
+  - Ability to share or replicate components & distribute inputs among them
+  - Scaling up or out (elasticity)
+
+- Message driven
+  - Reactive apps rely on async message passing to establish a boundary between components
+  - Ensure loose coupling, isolation & location transparency
+  - Delegate failure as messages
+  - Non-blocking communication allows recipient to only consume resources while active
+  - A message driven app may be event-driven, actor based, or a combination of the two
+    - An event-driven system is based on events which are monitored by 0+ observers
+    - Actor based concurrency is an extension of the message passing architecture where messages are sent to recipients
+      called actors
+    - Difference: messages are directed to defined destinations while events just happen
+
+-> See the reactive manifesto: https://www.reactivemanifesto.org/
+
+Reactive programming is not meant to deal well w/ thread-based frameworks
+
+
+Backpressure:
+- Is related to resilience
+- Ensure that all participate in flow control
+- A fast source of information should not overwhelm a slow consumer
+- The push model works well when consumers are faster than producers (hard to predict though)
+
+Unfortunately, most stream processing systems forces us to choose between push & pull at development time
+- Solution 1: choose pull model, to protect us from overwhelming our slower consumer (+ loss of system resources when consumer are
+  faster than producers)
+- Solution 2: increase the buffer size of push models (possible but often unrealistic b/c of memory consumption)
+- Solution 3: drop elements, but not always appropriate
+-> We need a bidirectional flow of data
+  - Elements emitting downstream from producer to consumer & a signal for demaning emitted upstream from consumer to producer
+
+Providing backpressure all the way through the entire flow gives the system a chance to respond to excessive flow
+Backpressure is when the progress of turning the input to output by a program is resisted in some way
+
+
+Ways that Java supports reactive programming (not native):
+- Reactive streams: a set of low level interfaces
+- RxJava: developped by Netflix, using reactive patterns internally
+- Reactor: Pivotal, builds on reactive stream
+- Spring framework 5.0
+- Ratpack: a set of libraries
+- Akka: actor pattern
+
+  
+** Reactive streams
+
+Reactive streams debuted in 2013 as an initiative between engineers at Netflix, Pivotal, & Typesafe (now Lightbend)
+
+A standard for async stream processing w/ non-blocking backpressure
+
+Emcompasses efforts aimed at runtime environments (JVM & JS) as well as network protocols
+
+Solved problems:
+- Handling streams of data requires special care in an async system
+- Resource consumption needs to be controlled such that a fast data source does not overwhelm the stream destination
+  (backpressure)
+- Many conforming implementations for different languages that can interoperate smoothly
+
+Scope:
+- Find a minimal set of interfaces/methods/protocols that will describe the necessary operations and entities to achieve the goal
+- End-user DSLs or protocol binding APIs have purposefully been left out of the scope to encourage different implementations
+- Define a model for backpressure, a way to ensure a fast publisher does not overwhelm a slow subscriber
+
+Working groups:
+- Basic semantics: define how the transmission of data is regulated through backpressure
+  - How elements are represented, their representations during transfer, or how backpressure is signaled is not part of
+    this spec
+- JVM interfaces
+- JS interfaces
+- Network protocols: TCP, UDP, WebSockets
+
+Reactive JVM - Reactive elements
+- Source of information: `Publisher<T>`
+- Consumer: `Subscriber<T>`
+- Subscription: `Subscription`
+- Combination of source of information & consumer: `Processor<T, R>`
+  - Has the ability to receive data & sending it
+
+#+BEGIN_SRC java
+  public interface Processor<T, R> extends Subscriber<T>, Publisher<T> {}
+
+  public interface Publisher<T> {
+      public void subscribe(Subsriber<? super T> s); // Methods called by the subscriber
+  }
+
+  public interface Subscriber<T> {
+      public void onSubscribe(Subscription s); // Methods called by the publisher
+      public void onNext(T t);
+      public void onError(Throwable t);
+      public void onComplete();
+  }
+
+  public interface Subscription {
+      public void request(long n); // `n` is the amount requested
+      public void cancel();
+  }
+#+END_SRC
+
+
+Rules:
+- If a publisher fails, it must signal an onError
+- If a publisher terminates successfully (finite stream), it must signal an onComplete
+- If a subscription is cancelled, its subscriber must eventually stop being signaled
+- `Publisher.subscribe()` may be called as many times as wanted but must be w/ a different subscriber each time
+  - The same object can subscribe twice to a publisher
+- A subscriber must signal demand via `Subscription.request(long n)` to receive `onNext` signals
