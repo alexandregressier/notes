@@ -348,3 +348,145 @@ Removed APIs:
 - The applet API
 - Corba
 - Explicit constructors for primitive wrappers (e.g., `new Integer(5)`)
+
+  
+** Flow API
+
+Java 9 supports reactive programming natively via the Flow API
+- Works well in combination of the Stream API (for Streams of data)
+- Is the implementation of Reactive Streams
+- Is only a set of interfaces provided by the JDK (no implementation)
+
+Streams enables processing data in a declarative way
+- Leverage multicore architecture
+- Comes w/ Java 8
+- Converts a collection to a stream, processing, and then gather the data into a collection
+
+Collections are in-memory data structures
+Streams are fixed data structures which computes the elements on demand basis
+- Lazily constructed collections
+
+A chain of stream operations is called a /pipeline/
+
+Iterations via iterators are called /external iteration/ (i.e., visibile in the code)
+With streams, the iteration logic is unvisible and called /internal iteration/
+
+#+BEGIN_SRC java
+  List<String> selectedAnimals = new ArrayList<>();
+  for (Animal animal : animals) {
+      if (animal.getName().startsWith("C")) {
+          selectedAnimals.add(animal.getName());
+      }
+  }
+#+END_SRC
+
+#+BEGIN_SRC java
+  List<String> selectedAnimals = animals.stream()
+      .map(Animal::getName)
+      .filter(name -> name.startsWith("C"))
+      .collect(Collectors.toList());
+#+END_SRC
+
+
+Defining a publisher:
+#+BEGIN_SRC java
+  static class AnimalsPublisher implements Flow.Publisher<String> {
+
+      private final ExecutorService executor = ForJoinPool.commonPool(); // Daemon-based
+      private boolean subscribed; // true after first subscribe
+
+      public synchronized void subscribe(Flow.Subscriber<? super String> subscriber) {
+          if (subscribed) {
+              subscriber.onError(new IllegalStateException()); // Only 1 subscriber allowed
+          } else {
+              subscribed = true;
+              subscriber.onSubscribe(new AnimalsPublisherSubscription(subscriber, executor));
+          }
+      }
+  }
+#+END_SRC
+
+Sends information w/in a subscription
+ExecutorService represents an async execution mechanism (similar to a thread pool)
+
+Defining the previous subscription:
+#+BEGIN_SRC java
+  static class AnimalsPublisherSubscription implements Flow.Subscription {
+
+      private final Flow.Subscriber<? super String> subscriber;
+      private final ExecutorService executor;
+      private Future<?> future; // To allow cancellation
+      private List<Animal> animals;
+      private int animalsSent;
+
+      AnimalsPublisherSubscription(Flow.Subscriber<? super String> subscriber,
+                                   ExecutorService executor) {
+          this.subscriber = subscriber;
+          this.executor = executor;
+          this.animalsSent = 0;
+      }
+
+      public synchronized void cancel() {
+          if (future != null) future.cancel(false);
+      }
+
+      public synchronized void request(long n) {
+          // Computing the nb of animals sent so far
+          long animalsToSend = n;
+          if (animalsSent = animalsToSend > animals.size()) {
+              animalsToSend = animals.size() - animalsSent;
+          }
+          long finalAnimalsToSend = animalsToSend;
+
+          
+          future = executor.submit(() -> {
+                  animals.stream()
+                      .map(Animals::getName)
+                      .filter(name -> name.startsWith("C"))
+                      .skip(animalsSent)
+                      .limit(finalAnimalsToSend)
+                      .forEach(subscriber::onNext);
+
+                  animalsSent += finalAnimalsToSend;
+                  if (animalsSent == animals.size()) {
+                      subscriber.onComplete();
+                  }
+              });
+      }
+  }
+
+
+#+END_SRC
+
+Animals starting with a C will be sent one at a time
+
+Defining the subscriber:
+#+BEGIN_SRC java
+  class AnimalsSubscriber implements Flow.Subscriber<String> {
+
+      Flow.Subscription subscription;
+      final long bufferSize;
+      long count;
+
+      AnimalsSubscriber(long bufferSize) {
+          this.bufferSize = bufferSize;
+      }
+
+      public void onSubscribe(Flow.Subscription subscription) {
+          long initialRequestSize = bufferSize;
+          count = bufferSize - bufferSize / 2; // Request again when half consumed
+          (subscription = subscription).request(initialRequestSize);
+      }
+
+      public void onNext(Strnig item) {
+          if (--count < 0) {
+              subscription.request(count = bufferSize - bufferSize / 2);
+          }
+          System.out.println(item);
+      }
+
+      public void onError(Throwable ex) { ex.printStackTrace(); }
+    
+      public void onComplete() {}
+  }
+#+END_SRC
