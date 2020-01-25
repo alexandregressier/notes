@@ -490,3 +490,19 @@ Defining the subscriber:
       public void onComplete() {}
   }
 #+END_SRC
+
+RxJava 2.0 is an implementation of the Reactive streams / Flow API
+-> Our custom implementation is not dealing w/ backpressure for example
+-> Also provides operators
+
+** Functional programming
+
+Functional Reactive Programming (FRP) = Reactive + Functional
+
+#+begin_quote
+Functional programming is a programming paradigm that treats computation as the evaluation of mathematical functions and
+avoids chaning-state and mutable data.
+#+end_quote
+
+Higher-order function
+First-class functions
