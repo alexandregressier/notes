@@ -39,7 +39,7 @@ A personal collection of notes taken from computer-related books and videos.
 
 ** Java
 
-- [[./courses/reactive-java-9/reactive-java-9.org]] - Manuel Vicente Vivo
+- [[./courses/reactive-java-9/reactive-java-9.org][Reactive Java 9]] - Manuel Vicente Vivo
 
 
 * Videos
