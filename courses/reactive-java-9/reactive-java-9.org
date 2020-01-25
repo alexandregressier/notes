@@ -195,3 +195,156 @@ Rules:
 - `Publisher.subscribe()` may be called as many times as wanted but must be w/ a different subscriber each time
   - The same object can subscribe twice to a publisher
 - A subscriber must signal demand via `Subscription.request(long n)` to receive `onNext` signals
+
+
+* Reactivity in Java 9
+
+Supports via the Reactive API (a.k.a. Flow API)
+
+
+** Java 9 features
+
+- Private interface methods
+  - Reusing code between default methods had to be public in Java 8
+
+#+BEGIN_SRC java
+  public interface InJava8 {
+
+      default float multiply(int x, in y) {
+          if (inputZero(x) || inputZero(y)) return 0;
+          return x * y;
+      }
+
+      default float divide(int x, int y) throws Exception {
+          if (inputZero(y)) throw new Exception("Error");
+          return x / y;
+      }
+
+      // We do not want this to be public
+      default boolean inputZero(int x) {
+          return x == 0;
+      }
+  }
+#+END_SRC
+
+#+BEGIN_SRC java
+  public interface InJava9 {
+
+      default float multiply(int x, in y) {
+          if (inputZero(x) || inputZero(y)) return 0;
+          return x * y;
+      }
+
+      default float divide(int x, int y) throws Exception {
+          if (inputZero(y)) throw new Exception("Error");
+          return x / y;
+      }
+
+      // Possible in Java 9
+      private boolean inputZero(int x) {
+          return x == 0;
+      }
+  }
+#+END_SRC
+
+- Collection factory methods
+  - Java 9 provides static factory methods on the collection interfaces
+  - Java 9 supports immutable collections
+
+#+BEGIN_SRC java
+  List.of("one").add("two"); // Error: the first List expression is immutable
+
+  List<String> list = List.of("one", "two", "three");
+
+  Map<String, Integer> mapImmediate = Map.of("one", 1,
+                                             "two", 2,
+                                             "three", 3);
+
+  Map<String, Integer> mapEntries = Map.ofEntries(entry("one", 1),
+                                                  entry("two", 2),
+                                                  entry("three", 3));
+
+#+END_SRC
+
+- Process API: improve the API for controlling and managing OS processes
+
+Example: getting the current process PID
+In Java 8:
+#+BEGIN_SRC java
+  Process proc = Runtime.getRuntime().exec(new String[] {
+          "/bin/sh",
+          "-c",
+          "echo $PPID",
+      });
+
+  if (proc.waitFor() == 0) {
+      InputStream in = proc.getInputStream();
+      int available = in.available();
+
+      byte[] outputBytes = new byte[available];
+      in.read(outputBytes);
+
+      String pid = new String(outputBytes);
+      System.out.println("PID: " + pid);
+  }
+#+END_SRC
+
+In Java 9:
+#+BEGIN_SRC java
+  System.out.println("PID: " + ProcessHandle.current().getPid());
+#+END_SRC
+
+- Stack walking: define an efficient standard API for stack walking that allows easy filtering of, and lazy access to,
+  the information in stack traces
+
+#+BEGIN_SRC java
+  public static void main(String[] args) throws Exception {
+      walkFilterAndGetTenStackFrame().forEach(System.out::println);
+  }
+
+  private static List<String> walkFilterAndGetTenStackFrame() {
+      return StackWalker.getInstance().walk(s ->
+                                            s.map(frame -> frame.getClassName() + "/" + frame.getMethodName())
+                                            .filter(name -> name.startsWith("package.name"))
+                                            .limit(10)
+                                            .collect(Collectors.toList()));
+  }
+#+END_SRC
+
+- HTTP client API that implements HTTP/2 and WebSocket
+  - Will replace the old HTTP URL connection API (which is as old as HTTP/1.1)
+
+Synchronous:
+#+BEGIN_SRC java
+  HttpResponse httpResponse = HttpRequest.create(new URI("http://127.0.0.1:8080"))
+      .GET()
+      .response();
+
+  int statusCode = httpResponse.statusCode();
+  String body = httpResponse.body(HttpResponse.asString());
+#+END_SRC
+
+Asynchronous:
+#+BEGIN_SRC java
+  HttpRequest.create(new URI("http://127.0.0.1:8080"))
+      .GET()
+      .responseAsync()
+      .thenAccept(httpResponse -> {
+              int statusCode = httpResponse.statusCode();
+              String body = httpResponse.body(HttpResponse.asString());
+          });
+#+END_SRC
+
+- Project Jigsaw: modular JDK source code
+  - Make Java development easier on e.g., IoT devices
+- Lightweight JSON API: generate JSON documents & data streams (purpose: being native & provide interoperability)
+- Multi-resolution images
+- Platform logging API & service
+- HTML 5 Javadoc (+ satisfies accessibility requirements)
+- Datagram Transport Layer Security (DTLS) (e.g., UDP is a datagram protocol)
+
+  
+Removed APIs:
+- The applet API
+- Corba
+- Explicit constructors for primitive wrappers (e.g., `new Integer(5)`)
