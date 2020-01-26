@@ -41,6 +41,10 @@ A personal collection of notes taken from computer-related books and videos.
 
 - [[./courses/reactive-java-9/reactive-java-9.org][Reactive Java 9]] - Manuel Vicente Vivo
 
+** AWS
+
+- [[./courses/ultimate-aws-certified-solutions-architect-associate/ultimate-aws-certified-solutions-architect-associate.org][Ultimate AWS Certified Solutions Architect Associate]] - Stephane Maarek
+
 ** Adobe
 
 *** Premiere Pro
