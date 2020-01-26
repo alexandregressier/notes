@@ -1,0 +1,95 @@
+#+TITLE: Ultimate AWS Certified Solutions Architect Associate, Udemy - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2020-01-26 Sun>
+
+
+* 1 - Course content
+
+** Course introduction
+
+https://aws.amazon.com
+
+AWS Certified Solutions Architect Associate 
+Exam: SAA-C01
+
+Some knowledge is shared between the 3 certifications:
+- Solutions Architect
+- SysOps Administrator
+- Developer
+
+Covers over 30+ AWS services
+
+Amazon Web Services is a /cloud provider/
+-> Provides you w/ servers & services that you can use *on demand* & *scale easily*
+
+Powers:
+- amazon.com
+- Netflix
+
+
+** Creating an AWS Account
+
+https://console.aws.amazon.com/
+
+#+begin_quote
+AWS Accounts Include 12 Months of Free Tier Access
+
+Including use of Amazon EC2, Amazon S3, and Amazon DynamoDB
+#+end_quote
+
+https://aws.amazon.com/free
+
+The free tier enables you to learn AWS
+
+Requires:
+- Phone number
+- Credit card information
+-> In case you excess the free tier limits
+
+
+** AWS Account Activation Troubleshooting
+   
+https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
+
+Ensure to validate your account via the activation email
+
+The validation process can take up to 24 hours
+-> But usually take a few minutes
+
+#+begin_quote
+AWS cancels the authorization request as soon as it's approved by your financial institution
+#+end_quote
+
+https://aws.amazon.com/support
+
+
+** AWS Budget Setup
+
+Budget setup enables you to receive email alerts when overspending
+
+Creating a budget:
+- Account > My Billing Dashboard
+- Cost Management > Create a budget
+- Choose `Cost budget`
+- Leave default options & set a fixed amount
+  - TIP: put 0.01 USD to not spend money
+- Configure alerts
+- `Send alert based on: Actual Costs`
+- `Alert thresold: 100% of budgeted amount`
+- Add email contact
+- Confirm budget
+
+Checking bills:
+- Billing > Bills
+- Choose month
+- Expand what interests you
+
+
+** Important Message
+
+This course has written subtitles
+
+
+* 2 - Code & Slides download
+
+https://courses.datacumulus.com/certified-solutions-architect-pn9
