@@ -41,6 +41,12 @@ A personal collection of notes taken from computer-related books and videos.
 
 - [[./courses/reactive-java-9/reactive-java-9.org][Reactive Java 9]] - Manuel Vicente Vivo
 
+** Adobe
+
+*** Premiere Pro
+
+- [[./courses/adobe-premiere-pro-cc-for-beginners/adobe-premiere-pro-cc-for-beginners.org][Adobe Premiere Pro CC for Beginners]] - Phil Ebiner
+
 
 * Videos
 
