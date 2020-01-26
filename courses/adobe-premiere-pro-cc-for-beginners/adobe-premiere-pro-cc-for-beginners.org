@@ -1,0 +1,344 @@
+#+TITLE: Adobe Premiere Pro CC for Beginners, Video School Online - Notes
+#+AUTHOR: Alexandre Gressier
+#+DATE: <2020-01-26 Sun>
+
+
+Premiere Pro version at the time of watching: CC 2020 - 14.0.1 (Build 71)
+
+* Introduction
+
+** Start a new project and understand the workspace
+
+Any panel can be resized / moved around / closed
+
+Source monitor is where your video source files appear
+Effects control allows you to manage effects
+
+Audio Track Mixer VS Audio Clip Mixer
+
+Workspaces seems to be saved on a per-project basis
+
+To import a source file, you can:
+- Double click the project panel's blank space
+- File > Import...
+- <C-i>
+- Drag & drop files
+
+You can then select one to multiple files
+
+A folder in the project tree is called a /Bin/:
+- Right click > New Bin
+- Click the icon
+- <C-b>
+
+You can import a whole directory by:
+- <C-i> then "Import Folder"
+- Drag & drop it
+
+All the music is copyright-free
+-> Can be found in the /YouTube Audio library/
+
+/B-roll/: (a.k.a. cutaway footage) is videos, photos, or graphics that is intercut w/ the main shot
+E.g., in an interview, you may intercut videos of the person's life to further illustrate the points
+
+Renaming a project resource:
+- Press <RET>
+- Double click its name
+-> You have to keep enough structure to be able to quickly find any resource
+
+Viewing a resource in source monitor:
+- Double click its icon
+
+The Bins are completely detached from the underlying directories in the filesystem
+- The same applies for resource names
+- Find the right balance between clearness & conciseness when choosing a name
+- When done renaming, just click elsewhere
+
+Video resources can have heterogeneous framerates
+
+DSLR: digital single-lens reflex camera
+
+
+** Stabilize your video
+
+Double click any Bin to view it in a dedicated panel
+
+Drag & drop a video resource to the "New Item" button to create a new timeline w/in the project
+
+Effects can be search via the dedicated bar
+-> "warp" > Warp Stabilizer
+-> Drag & drop the effect on the bar of the video of the timeline (e.g., V1)
+
+The Effect Controls presents all the effects on the current video of the timeline
+-> The progression can be seen in the corresponding effect section
+
+Result:
+- Smooth motion: moves slowly
+- No motion: the shot is completely still
+
+An effect can be toggled by clicking "fx"
+
+
+** Use Media Browser to import clips
+
+Media Browser is a panel that makes browsing camera files (w/ a lot of junk) easier
+
+You can import any file by:
+- Right click > Import
+- Drag & drop
+
+
+** Premiere Pro CC updates
+
+95% of features are version independent
+
+
+* Editing your video
+
+** Start a new sequence
+
+Take the main clip (i.e., the one that will be used most)
+
+Creating a new sequence from it:
+- Drag it on "New Item"
+- New Item > Sequence
+- File > New > Sequence
+- <C-n>
+
+Sequence Presets can be chosen (e.g., Digital SLR)
+1080p24 means 1080p resolution at 24 FPS
+
+Or you can create custom settings:
+- Settings tab > Editing Mode: Custom
+- Audio Sample Rate: 48000 Hz & Display Format: Audio Samples typically what you want to choose
+- The sequence can be renamed at the bottom
+
+The new sequence take the settings from the main clip
+-> Sequence > Sequence Settings...
+-> Matching settings w/ the main clip is typically what you want
+
+The new sequence will appear in the Project panel
+
+In the timeline:
+- Videos are at the top & noted Vn
+- Audio is at the bottom & notes An
+
+There are 3 tracks for both video & audio by default
+
+
+Drag a clip above or below the existing tracks to create a new track
+
+Tracks:
+- Can be moved vertically: from Tn to Tm
+- Can be moved horizontally
+
+The timeline cursor is called the /timeline indicator/
+
+The sliders at the bottom and on the right enables you to:
+- Scroll through the sequence OR use the mouse scroll
+- Zoom in / out by dragging an end
+
+IMPORTANT: <+> & <-> can be used to zoom in or out as well
+- <S-+> expands all the clips
+
+
+** Adding clips to the timeline, syncing footage, and making selects
+
+Multiple shots of the same actions need to be synced on the timeline
+
+Add other clips to the existing sequence by dragging them on a track
+-> You can even take this opportunity to create a new track
+
+The timeline indicator can be used to snap clips
+
+Select clips in the timeline by:
+- Box selecting them
+- Using <S-Click>
+
+Visibility:
+- Click the eye to toggle video clips
+- Click the M to toggle audio clips
+- Place clips w/ in tracks above others to make them appear above them as well
+
+To see the wave form of audio or thumbnails of videos, click in the right padding of the column where Vn & An are located
+-> Or resize them vertically
+
+You are lucky: clip A & B are the same length & begin at the same time
+
+If it was not the case:
+- Trying to nudge the clips by making the wave forms of the audio matching
+- Use automatic syncing:
+  - Box select the two unmatching clips you want to match
+  - Right click > Synchronize
+  - Select Audio and Track Channel: Mix Down
+  -> Automatic syncing does not automatically work & sometimes have to be used multiple times
+  -> You can now box select the two clips & place them wherever you want
+
+Playing content in the source monitor:
+- <Space> to play the file in the source monitor
+- <Left> or <Right> to move frame by frame
+- <S-Left> or <S-Right> to move 5 frames by 5 frames
+
+Import specific parts of clips w/ the source monitor:
+- Press the Mark In "{" button <I> to mark the beginning of the clip
+- Press the Mark Out "}" button <O> to mark the end of the clip
+- Adjusting the mark in or out after adding the clip won't affect it
+
+Adding the clip source monitor to the timeline:
+- Drag the thumbnail into the timeline
+- Use the Drag Video/Audio Only button (in the middle) to drag only video or audio
+- Use Insert <,> & Overwrite <.> in combination w/
+  - The timeline indicator
+  - The V1 & A1 button (on the leftmost part of the timeline column "source patching")
+    -> Those button can be dragged instead of toggling them (like radio buttons)
+  -> Overwrite erases a part of the original clip
+    -> Use an empty track to insert it (i.e., overwriting nothing)
+  -> Inserts split the original clip
+    -> Using an empty track will still separate the other clips
+
+
+** Exercise: Synchronize audio & video
+
+IMPORTANT: You need the audio (of low quality) of the video to synchronize via audio
+-> Otherwise you can only synchronize via the beginning or ending
+
+Select Track channel: Mix Down once again
+
+Warning: Synchronize did a good job but it is not perfect looking by the offset in the claps (1 frame too slow)
+
+To fix this:
+- Hamburger of timeline > Show Audio Time Units
+-> You can zoom in more now
+-> Note that only audio (including from videos) can be nudged more precisely than a frame
+
+Disable/Enable a clip:
+- Select any audio or video clip
+- Right click Enable to disable the clip
+
+To select only the audio clip from a video:
+- <M-Click>
+
+Link the video and the external audio:
+- Select the video & its original (disabled) audio
+- Right click > Unlink to unlink the original audio
+- Select the video, its freshly unlinked audio, and the external audio
+- Right click > Link
+-> This keeps the video & its audio altogether when using tools (e.g., the razor)
+
+
+** Basic edits - Trim clips, split edits, and more!
+
+To clear in & out in the source monitor:
+- Right click on graduations > Clear In and Out
+
+Tools is the panel at the left of timeline:
+
+- Selection Tool <V>: select panels, resize, select clips
+  - Changes to the Trim Edit Tool when being on one of the vertical edge of a clip
+  - You can trim back & forth once you trimmed a first time
+  - You can see where you are trimming in the /Program Monitor/
+  -> W/ <C->, this is the tool you will use the most
+
+- Razor Tool <C>: cutting clips up
+  - You can then clear the parts you cut that do not interest you
+  - Work on a single clip at time, but can work on all clips by pressing <S->
+  - You can use the timeline indicator to snap on a particular frame as well
+    -> Disable snapping by pressing <S> or by clicking on the Magnet icon on the right of the tools
+  -> You can select an empty space between two clips on the same track and clear it <Delete> to connect them
+    -> Or Right click > Ripple delete
+
+- Ripple Edit Tool <B>: when trimming a clip, ripple delete automatically (on the contrary to the Trim Edit Tool <V>)
+  - When pressing <C->, the Trim Edit Tool becomes the Ripple Edit Tool when placed on a edge
+
+- Rolling Edit Tool <N>: useful to find junction points between clips
+  -> Makes a shorter to make an another longer
+  - When pressing <C->, the Trim Edit Tool becomes the Rolling Edit Tool when placed between edges
+
+- Slip Tool <Y>: the video on the left show where the clip will start & the one the left where it will end
+
+- Slide Tool <U>: drag a clip between two others to adjust their limits
+
+
+You rarely want to delete the audio of a video
+-> Just disable it w/ <M-> & then Right click > Disable
+-> The difference w/ the eye or M is that it affects a clip & not the whole track
+
+The goal of the project is to cut down this raw interview of 7 minutes into a 1 minute dynamic clip
+
+
+** How to edit down an interview
+
+Move up video clips that you like
+
+When the video is playing, use <j>, <k>, <l>, <Left>, & <Right>
+-> <k> pauses the playback
+-> <l><l> & <k><k> = x2
+  -> Interesting to use when the video is long
+
+As a video editor, you have to go through an interview multiple times in order to determine the good parts
+-> Mostly based on intuition (therefore it is important to get second opinions on your edit)
+-> Video editing is a personal way to make a story
+
+IMPORTANT: you can still use the tools (e.g., the razor) while the video is playing
+
+In an emotional interview, let the person rumbling to let him get deep into his feelings
+-> As an interviewer, do not hesitate to ask a question again if the interview is well defined
+
+If you had a single shot for the interview, you could have used the source monitor & drag the part that interests you
+
+You really should consider saving the sequence you made selects w/in
+
+<S-Delete> = Ripple delete
+
+Do not forget to move your selects to the below track once done
+
+Enable auto-save:
+- Edit > Preferences > Auto Save
+-> 5 minutes sounds appropriate
+-> Maximum projects version corresponds to the number of backup made
+-> The backups are located to the same place your project is (i.e., "Adobe Premiere Pro Auto-Save")
+
+B-rolls are useful when you find yourself w/ jump cuts throughout your sequence
+
+It make sense sometimes to just cut the audio by pressing <M->
+
+- Track Select Forward Tool <A>: select all the clips to the right of the cursor
+  - Press <S-> to select a single track (and audio if it has one)
+  -> You can then drag what you selected to the left to overwrite the clips
+  - You can then nudge those clips w/ <C-Left> or <C-Right> (Or <C-S-Left> or <C-S-Right>)
+
+A good thing to keep in mind is what b-roll do you have to know when to cut
+
+You can resize any part you trimmed too much
+
+Having a little moments to breath between sentences is always good
+-> Especially when you want to add a motion to something
+
+
+** Adding cutaway footage and photos
+
+Sometimes, you just have to deal w/ the b-roll you are provided w/
+
+It is a good point to have the subject in the first shot to present him to the audience
+
+Expanding video tracks to see their thumbnails is especially useful w/ b-roll
+
+Repressing <I> or <O> resets the previous marks
+
+It is not a problem if your b-roll goes past the next interesting line
+
+When he talks about being viral, use the b-roll that shows how he was viral
+
+You can select multiple images from the project panel & drag them in the timeline
+
+Create a matte background:
+- (Optional) Create a Bin to store your graphics
+- New Item > Color Matte
+- Let the default settings to match your current sequence
+- Pick the color
+- Drag the matte in the timeline
+-> A matte is simply a color
+
+IMPORTANT: you can select multiple edges at the same time
+
+A good idea would also have been to put one of two shots where he is cruising at the beginning and the other one at the end
