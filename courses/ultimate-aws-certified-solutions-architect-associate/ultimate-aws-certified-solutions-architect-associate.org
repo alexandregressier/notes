@@ -236,3 +236,77 @@ Creating a password policy:
 
 You can create aliases for accounts
 ->  https://<alias>.signin.aws.amazon.com/console
+
+
+** EC2 introduction
+
+EC2: Amazon Elastic Compute Cloud
+- The basis of AWS
+- Were the way AWS worked for a long time
+- One of the most popular service
+
+Features:
+- Renting virtual machines (EC2)
+- Storing data on virtual drives (EBS: Elastic Block Store)
+- Distributing load across machienes (ELB: Elastic Load Balancing)
+- Scaling services using an ASG (Auto Scaling Groups)
+
+Different from serverless technologies
+
+Create a new EC2 instance:
+-> Do not refresh the form!
+
+- Make sure you are in the right region
+- Launch Instance > Launch Instance button
+
+- Choose an Amazon Machine Image (AMI): the OS that will be launched on that server
+  - Notice the `Free tier eligible` AMIs
+  - Choose an Amazon Linux (version 2) AMI to benefit from Amazon-specific stuff
+  -> This is how Amazon sees you using Linux
+
+- Choose an instance type (i.e., how powerful you want your machine to be)
+  - t2.micro is free tier eligible
+  - ATM max is 96 vCPUs & 768 GiBs memory
+
+- Next: Configure Instance Details
+  - You can launch several instances at a time
+  - On-demand instances VS Spot instances
+  - Choose the VPC & subnet (default subnet in AZ, which can be other than `a`)
+  - Auto-assign Public IP: Use subnet setting (Enable)
+
+Note: Every AWS account comes w/ a default VPC & 3 subnets (1 per AZ)
+
+- Next: Add Storage
+  - Block device name: `/dev/xvda`
+  - Size: 8 GiB
+  - Volume Type: General Purpose SSD (gp2)
+  - Important: you can choose to not delete storage on EC2 termination
+
+- Next: Add Tags
+  - /Tags/ are key-value pairs
+  - Enables you to identify that instance & classify it
+  - Tags can also be defined to whatever you want
+  - "Name": "My first instance"
+
+- Next: Configure Security Group (SG)
+  - Act as a firewall around your instance (i.e., controls inbound & outbound traffic)
+  - Assign a security group: Create a new security group
+  - Name: my-first-sg
+  - Description: Created with my first EC2 instance
+  - Source: My IP (0.0.0.0/0 - Opened to the world is not a best practice)
+  - Has an SSH rule (port 22) by default
+
+- Review Instance Launch
+  - `Launch` button
+  - Define what key pair will be used to access the instance
+    - If you do not have one: Create a new key pair
+    - Choose a name
+    - `Download Key Pair` button (.pem file)
+    - Key pairs can be accessed in EC2 > Network & Security > Key Pairs
+  - `Launch instances` button
+
+The instance has been named acccording to the "Name" tag
+Instance State: `(Green) running` means that you can be billed
+
+Right click on a instance record > Instance State to change the state of the instance
+- Terminate: delete the instance & lose access to it
