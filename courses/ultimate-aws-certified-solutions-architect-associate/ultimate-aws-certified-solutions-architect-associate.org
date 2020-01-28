@@ -310,3 +310,79 @@ Instance State: `(Green) running` means that you can be billed
 
 Right click on a instance record > Instance State to change the state of the instance
 - Terminate: delete the instance & lose access to it
+
+
+** SSH overview
+
+SSH: Secure Shell
+
+Amazon EC2 Instance Connect
+- A simple & secure way to connect to your instances using SSH
+- Works the browser
+
+SSH is usually what people have the most problems w/ during their learning of AWS
+
+
+** How to SSH using Linux or Mac
+
+The EC2 instance has a public IP
+Its SG allows SSH access (via port 22)
+
+EC2's description:
+- Public DNS (IPv4)
+- IPv4 Public IP
+- Security Groups: you can click on:
+  - View inbound rules: 22 tcp
+  - View outbout rules: All All 0.0.0.0/0
+
+`ec2-user` is always the Linux user on the Amazon Linux machine
+
+#+BEGIN_SRC bash
+  $ ssh ec2-user@ec2-35-180-68-162.eu-west-3.compute.amazonaws.com
+  # OR
+  $ ssh ec2-user@35.180.68.162
+  # OR (w/ public key)
+  $ ssh -i 'key.pem' ec2-user@ec2-35-180-68-162.eu-west-3.compute.amazonaws.com
+#+END_SRC
+
+Make sure to add the host to the list of known hosts on first connection
+
+The `key.pem` file mode must be 0400 (read only-for myself) (0644 by default)
+#+BEGIN_SRC bash
+  $ chmod 0400 key.pem
+#+END_SRC
+
+The EC2 instance should have internet access
+
+<C-d> to go back to the shell's client
+
+Use PuTTY under Windows < 10:
+- Convert the `key.pem` file via PuTTYgen to .ppk:
+  - File > Load private key
+  - Save the generated key: Save private key button
+  - You can set a passphrase if desired
+- Open PuTTY:
+  - Connection > SSH > Auth
+  - Private key file for authentication: Browse...
+  - Go back to Session
+  - Connect w/ user `ec2-user` & host given for the EC2 instance
+  - Save the session if desired
+  - Open
+
+Under Windows >= 10, you probably have an SSH client available (and use the same commands as under Linux)
+- Having the right permissions on the key.pem file:
+  - Properties > Security tab > Advanced...
+  - Make sure you are the owner of the file
+  - Disable inheritance
+  - Convert inherited permissions into explicit permissions on this object
+  - Remove SYSTEM & Administrators
+  - OK
+  - Ensure you have Full control checked
+
+ 
+** SSH troubleshooting
+
+- If there is a connection timeout, this is a SG issue
+- Any timeout (not just for SSH) is related to security groups or a firewall
+- If there is a connection refused, the instance is reachable but the SSH daemon is not OK
+- If there is a `Permission denied`, you are using the wrong user or the wrong key
