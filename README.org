@@ -74,7 +74,7 @@ A personal collection of notes taken from computer-related books and videos.
 
 ** JHipster
 
-- [[./videos/jhipster-build-and-deploy-spring-boot-microservices/jhipster-build-and-deploy-spring-boot-microservices.org]] - Christopher Anatalio
+- [[./videos/jhipster-build-and-deploy-spring-boot-microservices/jhipster-build-and-deploy-spring-boot-microservices.org][JHipster: Build and Deploy Spring Boot Microservices]] - Christopher Anatalio
 
 
 * License
