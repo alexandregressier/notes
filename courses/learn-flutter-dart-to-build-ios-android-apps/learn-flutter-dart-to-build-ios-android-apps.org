@@ -918,3 +918,62 @@ Also in the Dart DevTools, you have the `Timeline` logging which is useful for r
 mode)
 
 You might also find the `Logging` section useful
+
+
+* 4 - Buildling real apps: Widgets, Styling, Theming, Logic
+
+Goal: build realistic apps
+- More widgets
+- Custom widgets
+- Theming
+- Logic
+
+Structure:
+- Learn more widgets (+ learn how to use the doc)
+- Theming & Material Design
+- Working w/ images & fonts
+- Adding business logic to an app
+
+** An overview of the core Flutter widgets
+ 
+Flutter widget catalog: https://flutter.dev/docs/development/ui/widgets
+-> This catalog redirects on the Flutter API docs
+
+They are so many widgets that you cannot use them all
+- Learn what widgets exist
+- Learn what a particular widget does
+
+Flutter API docs: https://api.flutter.dev/
+- Useful search feature
+
+*** Most important widgets
+   
+- App / Page Setup:
+  - MaterialApp / CupertinoApp (iOS styled application): the overarching application, does a lot behind the scenes, useful for navigation
+  - Scaffold / CupertinoPageScaffold: the frame, gives you a background & an app bar
+- Layout:
+  - Container: versatile, styling, align, background color (a wrapper around other widgets)
+  - Row: align objects horizontally
+  - Column: align objects vertically
+- Row / Column children:
+  - Flexible: to wrap around a child (e.g,. Text), can go both in Row & Column
+  - Expanded: same
+- Content containers
+  - Stack: have widgets positionned on top of each other
+  - Card: a pre-styled widget used in a lot of apps
+- Repeat elements
+  - ListView: a column that is scrollable
+  - GridView: a combination of Column & Row
+  - ListTile: a widget that you could build yourself, comes w/ default styling & layout setup
+- Content types
+  - Text
+  - Images: control scale & position
+  - Icon: you also have the IconButton widget for buttons
+- User input
+  - TextField
+  - RaisedButton / FlatButton / IconButton
+  - GestureDetector: e.g., create custom buttons
+  - InkWell: ripple effect, can only be seen upon a tap (register event listeners)
+
+It is appreciable to have a lot of built-in widgets & the possibility to easily build custom ones
+Some widgets are redundant or legacy
