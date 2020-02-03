@@ -977,3 +977,14 @@ Flutter API docs: https://api.flutter.dev/
 
 It is appreciable to have a lot of built-in widgets & the possibility to easily build custom ones
 Some widgets are redundant or legacy
+
+
+** Planning the app
+
+Expense planner: users should be able to add their expenses
+
+We keep track of those expenses in a list
+
+Show a little chart over the last week
+
+Two `+` buttons that redirect on another view
