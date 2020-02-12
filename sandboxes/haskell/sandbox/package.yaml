@@ -1,0 +1,48 @@
+name:                sandbox
+version:             0.1.0.0
+github:              "alexandregressier/sandbox"
+license:             BSD3
+author:              "Alexandre Gressier"
+maintainer:          "alexandre@gressier.dev"
+copyright:           "Copyright (c) 2020 Alexandre Gressier"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/alexandregressier/sandbox#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  sandbox-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sandbox
+
+tests:
+  sandbox-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sandbox
