@@ -1,6 +1,12 @@
-module Lib
-    ( someFunc
-    ) where
+module Lib where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+hello :: IO ()
+hello = putStrLn "Hello!"
+
+factorial :: Int -> Int
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+
+divSafe :: Integer -> Integer -> Maybe Integer
+divSafe a 0 = Nothing
+divSafe a b = Just (a `div` b)
