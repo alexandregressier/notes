@@ -1,0 +1,29 @@
+# Common
+*~
+
+# Vim
+*.sw[po]
+
+# Emacs
+\#*\#
+.\#*
+
+# Visual Studio Code
+.vscode/
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Java
+*.class
+*.[jwen]ar
+!*wrapper.jar
+hs_err_pid*
+
+# Gradle
+.gradle/
+build/
