@@ -7,6 +7,7 @@ import javax.ws.rs.core.HttpHeaders;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.lessThan;
 
 @QuarkusTest
 public class GreetingRestTest {
@@ -38,5 +39,14 @@ public class GreetingRestTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello John!"));
+    }
+
+    @Test
+    public void testHelloEndpointTiming() {
+        given()
+                .pathParam("name", "John")
+                .when().get("/hello/{name}")
+                .then()
+                .time(lessThan(1000L));
     }
 }
