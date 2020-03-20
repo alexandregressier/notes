@@ -3,6 +3,7 @@ import java.nio.charset.StandardCharsets
 plugins {
     id 'java'
     id 'io.quarkus'
+    id 'io.freefair.lombok' version "$lombokPluginVersion"
 }
 
 group 'dev.gressier.quarkus.sandbox'
