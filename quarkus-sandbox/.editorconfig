@@ -16,8 +16,5 @@ insert_final_newline = false
 indent_size = 2
 insert_final_newline = false
 
-[*.*sh]
-indent_size = 4
-
-[Dockerfile*]
+[{*.*sh,Dockerfile*}]
 indent_size = 4
