@@ -1,4 +1,4 @@
-package dev.gresier.quarkus.sandbox;
+package dev.gresier.quarkus.sandbox.rest;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

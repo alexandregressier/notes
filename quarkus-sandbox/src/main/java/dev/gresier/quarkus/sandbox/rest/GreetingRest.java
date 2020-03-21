@@ -1,4 +1,4 @@
-package dev.gresier.quarkus.sandbox;
+package dev.gresier.quarkus.sandbox.rest;
 
 import lombok.extern.slf4j.Slf4j;
 
