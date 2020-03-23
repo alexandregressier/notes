@@ -48,6 +48,12 @@
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>1.0.0-alpha-3</version>
+        </dependency>
+
         <!-- Provided -->
         <dependency>
             <groupId>org.projectlombok</groupId>
