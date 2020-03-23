@@ -1,4 +1,4 @@
-package dev.gressier.quarkus.sandbox.services;
+package dev.gressier.quarkus.sandbox.simple.services;
 
 import javax.enterprise.context.ApplicationScoped;
 

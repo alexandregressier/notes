@@ -1,6 +1,6 @@
-package dev.gressier.quarkus.sandbox.rest;
+package dev.gressier.quarkus.sandbox.simple.rest;
 
-import dev.gressier.quarkus.sandbox.services.MetaService;
+import dev.gressier.quarkus.sandbox.simple.services.MetaService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
