@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 public class MetaRest {
 
     @Inject
-    MetaService metaService;
+    private MetaService metaService;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
