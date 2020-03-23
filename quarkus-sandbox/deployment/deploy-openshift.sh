@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Build native application
-./gradlew buildNative
+./mvnw buildNative
 
 # Create a new Quarkus project
 oc new-project quarkus-sandbox

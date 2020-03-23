@@ -24,6 +24,8 @@ out/
 !*wrapper.jar
 hs_err_pid*
 
-# Gradle
-.gradle/
-build/
+# Maven
+.mvn/
+target/
+pom.xml.*
+release.properties
