@@ -1,4 +1,4 @@
-package dev.gresier.quarkus.sandbox.rest;
+package dev.gressier.quarkus.sandbox.rest;
 
 import io.quarkus.test.junit.NativeImageTest;
 

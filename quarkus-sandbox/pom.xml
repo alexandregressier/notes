@@ -7,6 +7,11 @@
     <groupId>dev.gressier.quarkus.sandbox</groupId>
     <artifactId>quarkus-sandbox</artifactId>
     <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>qks-simple-service</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
