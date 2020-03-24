@@ -11,6 +11,7 @@
 
     <modules>
         <module>qks-simple-service</module>
+        <module>qks-customer-service</module>
     </modules>
 
     <properties>
