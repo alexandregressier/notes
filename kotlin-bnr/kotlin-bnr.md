@@ -32,7 +32,7 @@ Style guides:
 
 ## Chapter 1 - Your first Kotlin Application
 
-IntelliJ means _Intellgent Java Integrated Development Environment (+ 'A' for the _idea_ pun)
+IntelliJ means _Intelligent Java Integrated Development Environment_ (+ 'A' for the _idea_ pun)
 
 Download IntelliJ IDEA: <https://jetbrains.com/idea/download>
 
@@ -59,7 +59,7 @@ The Kotlin standard library is called _stdlib_ as well
 
 <https://jetbrains.org/intellij/sdk/docs/basics/project_structure.html>
 
-src/ is where to put your Kotlin source files
+`src/` is where to put your Kotlin source files
 
 `<A-Ins>` in the Project Tool Window to create a new file
 
