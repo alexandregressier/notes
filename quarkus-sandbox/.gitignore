@@ -21,7 +21,6 @@ out/
 # Java
 *.class
 *.[jwen]ar
-!*wrapper.jar
 hs_err_pid*
 
 # Maven
@@ -29,3 +28,4 @@ hs_err_pid*
 target/
 pom.xml.*
 release.properties
+!*wrapper.jar
