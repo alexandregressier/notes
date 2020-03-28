@@ -11,7 +11,7 @@
 # Visual Studio Code
 .vscode/
 
-# IntelliJ
+# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
