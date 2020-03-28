@@ -1,0 +1,29 @@
+# Common
+*~
+
+# Vim
+*.sw[po]
+
+# Emacs
+\#*\#
+.\#*
+
+# Visual Studio Code
+.vscode/
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Build outputs
+build/
+
+# Pub
+.dart_tool/
+.packages
+
+# dartdoc
+doc/api/
