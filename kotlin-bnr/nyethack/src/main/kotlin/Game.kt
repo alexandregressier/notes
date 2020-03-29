@@ -1,12 +1,24 @@
+import kotlin.math.pow
+
 fun main() {
     val name = "Alex"
     var healthPoints = 89
     var isBlessed = true
     val isImmortal = false
+    val karma = (Math.random().pow((110 - healthPoints) / 100.0) * 20).toInt()
 
     // Aura
     val auraVisible = isBlessed && healthPoints > 50 || isImmortal
-    val auraColor = if (auraVisible) "GREEN" else "NONE"
+    val auraColor =
+        if (auraVisible)
+            when (karma) {
+                in 0..5 -> "Red"
+                in 6..10 -> "Orange"
+                in 11..15 -> "Purple"
+                in 16..20 -> "Green"
+                else -> "None"
+            }
+        else "None"
 
     // Health
     val healthStatus = when (healthPoints) {
