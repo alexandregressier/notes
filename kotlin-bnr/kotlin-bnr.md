@@ -133,6 +133,8 @@ Kotlin does not support the `0.` floating-point value expressions
 
 ## Chapter 2 - Variables, Constants, and Types
 
+Like C & Java, Kotlin supports the two comment types `//` and `/* */`
+
 In Kotlin, trailing `;` are optional, and therefore not recommended
 
 **variable:** an element that holds a value; variable may be read-only or mutable
@@ -145,7 +147,7 @@ Kotlin features _type-checking_: prevents the assignment of the wrong kind of da
 -> The resulting error is called a _type mismatch_
 
 INTELLIJ TIP: type `main` (or `psvm`) to use a template
--> Use `foo.sout` as well
+-> Use `foo.sout` as well (called a _postfix template_)
 
 `main` is the _entry point_ of the program
 
@@ -259,3 +261,149 @@ Neither Java nor Kotlin require importing `java.lang.String`
 -> `String` is present in package `java.lang` which is imported by default in all java programs
    
 <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html>
+
+
+## Chapter 3 - Conditionals
+
+JetBrains headquarters are located in Prague, Czech Republic
+JetBrains debuted as _IntelliJ Software_
+Their first product was _IntelliJ Renamer_, a code refactoring tool
+_IntelliJ IDEA_ is their first IDE
+
+**control flow:** rules for when code should be executed
+**branch:** a set of code executed conditionally (_e.g._, the `else` branch)
+-> A branch is _triggered_
+
+> The flow of the code execution will branch depending on whether the specified condition is met
+
+INTELLIJ TIP: `healthPoints == 100.if` expands into the unexpected `if (healthPoints == 100)`
+
+`==` is called the _structural equality operator_
+-> It evaluates whether value on its LHS is equal to value on its RHS
+
+It is one of the _comparison operators_:
+- `<`
+- `<=`
+- `>`
+- `>=`
+- `==`
+- `!=`
+- `===`  (evaluates whether two instances point to the same reference, by contrast to values until now)
+- `!==`
+
+**string concatenation:** combining two or more strings in a single one
+In Kotlin, `String` concatenation is done w/ the _addition operator_ (_i.e._, `+`)
+
+Like C & Java, the `{}` are optional for `if/else` statements if it encloses a single instruction
+-> Omitting them seems to make the code clearer
+
+```kotlin
+var arrowsInQuiver = 2
+if (arrowsInQuiver >= 5)
+    println("Plenty of arrows")
+    println("Cannot hold any more arrows") // Will print unconditionally
+```
+
+The Kotlin community prefers to put `{}` (_braces_) every time (at least for multiline `if`s) b/c of inexperienced developers
+-> But do we care about new readers (that are this much inexperienced)?
+
+It's not about saving keystrokes it's about saving space in your head (but the trap is that too much conciseness requires more space in your head to remember what it exactly expands too)
+
+REMEMBER: that you spend more time reading than writing code
+
+_String interpolation/templating_ enables you to inject values into a single string
+
+IMPORTANT: `else if` is just an `else` with another `if/else` as a block
+-> `if`s can also be nested (but envisage to use `&&` or `||`)
+-> An `if/else` is considered as a single instruction and there for can be enclosed w/o `{}` in another `if/else`
+
+Obviously, the order of the `if`s matters
+
+Any boolean expression can be negated by prefixing it w/ `!`
+
+The condition between `()` of an if statement is called a _conditional_
+
+To avoid having to duplicate nested conditions, use the _logical operators in conditionals:_
+- `&&` (_Logical "and" operator)
+- `||` (_Logical "or" operator)
+- `!` (_Logical "not" operator)
+-> The binary ones _combine_ 2 boolean expressions
+
+Do not trust your future self and comment your code
+-> Comments can be thought of as notes
+
+_Operator precedence_, from highest to lowest:
+1. `()`
+2. `!`
+3. `*`, `/`, `%`
+4. `+`, `-`
+5. `<`, `<=`, `>`, `>=`
+6. `==`, `!=`
+7. `&&`
+8. `||` IMPORTANT: _and_ has a higher precedence than _or_
+-> Operator w/ the same precedence are applied from *left to right*
+
+_Refactor:_ change the presentation or location of code w/o changing its functionality
+
+INTELLIJ TIP: extracting an expression as variable:
+1. Place your cursor on the expression
+2. `<C-A-V>`
+3. Select the desired expression from the list of suggestions
+4. `<RET>`
+
+Consider extracting `if`'s conditionals as variable to label them
+
+Like Scala, `if` are expressions in Kotlin (called _conditional expressions_), and therefore can be assigned to variables
+-> Make sure the `if` yields the same type for all of its branches, o/w the result type will be `Any`
+
+IMPORTANT: Kotlin has no ternary operator since it offers conditional expressions
+
+IntelliJ does not yet offer variable introduction (w/ `<A-RET>`) for conditional expressions
+
+All the conditionals _branch off_ the value of the integer `healthPoints`
+-> You can also use ranges (_e.g._, `75..90 - 1`; both _bounds_ are inclusive) combined w/ the `in` keyword
+-> Both _lower bound_ and _upper bound_ must be defined (_i.e._, no `100..`)
+
+(Inequalities were more readable in my opinion)
+
+**range:** a sequential/linear series of values or characters
+
+`in` is only valid for ranges, use `.contains()` for lists
+
+`100 in 100..101` -> `true`
+`101 in 100..101` -> `true`
+`101 in 100 until 101` -> `false`
+`100 in 100..100` -> `true`
+`75 in 100..50` -> `false` (no range generated)
+`75 in 100 downTo 50` -> `true` (descends instead of ascending)
+`'A' in 'A'..'F'` -> `true`
+`'a' in 'A'..'F'` -> `false`
+`for (i in 8 downTo 1 step 2) print(i)` -> Prints `8642`
+
+By defining both ends of the expected range (doable w/ inequalities as well), `if`s ordering no longer matters
+
+You can call the `rangeTo` method for your classes, notably w/ the _operator form_ `..` (_e.g._, `Version(1, 11)..Version(1, 30)`)
+
+The `when` expression is another _control flow_ mechanism avaible in Kotlin
+
+```kotlin
+val race = "gnome"
+val faction = when (race) { // `race` is called an _argument_
+    "dwarf" -> "Keeper of the Mines"
+    "gnome" -> "Keeper of the Mines" // You should variablize these
+    "orc" -> "Free People of the Rolling Hills"
+    "humans" -> "Free People of the Rolling Hills"
+    else -> "Unknown" // Optional, like any other `else` (however required in FP)
+}
+```
+
+`when` is a good fit when wanting to analyze the value of a variable in order to act accordingly
+
+Unlike Scala, Kotlin is using `->` (and not `=>`) for:
+- `when`
+- Lambdas
+- Function type definitions
+
+By default, conditionals of `when` are made using `==` (_i.e._, the structural equality operator)
+
+RULE OF THUMB: you should use `when` whenever you need an `else if` (_i.e._, an `if` w/ > 2 branches)
