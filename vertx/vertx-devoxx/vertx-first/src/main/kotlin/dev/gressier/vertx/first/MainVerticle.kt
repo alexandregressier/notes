@@ -2,6 +2,7 @@ package dev.gressier.vertx.first
 
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Promise
+import io.vertx.core.Vertx
 import io.vertx.core.http.HttpHeaders
 
 class MainVerticle : AbstractVerticle() {
@@ -24,4 +25,9 @@ class MainVerticle : AbstractVerticle() {
                 }
             }
     }
+}
+
+fun main() {
+    val vertx = Vertx.vertx()
+    vertx.deployVerticle(GreetingVerticle())
 }
