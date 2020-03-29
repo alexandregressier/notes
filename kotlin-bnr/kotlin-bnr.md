@@ -246,7 +246,7 @@ The bytecode demonstrates that type inference is working
 
 In Java, there are 2 kinds of types:
 - Primitive types; LowerCamelCased
-- Reference types (defined by classes, since a clas define a type); UpperCamelCased
+- Reference types (defined by classes, since a class define a type); UpperCamelCased
 
 All primitives in Java have a corresponding reference type (a.k.a. boxed type)
 -> Mainly b/c of `<T>` w/ generics (primitive types do not define a type in the sense of `T`)
@@ -311,8 +311,6 @@ It's not about saving keystrokes it's about saving space in your head (but the t
 
 REMEMBER: that you spend more time reading than writing code
 
-_String interpolation/templating_ enables you to inject values into a single string
-
 IMPORTANT: `else if` is just an `else` with another `if/else` as a block
 -> `if`s can also be nested (but envisage to use `&&` or `||`)
 -> An `if/else` is considered as a single instruction and there for can be enclosed w/o `{}` in another `if/else`
@@ -362,6 +360,7 @@ IntelliJ does not yet offer variable introduction (w/ `<A-RET>`) for conditional
 
 All the conditionals _branch off_ the value of the integer `healthPoints`
 -> You can also use ranges (_e.g._, `75..90 - 1`; both _bounds_ are inclusive) combined w/ the `in` keyword
+-> The `in` keyword enables you to check whether a value is within the range
 -> Both _lower bound_ and _upper bound_ must be defined (_i.e._, no `100..`)
 
 (Inequalities were more readable in my opinion)
@@ -378,7 +377,13 @@ All the conditionals _branch off_ the value of the integer `healthPoints`
 `75 in 100 downTo 50` -> `true` (descends instead of ascending)
 `'A' in 'A'..'F'` -> `true`
 `'a' in 'A'..'F'` -> `false`
+`'x' !in 'a'..'z'` -> `false`
 `for (i in 8 downTo 1 step 2) print(i)` -> Prints `8642`
+`(1..3).toList()` -> `[1, 2, 3]`
+`(3 downTo 1).toList()` -> `[3, 2, 1]`
+`(3..1).toList()` -> `[]`
+
+Ranges are not lists b/c it enables them to be lazily/optimally evaluated
 
 By defining both ends of the expected range (doable w/ inequalities as well), `if`s ordering no longer matters
 
@@ -398,6 +403,7 @@ val faction = when (race) { // `race` is called an _argument_
 ```
 
 `when` is a good fit when wanting to analyze the value of a variable in order to act accordingly
+-> Enables you to put an variable/expression as a common denominator
 
 Unlike Scala, Kotlin is using `->` (and not `=>`) for:
 - `when`
@@ -405,5 +411,31 @@ Unlike Scala, Kotlin is using `->` (and not `=>`) for:
 - Function type definitions
 
 By default, conditionals of `when` are made using `==` (_i.e._, the structural equality operator)
+-> For example, you use `in` instead
 
 RULE OF THUMB: you should use `when` whenever you need an `else if` (_i.e._, an `if` w/ > 2 branches)
+
+INTELLIJ TIP: `<A-RET>` > Replace `if` with `when`
+
+**Scope:** the portion of a program in which an entity (_e.g._, a variable) can be referred to by name
+
+IMPORTANT: `when` is different in that it scopes the LHS of the condition automatically to whatever is provided as an argument
+-> Is that really called `scoping`? (associating?)
+
+**String template:** syntax that allows a variable to _stand in_ for its value in a string
+
+**String interpolation:** using a string template
+
+_String interpolation/templating_ enables you to inject values into a single string
+- Variables are interpolated using `$`
+- Expressions (mostly that require evaluation, but variables are still valid) are interpolated using `${}`
+
+`.trimMargin()` still works w/ string templates (which requires evaluation)
+
+Example of `Math` usage:
+```kotlin
+val karma = (Math.random().pow((110 - healthPoints) / 100.0) * 20).toInt()
+```
+`pow()` can both be used a function w/ 2 parameters or a method w/ 1 parameter
+
+Functions are a mean to group & reuse expressions in a program
