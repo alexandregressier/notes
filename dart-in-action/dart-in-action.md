@@ -76,7 +76,13 @@ Like JS, Dart:
  - Supports first-class functions (Java & C# did not have such support at the time)
  - Has an event loop
  
- Dart apps can be easily packaged as Chrome apps in Google's Web Store
+Dart apps can be easily packaged as Chrome apps in Google's Web Store
  
- Dart development requires at least the Dart SDK
+Dart development requires at least the Dart SDK
  
+
+# Chapter 1 - Hello Dart
+
+Dart is a great language for developing web apps
+
+_Single-Page web Applications_ (SPA)  are a good architecture for building apps in Dart
