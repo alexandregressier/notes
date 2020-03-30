@@ -389,7 +389,7 @@ By defining both ends of the expected range (doable w/ inequalities as well), `i
 
 You can call the `rangeTo` method for your classes, notably w/ the _operator form_ `..` (_e.g._, `Version(1, 11)..Version(1, 30)`)
 
-The `when` expression is another _control flow_ mechanism avaible in Kotlin
+The `when` expression is another _control flow_ mechanism available in Kotlin
 
 ```kotlin
 val race = "gnome"
@@ -438,4 +438,131 @@ val karma = (Math.random().pow((110 - healthPoints) / 100.0) * 20).toInt()
 ```
 `pow()` can both be used a function w/ 2 parameters or a method w/ 1 parameter
 
-Functions are a mean to group & reuse expressions in a program
+
+# Chapter 4 - Functions
+
+**Function:** a reusable portion of code that accomplishes a specific task
+-> A mean to group & reuse expressions in a program
+
+> Programs are a series of unctions combined to accomplish more complex tasks
+
+-> They both have an input & and output
+A function should solely base its output from its inputs (or input when considering currying)
+
+`println()` is a function provided by the `stdlib`
+
+
+A function _definition_:
+- Can have 0 to many parameters
+- Has a result type
+- Has a `name`
+-> A function invocation evaluates to an expression
+
+In Kotlin, a function call in named an _invocation_ (b/c you can override the `invoke()` function that is named so)
+-> It is the same as `.apply()` in Scala
+
+IMPORTANT: _Lambda expressions_ (distinct from _anonymous functions_ in Kotlin) are _function literals_, _i.e._, functions that are not declared, but passed immediately as an expression
+-> Useful for ad-hoc/single-use functions (and they are omnipresent in FP)
+```kotlin
+{ a: Int, b: Int -> a + b } // Type: `(Int, Int) -> Int`
+// IMPORTANT: the type of parameters cannot be inferred
+res0(1, 2) // -> `3`, note that nothing prevents you from using the `res` variables directly
+```
+`res` is a common abbreviation for "result"
+
+Since the Kotlin REPL does not implement `:type` yet, you should the `.javaClass` property on expresions
+
+NOTE: Lambda are really _lambda expressions_ (_i.e._, a function literal)
+
+BRILLIANT: on the contrary to Scala, Kotlin interprets _blocks_ (as they are called in Scala) as lambda expressions:
+Scala 3:
+`{ 1; 2; }` -> Creates 2 results `val res0: Int = 1` and `val res1: Int = 2`
+`val a = { 1; 2; }` -> Produces a warning & `val a: Int = 2`
+`a` -> `2`
+
+ESSENTIAL: In Scala, when you pass a block where a function **with a single parameter** is expected (single b/c this parameter can be then omitted), it automatically becomes lambda by impliciting this parameter w/ `_` (and you cannot pass a function that has (1) no `_` (2) no `(x) =>` prefix)
+`{ (x: Int) => x + 2 }` -> Type `Int => Int`, LEARN: "parentheses are required around the parameter of a lambda"
+`{ 1 + 2 }` -> `3`
+`List(1, 2, 3).map { 1 + 2 }` -> IMPORTANT: does not work because `{ 1 + 2 }` is not a lambda
+`List(1, 2, 3).map { (x) => 1 + 2 }` -> `List(3, 3, 3)`, note that `x` is unused
+`List(1, 2, 3).map { (_) => 1 + 2 }` -> `List(3, 3, 3)`, ignoring `x` (also available in Kotlin)
+`List(1, 2, 3).map { _ + 2 }` -> `List(3, 4, 5)`
+ESSENTIAL: the `_` in Scala does not only substitute the single parameter of the current function (here `x`), but it actually transforms the passed block into a lambda (by impliciting `(x) =>`)
+
+These remarks correlates to the choice of the _by-name parameter_ syntax (_e.g._, `a: => Int` that is really `a: () => Int`), where the `() =>` can be omitted as well
+-> `=>` denotes the requirement of evaluation (one more tranformation/mutation and you get the value)
+
+In Kotlin, there is not this question b/c _blocks_ are by default lambda expressions (and thus always considered to have the `(x) =>` prefix or `_`)
+FUNDAMENTAL: Moreover, _blocks_ in Kotlin are actually the syntax for Lambda expressions
+`{ 1; 2; }` -> A lambda with the type `() -> kotlin.Int`
+`res0.invoke()` -> `2`
+`res0()` -> `2`
+
+Consequently, blocks in Kotlin are always one step away from yielding a value
+-> This is therefore the way to define by-name parameters, _e.g._:
+```kotlin
+//fun whilst(a: -> Int): Int = a() + 1 // Does not compile
+fun whilst(a: () -> Int): Int = a() + 1 // (() -> Int) -> Int, first `()` are required
+whilst({ 1 + 2 + 3 }) // -> `7`
+// OR
+whilst { 1 + 2 + 3 } // -> `7`
+```
+It does not seem possible to emulate the conditional of a `while` w/ `()`
+
+In Scala, things get more complicated b/c you can call `a` without `()` (at least not when the function takes no argument)
+
+**Parameters:** part of the definition
+**Arguments:** expressions assigned to parameters, part of the function invocation
+
+Kotlin has no native currying :(
+-> _Combine_ (in the sense of category theory) functions instead
+
+Scala arguments can only be separated by a ` ` instead of `,` when using PAFs
+-> Hence the use in the `whilst`
+
+Unused lambda parameters can be replaced by `_`
+`{ x: Int -> x + 2 }` -> Type `(Int) -> Int`, LEARN: In Kotlin, there are no `()` for lambda parameters (unlike Scala); There are `()` in the type definition though
+`{ 1 + 2 }` -> `3` -> Type `() -> Int`
+`listOf(1, 2, 3).map { 1 + 2 }` -> `[3, 3, 3]`, works in Kotlin (note that a list literal delimited with `[]` is used in the output of the REPL)
+`listOf(1, 2, 3).map { (x) -> 1 + 2 }` -> Does not compile, we said no `()`
+`listOf(1, 2, 3).map { x -> 1 + 2 }` -> `[3, 3, 3]`, note that `x` is unused
+`listOf(1, 2, 3).map { _ -> 1 + 2 }` -> `[3, 3, 3]`, right syntax to ignore the lambda parameter (IntelliJ should prompt for simplification)
+`listOf(1, 2, 3).map { it + 2 }` -> `[3, 4, 5]`, the `it` keyword is equivalent to `_` from Scala
+
+`it` (or `_`) in Scala only work if there is an argument provider upfront (_e.g._, an element from a list for `map`)
+
+> Kotlin does not have dedicated syntax constructs for creating lists or sets. Use methods from the standard library, such as `listOf()`, `mutableListOf()`, `setOf()`, `mutableSetOf()`, `mapOf()`, `mutableMapOf()`.
+
+-> There are no collection literals currently for code outside of annotations
+
+When you are required to pass a function that has the result type `Unit` (or `void`), it means that this function will be executed only for its side effects
+-> Do not mistake this for by-name parameters (parameter type VS result type)
+
+Like Scala, you declare single expression function bodies using `=` instead of `{}` (_i.e._, you assign a body to a function)
+-> For static definitions, it has never been the `=>` or `->` like lambdas
+-> IMPORTANT: like Scala, the `=` is optional when you have a code block/function body just after
+
+In Kotlin, you also have anonymous functions (distinct from _lambda expressions_):
+```kotlin
+val a = fun(s: String): Int { return s.toIntOrNull() ?: 0 }
+// OR
+val a = fun(s: String): Int = s.toIntOrNull() ?: 0
+```
+`a("Alex")` -> `0`
+`a.invoke("Alex")` -> `0`
+`a(5)` -> `5`
+-> Supposed made for Java people inexperienced w/ lambda expressions
+
+You should always write the result type explicitly for the sake of readability
+
+You should organize your programs into functions
+
+INTELLIJ TIP: IntelliJ will help you group your existing logic into functions easily:
+1. Select the lines that you desire to embody
+2. `<C-A-M>`: Refactor > Extract > Function
+-> The generated function is appended at the end of the file
+
+INTELLIJ TIP: replace a variable by its value (like w/ referential transparency):
+1. Put your cursor on any of the variable occurrence
+2. `<C-A-N>`: Refactor > Inline...
+
