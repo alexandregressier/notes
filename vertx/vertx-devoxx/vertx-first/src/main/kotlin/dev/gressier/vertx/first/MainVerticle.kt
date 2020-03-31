@@ -29,5 +29,5 @@ class MainVerticle : AbstractVerticle() {
 
 fun main() {
     val vertx = Vertx.vertx()
-    vertx.deployVerticle(GreetingVerticle())
+    vertx.deployVerticle(MainVerticle())
 }
