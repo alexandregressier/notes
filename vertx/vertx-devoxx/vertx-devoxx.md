@@ -39,7 +39,7 @@ The main class is called a _verticle_
 
 A _verticle_ is the unit of deployment in Vert.x
 
-In the main verticle, create a `psvm`:
+In the main verticle, create a `main`:
 ```java
 public class App {
     public static void main(String[] args){
@@ -84,7 +84,7 @@ For now, the Vert.x starter just looks like a servlet
 
 Copy the the current verticle into a new one called `GreetingVerticle`
 
-Change the response to a JSON object
+Change the response to a Vert.x `JsonObject` (XML could have been done as well)
 
 Do not forget the `Content-Type` header in production
 
