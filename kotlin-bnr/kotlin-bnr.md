@@ -551,8 +551,11 @@ _String interpolation/templating_ enables you to inject values into a single str
 
 > Programs are a series of functions combined to accomplish more complex tasks
 
--> They both have an input & and output
+IMPORTANT: they both have an input & an output
 A function should solely compute its output from its inputs (or sole input when considering currying)
+
+Kotlin has no native currying native support :(
+-> _Combine/Chain_ (in the sense of category theory) functions instead
 
 `println()` is a function provided by the `stdlib`
 
@@ -619,9 +622,6 @@ In Scala, things get more complicated b/c you can call `a` without `()` (at leas
 
 **Parameters:** part of the definition
 **Arguments:** expressions assigned to parameters, part of the function invocation
-
-Kotlin has no native currying :(
--> _Combine_ (in the sense of category theory) functions instead
 
 Scala arguments can only be separated by a ` ` instead of `,` when using PAFs
 -> Hence the use in the `whilst`
