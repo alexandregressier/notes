@@ -332,3 +332,54 @@ Hold Alt (Option) + Left mouse button click (on slider) – Fraction values on s
 Enter – Switch between selection modes
 Esc – Undo a PolyPen action
 Q – Turn on/off generator of geometry (e.g. Subdivision Surface)
+
+
+## 3.0
+
+Beverage can
+
+These photos must be as orthogonal as possible
+
+You can drag photos in the viewport of orthogonal views
+
+S-V: edit photos in the Back tab
+
+Symetry generator is useful
+-> You can work on both sides
+
+Inner bevel is great to draw inner shapes
+
+Dissolve is what you expect delete to do
+
+only discs should not be quads
+
+Press C when you want to delte your symetry (and delete the null)
+
+Apply bevel between two loops
+
+Q: toggle subdivision surface
+
+KL: kut loop
+
+Bevel > Kut Loop
+
+Alternative to extrusion:
+- Edge loop
+- Control + gizmo down
+
+Scale + Control = New geometry on the sides3
+
+Shit+Alt = rotate the camera back where it was
+
+9/0 to toggle box selection/live
+
+V: great like blender
+
+IMPORTANT: press SPC in a field to set it to 0
+
+Use Cloth Surface to add a thickness to a plan
+
+You can achive quads in a pizza situation by taking two slices
+
+extruding a pologon loop is good
+
