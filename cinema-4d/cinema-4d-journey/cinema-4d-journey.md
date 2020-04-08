@@ -383,3 +383,152 @@ You can achive quads in a pizza situation by taking two slices
 
 extruding a pologon loop is good
 
+
+# 4.0
+
+Press U then F — Fill selection mode
+Press U then W — Select Connected (polygons, edges, etc.)
+
+UV is needed to understand how to apply a flat texture to an object
+
+You can double click any point to set its coordinates
+
+UV is an altertive set of coordinates to xyz which is stored in the geometry
+
+The checkerboard tag denotes uv coordinates mapping
+
+UV coordinates define the position of a polygon on a plane on a texture
+
+Raster pictures VS vector pictures
+
+W coordinate is rarely used
+
+UV are sufficient to describe a polygon postion on a surface
+
+UV coordinates can split polygons in uv space
+
+At the same time, these polygons remain merged in the 3D space
+
+Textures can be of any size and of any aspect rate
+
+It assumed that the height and width are equal to 1
+
+(.5,.5 is in the center)
+
+Parametric objects already have texture coordinates (generated together w/ geometry)
+
+You can change the projection a texture by clicking its material tag
+
+Window > BodyBpaint 3D > New Texture View...
+
+A texture will start repeating itself if it goes out of the square
+(unckeck Tile if undesired)
+
+The coordinates of other projection types are calculated on the go
+
+Best to use texture mode
+- You can use all the transformation tool in it (ERT)
+
+
+Cubic: the texture is projected on 6 sides
+Frontal: the texture is project orthogonaly
+
+Camera mapping mode is one of most used in 33d graphics
+-> Texture are only projected where the camera is filming
+
+
+C4D module is quite old
+UV tools are part of BodyPaint in C4D (old module)
+BodyPaint is quite old
+
+UV unwrapping: unwrapping a 3d object into 2d
+-> You split the faces of an object onto 2d space in order to pain it
+
+Right Click on any tag > Generate UV coordinate
+
+Select the edges for which there will be a cut in uv space
+
+Problems:
+- Any cut will later be a texture seen, which is a problem in itself
+- Some of the details cannnot be perfectly placed on a flat surface (will be distorded a bit)
+
+You need to find the balance between the number of cuts and the quality of detail
+
+The ring it scut in 3 pieces
+
+UM: Path selection tool
+(You can go back in your selection)
+
+Save your selection:
+Select > Set selection
+-> Creates a tag which you can double click
+
+Reselect and set again to overwrite the tag
+
+You can rename your Selection tags
+
+Layout > Bodypaint UV Edit
+
+Select the UV special selection mode:
+- UV points
+- UV polygons
+
+Change project in the Projection tab
+
+Shrink mode never has cuts in it
+-> Select it
+
+In Relax UV, you can drag your selection tag (and check the two boxes)
+
+Press apply then
+
+Optimal Mapping > Realign
+
+/UV islands/
+
+GIZMO SHOWING = SOMETHING SELECTED
+
+Begin to select polygon
+UW: select the whole piece
+Select > Hide Selected
+
+If you are in edge mode, and change to polygon mode, you will not loose your selection in edge mode
+
+Steps:
+- Select the edges where you want to cut
+- Set selection
+- Name it "UV Cut"
+- BP UV Edit layout
+- Projection > Shrink (= make sure you do not have any cuts)
+- Relax UV: ensure that uv cut is selected (+ the above checkbox + autoralign) > Apply 
+-> MAKE SURE THAT NO CHECKBOX ABOVE IS CHECKED (LIKE Pin Border Points)
+-> Apply is not deterministic
+
+Note that the cyclinder texture is not precise, you can use the cylinder projection
+
+Select UV polygons & Select at least a polygon from each of them > UW
+Optimal Mapping > realign > apply (several times)
+-> Increase the spacin gif you want
+
+Select the can w/ UW > Projection > cylinder
+UV Commands > Fit UV to Canvas
+
+Model mode
+
+subdivision surface works correctly by default
+
+Select the most accurate UV setting for subdivision surface
+
+We'll use RedShift later
+
+Make 2 loops of selection:
+UF: select all the polygons between the two loops
+
+A polygon selection tag will be created when you apply a texture to polygons
+-> The material has a selection parameter
+
+When loading a texture, go to Editor > No Scaling
+
+Summary:
+UV describe the way textures are going to be applied on a 3D object
+
