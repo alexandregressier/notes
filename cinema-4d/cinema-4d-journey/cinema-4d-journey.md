@@ -532,3 +532,175 @@ When loading a texture, go to Editor > No Scaling
 Summary:
 UV describe the way textures are going to be applied on a 3D object
 
+
+## 5.0
+
+A packshot is a still or moving image of a product, usually including its packaging and labeling, used to portray the product's reputation in advertising or other media
+
+- Model a simple environment
+- Create an animation rig
+- Animate the can
+- Light sources & Material
+- Render
+
+For TV, FPS is 25 or 30 depending on the country
+
+Cinema: usually 24
+
+C-D: Project settings
+
+C4D will scale the timeline if you change the FPS
+-> Also change the FPS value in Render Settings
+
+Set FPS to 24
+
+Switch off the images in orthogonal views w/ S-V > Back
+
+Alt-G for nulls b/c it acts like *group*
+
+IMPORTANT: Create a null and place the pivot at the bottom (S-S to snap)
+-> Then make it a parent and set its height to 0
+
+A cyclorama
+
+Active and Red/Green Lights allow to act on parented objects or not
+
+GO BACK TO MODEL MODE TO SET THE PIVOT
+-> Allows to repair the cyclorama in case of errors
+
+Add a Bevel Deformer to the studio
+Increase the number of subdivisions + turn on Angle to 
+
+Layers:
+- Double click the panel to make a layer
+- Drag objects into it or vice versa
+(Press control to make all the children into the layer)
+
+V: visibility in viewpoer
+R: render
+L: lock layer (instead of using protection tag)
+M: hide from object manager
+
+Animating:
+- The can should be placed steadily on the floor
+- Set a point (a null) where the can will be leaning on when reeling
+
+Root
+--Left
+----Right
+------Can
+
+Animating two nulls is not easy
+It is easier to animate one
+-> Use XPresso
+
+Create a null
+Tag it XPresso
+Double click to activate it
+
+XPresso is a node programming language
+- Drag the Tilt Control in the XPresso Editor
+- Blue: IN, Red: OUT
+- You can drag attributes by clicking their labels
+
+Clamp: set min and max (in the attribute editor)
+min is in radians for angle
+
+Control drag to copy a node
+
+Summary:
+XPresso is useful to constrain attributes values that are meant to be animated
+
+Left click an icon to create a keyframe
+
+Make sure to drop the compensation null when the can has stopped moving
+
+Range Mapper
+Check reverse: * (-1)
+
+S-F3: open timeline
+Select F-Curve (the second icon)
+
+Box select to select only one point
+The flatter the curve, the slower the animation will be
+
+H: maximize the display of the curve in the window
+
+Can root can be transformed w/o changing the animation
+
+It is a good practice to isolate each attribute into a single null
+-> Use fewer keyframes w/in a complex animation
+
+You can combine materials from different renderers
+You can overwrite material by dragging them on the older material tag
+-> Preserves the previous tag "Tag" attributes
+
+Or:
+Right click a material > Select Material Tags/Objects
+Then move the material to the corresponding parameter
+
+Redshift Dome Light is what you generally want
+-> Use HDR image as a picture
+
+The Shader Graph ressembles XPresso
+
+Drag and drop a texture
+
+textures.com
+
+Out Color > Blue of RS Material > Base Properties/Reflection > Reflection Roughness
+
+The texture has range that is unsuitable for our shader
+-> Add a Change Range node (same as mapper node in XPresso)
+
+Increase Scale
+
+Small details make the render photo realistic
+
+Material in computer graphics can be devided into 2 types:
+- Dilectric (isolant)
+- Conductive
+-> Metals, and they have one particularity: they can call the reflections in their own color
+
+The white paint of Coca-Cola is dilectric as well
+
+There are several ways to control reflection in redshift:
+We will use Reflection > Fresnel Type > Metalness (typical for Computer Graphics)
+
+Set reflectivity to grey 30%
+Roughness to 0.3 (make it more glossy)
+
+Assign the texture output to color diffuse
+0 on the letters, and 1 on the red parts of the can
+
+Inverse the range by setting 1 to min and 0 to max
+
+S-V to raise the opacity of the frame better
+
+Dolly camera is a moving camera
+
+H in the Render View of RS does not fit to screen (it flips the image horizontally)
+
+Studio illumination = RS Area light
+Similar light sources are used in phot studios
+
+In RS render settings, set both GI engines to Brute force
+
+You can apply a cloner on an object by changing Linear to object
+You can put a mask selection on it
+
+Change instance mode to Render instance
+
+Push apart effector to achieve this
+MoGraph > Effector > Push Apart
+Spaces the drops
+Scale apart scales down overlapping drops
+
+In RS render settings, choose Frame Range to All Frames
+
+Set the File in Path
+
+You can set Samples Min & Max in Redshift to have a better result (but longer render time)
+
+Enable Motion Blur as well
+
