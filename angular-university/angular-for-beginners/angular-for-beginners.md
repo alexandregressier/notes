@@ -4,6 +4,8 @@
 
 https://angular.io/
 
+https://www.madewithangular.com/
+
 Goal: learn the most commonly used features
 
 > In Angular you will be using 10% of its features maybe 90% of the time!
@@ -128,6 +130,7 @@ $ npm start
 # OR
 $ ng s
 ```
+-> Hot reloading also includes CSS
 
 In the `package.json` file, there are the following `npm` _scripts_:
 - `ng`
@@ -195,7 +198,7 @@ A component:
 - Can be placed in other HTML files (_e.g._, other templates, `index.html`) via its _selector_
 - Is a kind of _construct_
 - Is _linked_ to a template & a style sheet
-- Has its own name scope
+- Has its own name scope (_e.g._, the CSS is only available for the linking component)
 
 -> As such, Angular enables us to clearly separate the _data_ (_i.e._, the _model_) of our app from the templates (_i.e._, the _view_)
 
@@ -259,3 +262,143 @@ export class AppComponent {
   };
 }
 ```
+
+
+## Why Angular? Learn the Key Features of Angular Core
+
+**IMPORTANT:** the Angular logo represents a shield (to look like the HTML5 logo)
+
+**TIP:** Add `no-unexpected-multiline` to TSLint to remove semi-colons in TS
+
+https://angular.io/guide/cheatsheet
+
+Exhaustive Angular template syntax:
+- `#`: template reference variable declaration
+- `()`: event binding
+- `[]`: property binding
+- `[()]`: two-way property binding
+- `{{ }}`: interpolation
+- `*`: structural directives
+
+Topics:
+- Input properties
+- Browser events
+- Automatic synchronization between data model & view
+- Angular Core built-in security features
+
+Using an input box to modify the data model:
+```angular2html
+<input class="demo" type="text" value="Foo">
+```
+
+In HTML, the `value` attribute prefills the input w/ the given value (here "Foo")
+
+Bind this attribute to a model value from the component class:
+```angular2html
+<input class="demo" type="text" [value]="data.title">
+```
+
+`[property]` is called a _property binding_ 
+- Bind object to properties (`@Input()` of an Angular component/directive or a property of a DOM element (as opposed to a TS property))
+- _Square braces syntax_
+-> Used to pass data **in** the template
+
+`(event)` is called an _event binding_
+- Binds an event handler to an `@Output()` or DOM event
+- _Round braces syntax_
+-> Used to pass data **out** of the template
++ Also take an expression (most probably a function) specifying how to handle the event
+
+Binding a plain string to the property:
+```angular2html
+<input class="demo" type="text" [value]="'A hard-coded string'">
+```
+- Useless as is: mostly to illustrate _referential transparency_
+- As such, the string is stored somewhere in memory at a given time
+- Use `value="A hard-coded string"` instead
+
+Handling native browser events:
+```angular2html
+  <img (click)="onLogoClicked()" src="angular.svg" alt="Angular Logo">
+```
+
+```typescript
+// ...
+  onLogoClicked() {
+    alert('Hello, world!');
+  }
+// ...
+```
+
+**INTELLIJ TIP:** write a not existing function name/signature & press `<A-RET>` to create/update it 
+
+In case of wanting to use Lambdas:
+> (Arrow) Functions cannot be defined in templates, primarily because this would result in eval in JIT compilation mode. Using component templates to for things that primarily belongs to classes would result in poor quality code that is hard to maintain.
+> Angular will accept only expressions that can bind with component or directives.
+
+`#var` is called a _template reference variable_
+- Used to refer to native DOM elements (as you would w/ any other variable) in:
+  - Other parts of the template
+  - The component class
+
+```angular2html
+<input class="demo" type="text" [value]="data.title" #titleInput>
+```
+
+HTML `input`s have the `value` attribute, and so does `#titleInput`
+-> `value` is of type `string`
+
+`this` seems to be required in TS
+
+Function parameter names do not clash w/ DOM property names (_e.g._, you can have a parameter named `value`)
+
+Example of manual TS property update (using a template reference variable):
+```angular2html
+<div>
+  <h1>
+    Welcome to {{ data.title }}!
+  </h1>
+  <img (click)="onLogoClicked()" src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular Logo" width="300">
+</div>
+
+<input class="demo" type="text" (keyup)="onKeyUp(titleInput.value)" [value]="data.title" #titleInput>
+```
+
+```typescript
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  data = {
+    title: 'Angular Course'
+  };
+
+  onLogoClicked() {
+    alert('Hello World!');
+  }
+
+  onKeyUp(value: string) {
+    this.data.title = value;
+  }
+}
+```
+
+Essential feature of Angular Core: automatically reflecting changes of the data model to the view
+- We did not explicitly request Angular to update the view
+- Transparently & optimally done behind the scenes (only parts that need to be changed will be changed)
+
+-> This mechanism is called _change detection_ (to not be confused w/ hot reloading)
+
+> Change Detection: The process of updating the view (DOM) when the data has changed
+
+The synchronization between the data model & the view is done in a secure way:
+- If one of your TS strings contain HTML, Angular escapes it automatically:
+```typescript
+  data = {
+    title: '<h1>Angular Course</h1><script>alert("Attack");</script>'
+  };
+```
+
+IMPORTANT: JS string literals can be delimited by either `''`, `""`, & backticks
