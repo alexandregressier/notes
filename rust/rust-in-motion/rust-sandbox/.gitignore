@@ -1,0 +1,22 @@
+
+# Common
+*~
+
+# Vim
+*.sw[po]
+
+# Emacs
+\#*\#
+.\#*
+
+# Visual Studio Code
+.vscode/
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Rust
+target/
