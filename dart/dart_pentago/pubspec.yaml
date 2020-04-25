@@ -1,0 +1,13 @@
+name: dart_pentago
+description: A Dart implementation of the Pentago game.
+version: 0.1.0
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+#dependencies:
+#  path: ^1.6.0
+
+dev_dependencies:
+  pedantic:
+  test:
