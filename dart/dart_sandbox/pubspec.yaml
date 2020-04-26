@@ -9,6 +9,7 @@ dependencies:
   quiver:
   dartz:
   functional_data:
+  uuid_type:
 
 dev_dependencies:
   pedantic:
