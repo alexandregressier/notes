@@ -1,0 +1,20 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+max_line_length = 120
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.dart]
+max_line_length = 80
+
+[*.*ml]
+indent_size = 2
+insert_final_newline = false
+
+[*.md]
+trim_trailing_whitespace = false
+insert_final_newline = false

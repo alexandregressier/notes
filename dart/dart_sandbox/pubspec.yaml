@@ -1,0 +1,16 @@
+name: dart_sandbox
+description: A sandbox to experiment with Dart features.
+version: 0.1.0
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  quiver:
+  dartz:
+  functional_data:
+
+dev_dependencies:
+  pedantic:
+  test:
+
