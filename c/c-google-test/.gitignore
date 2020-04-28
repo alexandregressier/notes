@@ -1,0 +1,55 @@
+# Common
+*~
+
+# Vim
+*.sw[po]
+
+# Emacs
+\#*\#
+.\#*
+
+# Visual Studio Code
+.vscode/
+
+# CLion
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# Compiled Object files
+*.o
+*.lo
+*.slo
+*.obj
+
+# Precompiled Headers
+*.pch
+*.gch
+
+# Compiled Static libraries
+*.a
+*.la
+*.lai
+*.lib
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Executables
+*.out
+*.app
+*.exe
+
+# CMake
+/cmake-build-debug/
+/cmake-build-release/
+/cmake-build-relwithdebinfo/
+/cmake-build-minsizerel/
+/cmake-build-default/
