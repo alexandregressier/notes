@@ -1,0 +1,16 @@
+# Common
+*~
+
+# Vim
+*.sw[po]
+
+# Emacs
+\#*\#
+.\#*
+
+# Visual Studio Code
+.vscode/
+
+# npm
+node_modules/
+package-lock.json

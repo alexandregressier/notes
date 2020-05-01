@@ -1,6 +1,8 @@
 # The Modern GraphQL Bootcamp (with Node.js and Apollo), Udemy - Notes
 
-Why GraphQL?
+## 1. Course Overview
+
+### Why GraphQL?
 
 Where GraphQL is fitting in an application?
 
@@ -75,7 +77,11 @@ Summary:
 
 VSC generally means Visual Studio Code
 
-What is a Graph?
+
+## 2. GraphQL Basics: Schemas and Queries
+
+### What is a Graph?
+
 - Not a chart
 - Model relationship between data (just like PK  & FK do)
 -> A way to think about the application data
@@ -120,6 +126,9 @@ This data would be modeled the same way in a SQL database (-> 1 type = 1 table)
 -> Everything is doubly linked in this example
 
 _Discrete fields_
+
+
+### GraphQL Queries
 
 https://graphql-demo.mead.io/
 Tool used: GraphQL Playground
@@ -195,6 +204,9 @@ GraphQL Playground has a "SCHEMA" tab on the RHS
 `String!` means non-null `String`
 
 IMPORTANT: unlike JSON, you can reorder fields however you want
+
+
+### Nested GraphQL Queries
 
 In real-world applications, you do not only have **scalar** types but also **compound** types like:
 - Arrays/List
@@ -285,3 +297,110 @@ QUESTION: is there any difference when not using the `query` keyword?
 UUID IDs are really cool & can serve the same purpose as _serial_ ids
 
 boilerplate = _passe-partout_
+
+
+### Setting up Babel
+
+https://babeljs.io/
+-> Page "Try it out"
+
+> Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environment
+```js
+// Babel Input: ES2015 arrow function
+[1, 2, 3].map((n) => n + 1);
+
+// Babel Output: ES5 equivalent
+[1, 2, 3].map(function(n) {
+  return n + 1;
+});
+```
+IN A NUTSHELL: Babel enables you to use cutting edge JS features w/o worrying about backward compatibility
+- Babel is JS transpiler (as stated in the documentation, as opposed to compiler)
+- Useful for IE10 compatibility
+- We are going to use the ES6 import/export syntax
+- Typically, React developers are familiar w/ Babel but Node.js developers are not (JS back end only)
+- Once Babel is set up, you can forget it
+
+> You can use strict mode in all your programs. It helps you to write cleaner code, like preventing you from using undeclared variables. `"use strict"` is just a string, so IE 9 will not throw an error even if it does not understand it.
+
+https://cmder.net
+-> A portable Linux console emulator for Windows
+
+Generate a new npm project:
+```sh
+mkdir sandbox
+cd $_
+npm init # Generates a `package.json` file
+```
+Leave default value for every prompted field (except for version if you want):
+```json
+{
+  "name": "graphql-basics",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+```
+- `git` corresponds to the URL of the remote repository
+
+> The ISC license is a permissive free software license published by the Internet Software Consortium, nowadays called Internet Systems Consortium. It is functionally equivalent to the simplified BSD and MIT licenses
+
+Installing the npm modules we need (local to the project):
+```sh
+npm i babel-cli babel-preset-env
+```
+- `babel-cli`: enable us to run a command to transpile w/ Babel
+- `babel-preset-env`: process `import`/`export`, this tells Babel exactly what it should change
+
+> A polyfill is a piece of code (usually JavaScript on the Web) used to provide modern functionality on older browsers that do not natively support it
+
+You then have to tell Babel to use that `env` preset in a `.babelrc`:
+```json
+{
+    "presets": [
+        "env",
+    ]
+}
+```
+
+Create `src/index.js` containing `console.log("Hello, world!")`
+
+`npm start` is the standard npm script used to run an npm project
+-> Also used in Angular
+
+Define the start npm script:
+```json
+{
+  "scripts": {
+    "start": "babel-node src/index.js",
+  },
+}
+``` 
+- `babel-node`:
+  - Works exactly as `node`
+  - Takes the files passed as arguments & passes it through the Babel transpiler using the configuration in `.babelrc` (no output file is produced though)
+  - Should be used for local development purposes only
+
+```sh
+npm start
+# Or
+npm run start
+```
+-> `Hello, world!` should be printed out
+
+**IMPORTANT**: use `npm run` to list the runnable npm scripts:
+```sh
+$ npm run
+Lifecycle scripts included in graphql-basics:
+  start
+    babel-node src/index.js
+  test
+    echo "Error: no test specified" && exit 1
+
+$ npm start
+```
