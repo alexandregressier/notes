@@ -7,11 +7,12 @@ Where GraphQL is fitting in an application?
 Application stack:
 
 Clients:
-Web application
-Mobile application
+- Web application
+- Mobile application
 
-Database
-Web servers
+Back end:
+- Database
+- Web servers
 
 The glue between clients and servers has always been HTTP
 -> A RESTful API
@@ -19,13 +20,13 @@ The glue between clients and servers has always been HTTP
 We replace the RESTful API that has many endpoints that has just a single endpoint exposed
 
 GraphQL = Graph Query Language
-Operates over HTTP as well
-GraphQL queries are just HTTP requests
+- Operates over HTTP as well
+- GraphQL queries are just HTTP requests
 
-IMPORTANT: GraphQL operates over a single endpoint
+**IMPORTANT:** GraphQL operates over a single endpoint
 
 Advantages of GraphQL:
-- Fast
+1. Fast
 
 With HTTP:
 
@@ -40,7 +41,7 @@ POST /graphql (w/ a GraphQL query)
 
 FUNDAMENTAL: INSTEAD OF THE SERVER DETERMINING WHAT DATA GETS SENT BACK IT IS UP TO THE CLIENT TO REQUEST ALL OF THE DATA IT NEEDS
 
-- Flexible
+2. Flexible
 
 The biggest advantage according to the author
 
@@ -64,7 +65,7 @@ W/ a RESTful API, you would end up using a lot of query params trying to reprodu
 
 Facebook & GitHub are using GraphQL in production
 
-- Easy to use and simple to maintain
+3. Easy to use and simple to maintain
 
 With a RESTful API, if a client needs different data, you are generally required to implement another endpoint
 
@@ -76,8 +77,7 @@ VSC generally means Visual Studio Code
 
 What is a Graph?
 - Not a chart
-
-Model relationship between data (just like PK  & FK do)
+- Model relationship between data (just like PK  & FK do)
 -> A way to think about the application data
 
 Example given: a blogging application
@@ -119,7 +119,7 @@ This data would be modeled the same way in a SQL database (-> 1 type = 1 table)
 
 -> Everything is doubly linked in this example
 
-_discrete fields_
+_Discrete fields_
 
 https://graphql-demo.mead.io/
 Tool used: GraphQL Playground
@@ -132,14 +132,14 @@ HTTP GUIs: Postman, Insomnia
 
 REMEMBER: you do not have to change the URL b/c you generally have to deal w/ a single endpoint using GraphQL
 
-Unlike JSON but like XML, you can have comments using `#`
+**IMPORTANT:** Unlike JSON but like XML, you can have comments using `#`
 
 3 major operations that can be performed on any GraphQL API:
 - `query` (all lowercased): fetch data
 - `mutation`: change data
-- `subscription`: watch data for changes (great for real time applications)
+- `subscription`: watch data for changes (great for real-time applications)
 
-fetch = aller chercher
+fetch = "aller chercher"
 
 ```graphql
 query { # The `query` keyword is optional
@@ -156,15 +156,15 @@ GraphQL seems to be like SQL on JSON HTTP responses
 With GraphQL, we can request as much or as little data as we need
 
 IMPORTANT: is there some sort of Swagger?
--> No, one of the major features of GraphQL is the self documenting schema
+-> No, one of the major features of GraphQL is the self-documenting schema
 
-By nature, all GraphQL APIs are self documenting
+By nature, all GraphQL APIs are self-documenting
 
 With REST APIs, someone has to maintain documentation manually
 
-By experience, the RESTful API documenation:
+By experience, the RESTful API documentation:
 1. Does not exist
-2. Is severly outdated
+2. Is severely outdated
 -> What you really do: request everything and find out where fields are located
 -> Not this problem in GraphQL BECAUSE YOUR REQUEST DICTATES YOUR RESPONSE
 -> You query 3 fields in a specific order, you get back the 3 fields w/ their values in the same order
@@ -183,7 +183,7 @@ Obviously, you cannot request fields that are not defined in the schema
 
 Error messages can be responded
 
-GraphQL playground is providing useful feedback on errors
+GraphQL Playground is providing useful feedback on errors
 
 `Query` is a type we will define later on
 
@@ -195,3 +195,93 @@ GraphQL Playground has a "SCHEMA" tab on the RHS
 `String!` means non-null `String`
 
 IMPORTANT: unlike JSON, you can reorder fields however you want
+
+In real-world applications, you do not only have **scalar** types but also **compound** types like:
+- Arrays/List
+- Objects (-> JS objects)
+
+_Scalar type_ is a term used w/in the GraphQL ecosystem
+
+`me` is of type `User!` in the GraphQL API provided
+-> "An object w/ a standard (-> defined) set of fields"
+
+```graphql
+{
+  me
+}
+```
+
+**CRITICAL:** when querying a GraphQL object, you must specify which fields you want
+-> You cannot query everything one-shot b/c that defeats the purpose of GraphQL (-> the client dictates the response)
+
+```graphql
+{
+  hello
+  course
+  me {
+    id name email
+  }
+}
+```
+
+**NOTE:** GraphQL is cool b/c since your client can have simple JS objects that forms the GraphQL query and fetch only what it needs
+
+REMEMBER: in GraphQL, objects are called types
+-> You can also query arrays of objects
+
+Like Haskell, types are capitalized
+
+Types:
+- Are noted in suffix annotations
+- `Type!` denotes a not null `Type`
+- `[Type!]` denotes an array of not null `Type`
+- `[Type!]!` denotes a not null array of not null `Type` (The array can be empty though)
+
+`User!` is opposed to `User?` from other languages like Swift
+
+`[Type!]!` is a very standard type definition for an array of objects
+
+You have tabs in the GraphQL Playground tool
+
+**IMPORTANT**: in GraphQL, arrays are queried in the exact same way than objects:
+```graphql
+{
+  users {
+    name email
+  }
+}
+```
+-> The `[]` notation is only used in the response
+
+GraphQL queries can be minified just like JSON:
+```graphql
+{users{name email}}
+# Or
+{users{name,email}}
+```
+-> `,` works as well to separate fields
+
+> We are able to select as many or as few things as we need for each user in that array
+
+You can also filter & sort w/ GraphQL!
+-> Can you reduce to have lengths directly?
+
+```graphql
+{
+  posts {
+    title
+    comments {
+      author {
+        name
+      }
+    }
+  }
+}
+```
+Theoretically, you double recurse indefinitely two types that have a two-way relationship
+
+QUESTION: is there any difference when not using the `query` keyword?
+
+UUID IDs are really cool & can serve the same purpose as _serial_ ids
+
+boilerplate = _passe-partout_
