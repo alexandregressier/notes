@@ -369,6 +369,7 @@ You then have to tell Babel to use that `env` preset in a `.babelrc`:
 ```
 
 Create `src/index.js` containing `console.log("Hello, world!")`
+-> `index.js` is to JS what `main.c` is to C
 
 `npm start` is the standard npm script used to run an npm project
 -> Also used in Angular
@@ -404,3 +405,103 @@ Lifecycle scripts included in graphql-basics:
 
 $ npm start
 ```
+
+
+### ES6 Import/Export
+
+-> `;` are not necessary in ES6
+
+Classic JS importing:
+```js
+var path = require('path');
+```
+ES6 importing:
+```js
+import * as path from 'path';
+```
+
+Like `require`, the `import`/`export` syntax enables us to break up our application into multiple files
+- Each file should address one specific logical goal
+- Enable us to import 3rd party libraries as well
+
+Conventions used for this course:
+- `lowerCamelCase.js`: file naming convention
+- `''` for strings
+
+NODEJS TIP: `__filename` is a global variable storing the absolute path of the current file:
+-> Example: `/home/alex/prj/notes/graphql/graphql-bootcamp/graphql-basics/src/myModule.js`
+
+By default, `message` is scoped to its file:
+```js
+import path from 'path'; // A default import
+
+const message = `A message from ${path.basename(__filename)}`
+```
+Prefix a symbol w/ the `export` keyword to make it accessible from other files:
+```js
+export const message = `A message from ${path.basename(__filename)}`
+```
+You can also use an _export list_ anywhere in the file:
+```js
+export { message, name }
+// ` ` are used by convention
+// `{}` are required
+```
+
+`import` syntax:
+1. The `import` keyword
+2. **REQUIRED:** the list of all the symbols needed to be imported between `{ ... }`
+3. The `from` keyword
+4. The path to the module: if its a file, it must be relative (-> `./` is required)
+-> The `.js` extension is not necessary (since it is the default)
+
+There are two types of exports:
+1. _Named Exports_ (0+ per module): exported symbols have a name
+2. _Default Exports_ (1 per module): a **single** symbol that have no name:
+```js
+export default expression;
+export default function (...) { ... } // Also class, function*
+export default function name1(...) { ... } // Also class, function*
+export { name1 as default, ... };`
+```
+-> Only one of these lines can be used per module
+```js
+import currentLocation from './myModule';
+// W/ other imports
+import currentLocation, { name, message } from './myModule';
+```
+-> `currentLocation` is the variable that will be pointing to the default export (and thus finally giving it a name)
+
+_Default exports_ were probably created to simulate the behavior of the old `require()`, where a `var` representing the module is used
+
+You can also rename named exports to avoid naming conflicts:
+```js
+export { myFunction as function1,
+         myVariable as variable };
+```
+
+**IMPORTANT:** a default export can also be used as named
+
+`var` VS `let`
+```js
+{
+  var x = 2;
+}
+// x CAN be used here
+```
+```js
+{
+  let x = 2;
+}
+// x can NOT be used here
+```
+
+> ES2015 introduced two important new JavaScript keywords: `let` and `const`. Variables defined with `const` behave like `let` variables, except they cannot be reassigned.
+
+ES2015 string templates do not support variable names directly: you have to enclose them in `{}`:
+```js
+console.log(`Hello, ${name}!`)
+```
+
+In JS, all functions are anonymous
+If you want to give one a name, the only way is to store it in a variable (`const` is preferred)
