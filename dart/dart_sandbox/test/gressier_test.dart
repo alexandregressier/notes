@@ -17,4 +17,14 @@ void main() {
     test('`.init` results in all but last iterable elements', () =>
         expect(iterable.init, equals([4, 8, [15, 16], 23])));
   });
+
+  group('Extension `MapImproving<K, V>`', () {
+    final map = {'z': 2, 'b': 7, 'x': 5};
+
+    // test('`.sortByKey` results in the map sorted by its keys', () =>
+    //     expect(map.sortByKey, equals({'b': 7, 'x': 5, 'z': 2})));
+
+    // test('`.sortByKey` results in the map sorted by its keys', () =>
+    //     expect(map.sortByValue, equals({'z': 2, 'x': 5, 'b': 7})));
+  });
 }
