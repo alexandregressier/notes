@@ -1,4 +1,4 @@
-package _2_for
+package _2_forcomprehensions
 
 import cats.data.OptionT
 
