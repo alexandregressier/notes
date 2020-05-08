@@ -98,6 +98,11 @@ object Execution {
       def doAndThen[I, O](c: Future[I])(f: I => Future[O]): Future[O] = c.flatMap(f)
       def         wrap[O](o: O)                            : Future[O] = Future.successful(o)
     }
+  implicit val deferred: Execution[IO] =
+    new Execution[IO] {
+      def doAndThen[I, O](c: IO[I])(f: I => IO[O]): IO[O] = c.flatMap(f)
+      def         wrap[O](o: O)                   : IO[O] = IO(o)
+    }
 }
 
 object Runner {
@@ -129,15 +134,21 @@ object Runner {
       _  <- t.write(in)
     } yield in
 
-  implicit val now: Terminal[Now] = TerminalSync
+  implicit val now: Terminal[Now]       = TerminalSync
   implicit val future: Terminal[Future] = new TerminalAsync
+  implicit val io: Terminal[IO]         = TerminalIO
 
   def main(args: Array[String]): Unit = {
     println("Write text to echo it back:")
+    // Interpret for `Now` (impure)
     echo[Now]: Now[String]
 
+    // Interpret for `Future` (impure)
     val running: Future[String] = echo[Future]
     Await.result(running, Duration.Inf)
+
+    val delayed: IO[String] = echo[IO] // Lazy: just the definition of work to be done
+    delayed.interpret() // Impure action
   }
 }
 
@@ -169,3 +180,54 @@ trait MyMonad[F[_]] {
 // - Managing access to volatile state
 // - Performing I/O (remember, phone apps are I/O clients)
 // - Auditing of the session
+
+// FP is the act of writing programs w/ _pure functions_
+// Pure functions have 3 properties:
+// - Total: return a value for every possible input
+// - Deterministic: return the same value for the same input
+// - Inculpable: no (direct) interaction w/ the world or program state
+
+// These properties give us an unprecedented ability to reason about our code
+// Examples:
+// - Input validation is easier to isolate w/ totality
+// - Caching is possible when functions are deterministic
+// - Interacting w/ the world is easier to control/test when functions are inculpable
+
+// Side effects can break these properties:
+// - Directly accessing or changing mutable state (e.g., using a `var` or using a legacy API that is impure)
+// - Communicating w/ external resources (e.g., files or network lookup), or throwing and catching exceptions
+// -> Pure functions are written by avoiding exceptions, & interacting w/ the world only through a safe `F[_]` execution
+//    context
+//    - `Future` & `Id` make the application listening to stdin and breaks purity
+
+// IMPORTANT: `Future` conflates the definition of a program w/ _interpreting_ it (i.e., running it)
+// -> Makes applications built w/ Future difficult to reason about
+
+// An expression is _referentially transparent_ if it can be replaced w/ its corresponding value w/o changing the
+// program's behavior
+// Pure functions are referentially transparent, allowing for a great deal of code reuse, performance optimisation,
+// understanding, & control of a program
+// Impure functions are not referentially transparent; we cannot replace echo[Future] w/ a value, such as
+// `val futureEcho`, since the user can type something different the second time
+
+// SCALA: use `final` whenever possible on classes
+
+// Lets define a safe execution context `IO` that lazily evaluates a _thunk_
+final class IO[I](
+  val interpret: () => I,
+) {
+  def     map[O](f: I => O    ): IO[O] = IO(f(interpret())) // Calls `apply` below
+  def flatMap[O](f: I => IO[O]): IO[O] = IO(f(interpret()).interpret())
+}
+object IO {
+  def   apply[O](o: => O      ): IO[O] = new IO(() => o)
+}
+// Thunk: a subroutine used to inject an additional calculation into another subroutine (here `interpret`)
+// `IO` just refers to impure code
+// `IO` keeps us honest that we are depending on some interaction w/ the world, but does not prevent us from accessing the output of that declaration
+
+object TerminalIO extends Terminal[IO] {
+  override def read: IO[String]           = IO { StdIn.readLine }
+  override def write(t: String): IO[Unit] = IO { println(t) }
+}
+// An application composed of IO programs is only interpreted once, in the main method, which is also called the _end of the world_
