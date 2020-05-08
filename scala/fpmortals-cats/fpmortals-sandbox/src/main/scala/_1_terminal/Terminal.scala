@@ -1,14 +1,19 @@
-package terminal
+package _1_terminal
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.io.StdIn
 
-// `map`     = unwrap a type, apply a transformation on it, then rewrap
-// `flatMap` = unwrap a type, apply a transformation that wraps (and discard that wrap?)
+// ELEMENTAL:
+// `map`     = unwrap a type, apply a transformation on it, then rewrap `(f: I => O): C[O]`
+// `flatMap` = unwrap a type, apply a transformation that wraps (and discard that wrap?) `(f: I => C[O]): C[O]`
 // THE FLATTEN COMES FROM THE LACK OF REWRAP: AND SINCE THE LAMBDA ACTS DIRECTLY ON THE CONTAINED TYPE, IT LOOKS LIKE IT HAS BEEN FLATTENED
 // For example, the following does not compile b/c x is not a method of `Int` (the wrap to option is not seen in the lambda, by contrast to flatmap which requires a lambda that wraps)
 // Option(1).map(x => Option(x.get()))
+
+// The mental image of a function being applied to every element of a sequence is not wrong b/c this is
+// what happens for e.g., List & Option w/ an iterator behind the scenes
+// -> You should keep the image of a function being applied to the **sole** contained element (recursively for `List`) though
 
 // FUNDAMENTAL: `Option` behave strictly like a one item list
 // Seq(4, 8, 15, 16, 23, 42).flatMap(x => Option(List(x * 2)))
@@ -58,6 +63,7 @@ trait Terminal[C[_]] { // `C` means context: in the context of executing `Now` o
 // Types cannot by defined at top-level
 // Using backticks, you can more or less give any name to an identifier
 object `package` { // FUNDAMENTAL: applies on the current package `terminal` (simulate top-level)
+  // Is this a package object?
   type Now[X] = X // Same as `Id[T]`
 }
 
@@ -183,7 +189,7 @@ trait MyMonad[F[_]] {
 
 // FP is the act of writing programs w/ _pure functions_
 // Pure functions have 3 properties:
-// - Total: return a value for every possible input
+// - Total/Totality: return a value for every possible input
 // - Deterministic: return the same value for the same input
 // - Inculpable: no (direct) interaction w/ the world or program state
 

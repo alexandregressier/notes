@@ -1,4 +1,4 @@
-package terminal
+package _1_terminal
 
 object Hkt { // Type aliases cannot be written at the top-level
 
