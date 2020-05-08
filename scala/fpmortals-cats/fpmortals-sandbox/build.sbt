@@ -8,6 +8,9 @@ lazy val root = project
     scalacOptions ++= Seq(
       "-language:_",
     ),
+
+    connectInput in run := true,
+
     libraryDependencies ++= Seq(
       "org.typelevel" %% "simulacrum" % "1.0.0",
       "org.typelevel" %% "cats-core" % "2.2.0-M1",
