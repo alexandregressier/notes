@@ -355,7 +355,9 @@ object `package` {
 
   // We want `for` to take care of the outer context & let us write our code on the inner `Option`
   // LEARN: hiding the outer context is exactly what a _monad transformer_ does
-  // -> It unnest 2 contexts by putting the _inner context_ (bottommost) one aside the type of the inner value
+  // - A monad transformer gather **two** nested context called the _outer_ & _inner context_
+  // - It unnest 2 contexts by putting the inner context one aside the type of the inner value
+  // -> Ex: `Future[Option[_]]` into `OptionT[Future, _]` (note the inversion)
   // Cats provides `OptionT` (Option Transformer) & `EitherT` (Either Transformer) for their respective analog types
   // WARNING: for ex, use `OptionT` when `Option` is the nested type
 
