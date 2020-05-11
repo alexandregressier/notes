@@ -243,6 +243,7 @@ object `package` {
   // Since here `Future`s are executed in sequence, b/c the first `Future` short circuits
 
   // "Short circuiting for the unhappy path" -> a common & important theme
+  // _Happy path_ VS _Unhappy path_
   // `for` comprehensions cannot express resource cleanup (-> no `try`/`finally`)
   // -> Good b/c in FP it puts a clear ownership of responsibility for unexpected error recovery & resource cleanup onto
   // the **context** (usually a Monad), not the business logic
