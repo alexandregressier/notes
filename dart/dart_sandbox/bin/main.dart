@@ -76,4 +76,79 @@ void main() {
 
   // Unlike TS, inference of the `num` type works as expected
   final list3 = [1, 5.4, 4]; // Infered type: `List<num>`
+
+  // The `new` keyword is optional
+
+  // Iterating over elements of a set may be either unordered or ordered in some way. Examples:
+  //
+  //A HashSet is unordered, which means that its iteration order is unspecified,
+  //LinkedHashSet iterates in the insertion order of its elements, and
+  //a sorted set like SplayTreeSet iterates the elements in sorted order.
+
+  // .. is known as cascade notation. It allows you to not repeat the same target if you want to call several methods on the same object.
+
+//  List list= [];
+//  list.add(color1);
+//  list.add(color2);
+//  list.add(color3);
+//  list.add(color4);
+
+// with cascade
+
+//  List list = [];
+//  list
+//  ..add(color1)
+//  ..add(color2)
+//  ..add(color3)
+//  ..add(color4);
+
+  // cascade notation is like new MyClass() {{ setField(value); }} in Java
+
+  // sort
+  var sorted = [3, 1, 2];
+  sorted.sort();
+  print(sorted);
+
+  print([3, 1, 2]..sort());
+
+  print([1] + [2, 3]);
+
+  // Dart does not support tail recursion
+
+  // Quiver is made by Google
+
+  // Unlike Java, Dart doesn’t have the keywords public, protected, and private. If an identifier starts with an underscore (_), it’s private to its library
+
+  // Dart has a do while
+  // THINK OF DO WHILE
+
+  // expand method is equivalent to flatMap in Dart (which is not a worse name).
+
+  print([1,2,3].expand((e) => [e, e+1]));
+
+  var sum = [1, 2, 3].reduce((a, b) => a + b);
+  // FUNDAMENTAL: FAIL IF THE LIST IS EMPTY
+  // .fold is there to manage that case
+
+  int.parse('1337');
+
+  var input = [1, 2, 3];
+  var duplicated = input.expand((i) => [i, i]).toList();
+  print(duplicated);
+
+  // Functoin  type notation is more natural though
+  // Iterable<T> expand<T>(Iterable<T> f(E element)) => ExpandIterable<E, T>(this, f);
+
+
+  // GOOD: do not use the `this` keyword
+  // An unassigned property is assigned null
+
+  // named parameters are assigned a value w/ :
+
+  // Only languages w/ type inference have a special keyword to define functions
+
+  //freqByChar.keys.toList(growable: false);
+
+  // extends in not on the second type !
+  // extension BestCom<T extends num> on Iterable<T> { T best() {...} }
 }
