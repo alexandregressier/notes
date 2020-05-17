@@ -117,12 +117,12 @@ void main() {
 
   // Quiver is made by Google
 
-  // Unlike Java, Dart doesn’t have the keywords public, protected, and private. If an identifier starts with an underscore (_), it’s private to its library
+  // Unlike Java, Dart doesn’t have the keywords public, protected, and private.
+  // If an identifier starts with an underscore (_), it’s private to its library
 
-  // Dart has a do while
-  // THINK OF DO WHILE
-
-  // expand method is equivalent to flatMap in Dart (which is not a worse name).
+  // Do not forget the `do while` control flow structure tha Dart also has
+  // The `expand` method is equivalent to `flatMap` in Dart (which is not a worse
+  // name).
 
   print([1,2,3].expand((e) => [e, e+1]));
 
@@ -136,14 +136,13 @@ void main() {
   var duplicated = input.expand((i) => [i, i]).toList();
   print(duplicated);
 
-  // Functoin  type notation is more natural though
+  // Function type notation seems more natural w/ the notation:
   // Iterable<T> expand<T>(Iterable<T> f(E element)) => ExpandIterable<E, T>(this, f);
 
+  // GOOD: avoid the use the `this` keyword
+  // An unassigned property is assigned `null`
 
-  // GOOD: do not use the `this` keyword
-  // An unassigned property is assigned null
-
-  // named parameters are assigned a value w/ :
+  // IMPORTANT: named parameters are assigned a value w/ `:`
 
   // Only languages w/ type inference have a special keyword to define functions
 
