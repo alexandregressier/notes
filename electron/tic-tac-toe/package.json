@@ -1,0 +1,11 @@
+{
+  "name": "tic-tac-toe",
+  "version": "0.1.0",
+  "description": "A simple Tic-Tac-Toe game made with Electron",
+  "main": "index.ts",
+  "author": "Alexandre Gressier",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-nightly": "^10.0.0-nightly.20200519"
+  }
+}

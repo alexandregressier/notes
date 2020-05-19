@@ -1,0 +1,26 @@
+# Common
+*~
+
+# Vim
+*.sw[po]
+
+# Emacs
+\#*\#
+.\#*
+
+# Visual Studio Code
+.vscode/
+
+# WebStorm
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# npm
+node_modules/
+package-lock.json
+
+# Yarn
+yarn.lock
+
